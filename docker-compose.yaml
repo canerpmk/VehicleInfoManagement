@@ -1,0 +1,20 @@
+version: '3.8'
+services:
+  app:
+    container_name: docker-springboot-postgresql
+    image: docker-springboot-postgresql
+    build: ./
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgresqld
+
+  postgresqld:
+    container_name: postgres-container
+    image: postgres:latest
+    environment:
+      POSTGRES_DB: postgres
+      POSTGRES_USER: hasan
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
