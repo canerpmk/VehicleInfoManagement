@@ -1,5 +1,5 @@
 
-package com.example.sahibinden;
+package com.example.sahibinden.service;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
