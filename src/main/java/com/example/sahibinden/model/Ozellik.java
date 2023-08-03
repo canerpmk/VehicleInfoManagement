@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Ozellik {
     @Id
-    private int id;
+    private Long id;
     private Double vites_sayisi;
     private Double yakit_deposu;
     private Double max_hiz;

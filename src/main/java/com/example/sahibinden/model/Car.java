@@ -12,7 +12,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Car {
     @Id
-    private int id;
+    private Long id;
     private Marka marka;
     private int model_id;
     private int motor_id;

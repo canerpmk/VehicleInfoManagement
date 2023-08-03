@@ -1,6 +1,4 @@
-package com.example.sahibinden.model.Entity;
-
-import com.example.sahibinden.model.Ozellik;
+package com.example.sahibinden.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,11 +7,12 @@ import lombok.*;
 @EqualsAndHashCode(of = {"id"})
 @Table(name = "Car")
 @Entity
-@Data
+@Getter
+@Setter
 public class CarEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
 
     @ManyToOne
     private MarkaEntity marka;

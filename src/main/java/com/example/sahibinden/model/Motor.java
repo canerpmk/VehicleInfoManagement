@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Motor {
     @Id
-    private int id;
+    private Long id;
     private Double motorgucu;
     private Double motorhacmi;
     private Double silindirhacmi;

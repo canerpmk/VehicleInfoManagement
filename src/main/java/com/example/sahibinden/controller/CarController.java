@@ -1,8 +1,9 @@
 
 package com.example.sahibinden.controller;
 
-import com.example.sahibinden.model.Entity.CarEntity;
+import com.example.sahibinden.model.entity.CarEntity;
 import com.example.sahibinden.service.CarService;
+import com.example.sahibinden.service.impl.CarServiceImpl;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +13,9 @@ import java.util.List;
 @RestController
 @RequestMapping(path = "/car")
 public class CarController {
-    private final CarService carService;
+    private final CarServiceImpl carService;
 
-    public CarController(CarService carService) {
+    public CarController(CarServiceImpl carService) {
         this.carService = carService;
     }
 
@@ -25,7 +26,7 @@ public class CarController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CarEntity> getCarById(@PathVariable int id) {
+    public ResponseEntity<CarEntity> getCarById(@PathVariable Long id) {
         CarEntity car = carService.getCarById(id);
         if (car != null) {
             return ResponseEntity.ok(car);
@@ -43,7 +44,7 @@ public class CarController {
 
     // Belirli bir araba ID'sine göre arabayı güncelle
     @PutMapping("/{id}")
-    public ResponseEntity<CarEntity> updateCar(@PathVariable int id, @RequestBody CarEntity updatedCar) {
+    public ResponseEntity<CarEntity> updateCar(@PathVariable Long id, @RequestBody CarEntity updatedCar) {
         updatedCar.setId(id);
         CarEntity updatedCarResult = carService.updateCar(updatedCar);
         if (updatedCarResult != null) {
@@ -53,7 +54,7 @@ public class CarController {
         }
     }
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCar(@PathVariable int id) {
+    public ResponseEntity<Void> deleteCar(@PathVariable Long id) {
         boolean isDeleted = carService.deleteCarById(id);
         if (isDeleted) {
             return ResponseEntity.ok().build();

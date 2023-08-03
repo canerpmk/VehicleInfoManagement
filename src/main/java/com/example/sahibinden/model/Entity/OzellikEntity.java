@@ -1,30 +1,28 @@
-package com.example.sahibinden.model.Entity;
+package com.example.sahibinden.model.entity;
 
 import com.example.sahibinden.model.Paket;
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(of = {"id"})
+@Table(name = "Ozellik")
 public class OzellikEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
-    @Column
+    private Long id;
     private Double vites_sayisi;
-    @Column
     private Double yakit_deposu;
-    @Column
     private Double max_hiz;
-    @Column
     private Double si_tuketim;
-    @Column
     private Double sd_tuketim;
-    @Column
     private Double ort_tuketim;
-    @Column
     private int bagaj_hacmi;
-    @Column
     private String yakit_tur;
 
 

@@ -15,7 +15,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Paket {
     @Id
-    private int id;
+    private Long id;
     private String paket;
 
 

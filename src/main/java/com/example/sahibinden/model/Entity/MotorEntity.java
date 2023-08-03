@@ -1,14 +1,20 @@
-package com.example.sahibinden.model.Entity;
+package com.example.sahibinden.model.entity;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode(of = {"id"})
+@Table(name = "Motor")
 public class MotorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     @Column
     private Double motorgucu;
     @Column

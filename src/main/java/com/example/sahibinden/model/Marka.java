@@ -1,6 +1,7 @@
 
 package com.example.sahibinden.model;
 
+import com.example.sahibinden.model.entity.MarkaEntity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -15,7 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class Marka {
     @Id
-    private int id;
+    private Long id;
     private String name;
 
 }
