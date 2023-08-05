@@ -1,63 +1,44 @@
 
 package com.example.sahibinden.controller;
 
+import com.example.sahibinden.model.Car;
+import com.example.sahibinden.model.dto.CarRequest;
+import com.example.sahibinden.model.dto.CarResponse;
 import com.example.sahibinden.model.entity.CarEntity;
 import com.example.sahibinden.service.CarService;
-import com.example.sahibinden.service.impl.CarServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
+@RequiredArgsConstructor
 @RequestMapping(path = "/car")
 public class CarController {
-    private final CarServiceImpl carService;
+    private final CarService carService;
 
-    public CarController(CarServiceImpl carService) {
-        this.carService = carService;
-    }
+
 
     @GetMapping
-    public ResponseEntity<List<CarEntity>> getAllCars() {
-        List<CarEntity> cars = carService.getAllCars();
-        return ResponseEntity.ok(cars);
+    public ResponseEntity<List<CarResponse>> getAllCars(@RequestBody CarRequest carRequest) {
+        Car car = carRequest.toModel();
+        List<Car> cars = carService.getAllCars();
+        List<CarResponse> carResponses = cars.stream()
+                .map(CarResponse::fromModel)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok(carResponses);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<CarEntity> getCarById(@PathVariable Long id) {
-        CarEntity car = carService.getCarById(id);
+    public ResponseEntity<CarResponse> getCarById(@PathVariable Long id) {
+        Car car = carService.getCarById(id);
         if (car != null) {
-            return ResponseEntity.ok(car);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-
-    // Araba ekle
-    @PostMapping
-    public ResponseEntity<CarEntity> createCar(@RequestBody CarEntity car) {
-        CarEntity createdCar = carService.addCar(car);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdCar);
-    }
-
-    // Belirli bir araba ID'sine göre arabayı güncelle
-    @PutMapping("/{id}")
-    public ResponseEntity<CarEntity> updateCar(@PathVariable Long id, @RequestBody CarEntity updatedCar) {
-        updatedCar.setId(id);
-        CarEntity updatedCarResult = carService.updateCar(updatedCar);
-        if (updatedCarResult != null) {
-            return ResponseEntity.ok(updatedCarResult);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCar(@PathVariable Long id) {
-        boolean isDeleted = carService.deleteCarById(id);
-        if (isDeleted) {
-            return ResponseEntity.ok().build();
+            CarResponse carResponse = CarResponse.fromModel(car);
+            return ResponseEntity.ok(carResponse);
         } else {
             return ResponseEntity.notFound().build();
         }

@@ -1,5 +1,6 @@
 package com.example.sahibinden.model.entity;
 
+import com.example.sahibinden.model.Motor;
 import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -11,10 +12,12 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(of = {"id"})
 @Table(name = "Motor")
-public class MotorEntity {
+public class MotorEntity extends Motor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+
     @Column
     private Double motorgucu;
     @Column

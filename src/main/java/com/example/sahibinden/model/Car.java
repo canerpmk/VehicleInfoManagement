@@ -1,5 +1,7 @@
 package com.example.sahibinden.model;
 
+import com.example.sahibinden.model.dto.CarResponse;
+import com.example.sahibinden.model.entity.CarEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -13,13 +15,24 @@ import lombok.NoArgsConstructor;
 public class Car {
     @Id
     private Long id;
+    private String name;
     private Marka marka;
-    private int model_id;
-    private int motor_id;
-    private int ozellik;
-    private int paket;
+    private Model model;
+    private Motor motor;
+    private Paket paket;
+    private Ozellik ozellik;
 
 
-
+    public static Car fromEntity(CarEntity carEntity) {
+        return Car.builder()
+                .id(carEntity.getId())
+                .name(carEntity.getName())
+                .marka(carEntity.getMarka())
+                .model(carEntity.getModel())
+                .motor(carEntity.getMotor())
+                .paket(carEntity.getPaket())
+                .ozellik(carEntity.getOzellik())
+                .build();
+    }
 
 }

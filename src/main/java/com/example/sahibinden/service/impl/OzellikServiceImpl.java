@@ -1,7 +1,7 @@
 package com.example.sahibinden.service.impl;
 import com.example.sahibinden.model.entity.OzellikEntity;
 import com.example.sahibinden.repository.OzellikRepository;
-import com.example.sahibinden.service.CustomException;
+import com.example.sahibinden.exception.model.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

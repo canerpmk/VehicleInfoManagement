@@ -1,4 +1,6 @@
 package com.example.sahibinden.model.entity;
+import com.example.sahibinden.model.Car;
+import com.example.sahibinden.model.dto.CarResponse;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -9,11 +11,11 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-public class CarEntity {
+public class CarEntity extends Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    private String name;
     @ManyToOne
     private MarkaEntity marka;
 
@@ -30,6 +32,17 @@ public class CarEntity {
     private PaketEntity paket;
 
 
+    public static CarEntity fromModel(Car car){
+        CarEntity carEntity = new CarEntity();
+            carEntity.setId(car.getId());
+            carEntity.setName(car.getName());
+            carEntity.setMarka(car.getMarka());
+            carEntity.setModel(car.getModel());
+            carEntity.setMotor(car.getMotor());
+            carEntity.setPaket(car.getPaket());
+            carEntity.setOzellik(car.getOzellik());
+            return carEntity;
+    }
 
 
 

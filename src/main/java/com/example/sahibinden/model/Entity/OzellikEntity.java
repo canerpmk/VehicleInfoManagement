@@ -1,5 +1,6 @@
 package com.example.sahibinden.model.entity;
 
+import com.example.sahibinden.model.Ozellik;
 import com.example.sahibinden.model.Paket;
 import jakarta.persistence.*;
 import lombok.Data;
@@ -12,7 +13,7 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(of = {"id"})
 @Table(name = "Ozellik")
-public class OzellikEntity {
+public class OzellikEntity extends Ozellik {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -24,6 +25,7 @@ public class OzellikEntity {
     private Double ort_tuketim;
     private int bagaj_hacmi;
     private String yakit_tur;
+
 
 
 }

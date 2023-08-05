@@ -2,7 +2,7 @@ package com.example.sahibinden.service.impl;
 
 import com.example.sahibinden.model.entity.MotorEntity;
 import com.example.sahibinden.repository.MotorRepository;
-import com.example.sahibinden.service.CustomException;
+import com.example.sahibinden.exception.model.CustomException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;

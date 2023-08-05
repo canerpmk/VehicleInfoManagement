@@ -1,5 +1,6 @@
 package com.example.sahibinden.model.entity;
 
+import com.example.sahibinden.model.Marka;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
@@ -13,7 +14,7 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(of = {"id"})
 @Table(name = "Marka")
-public class MarkaEntity {
+public class MarkaEntity extends Marka {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

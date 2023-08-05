@@ -1,5 +1,5 @@
 
-package com.example.sahibinden.service;
+package com.example.sahibinden.exception.model;
 
 import org.springframework.http.HttpStatus;
 
