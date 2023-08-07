@@ -1,6 +1,10 @@
 package com.example.sahibinden.controller;
 
+import com.example.sahibinden.model.Car;
 import com.example.sahibinden.model.Marka;
+import com.example.sahibinden.model.dto.CarResponse;
+import com.example.sahibinden.model.dto.MarkaRequest;
+import com.example.sahibinden.model.dto.MarkaResponse;
 import com.example.sahibinden.model.entity.MarkaEntity;
 import com.example.sahibinden.service.MarkaService;
 import com.example.sahibinden.service.impl.MarkaServiceImpl;
@@ -10,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/marka")
@@ -17,49 +22,46 @@ import java.util.List;
 public class MarkaController {
     private final MarkaService markaService;
 
-    @GetMapping
-    public ResponseEntity<List<MarkaEntity>> getAllMarka() {
-        List<MarkaEntity> markalar = markaService.getAllMarka();
-        return ResponseEntity.ok(markalar);
+    @GetMapping("/{id}")
+    public ResponseEntity<MarkaResponse> getMarkaById(@PathVariable Long id) {
+        Marka marka = markaService.getMarkaById(id);
+        MarkaResponse markaResponse = MarkaResponse.fromModel(marka);
+        return ResponseEntity.ok(markaResponse);
     }
 
-    @GetMapping("/{id}")
-    public ResponseEntity<Marka> getMarkaById(@PathVariable Long id) {
-        Marka marka = markaService.getMarkaById(id);
-        if (marka != null) {
-            return ResponseEntity.ok(marka);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    @GetMapping
+    public ResponseEntity<List<MarkaResponse>> getAllMarkalar() {
+        List<Marka> markalar = markaService.getAllMarka();
+        List<MarkaResponse> markaResponses = markalar.stream()
+                .map(MarkaResponse::fromModel)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(markaResponses);
     }
 
     @PostMapping
-    public ResponseEntity<MarkaEntity> createMarka(@RequestBody MarkaEntity marka) {
-        MarkaEntity createdMarka = markaService.addMarka(marka);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdMarka);
+    public ResponseEntity<MarkaResponse> addMarka(@RequestBody MarkaRequest markaRequest) {
+        //Marka marka = Marka.fromModel(markaRequest);
+        Marka marka = markaRequest.toModel();
+        Marka addedMarka = markaService.addMarka(marka);
+        MarkaResponse markaResponse = MarkaResponse.fromModel(addedMarka);
+        return ResponseEntity.status(HttpStatus.CREATED).body(markaResponse);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MarkaEntity> updateMarka(@PathVariable Long id, @RequestBody MarkaEntity updatedMarka) {
-        updatedMarka.setId(id);
-        MarkaEntity updatedMarkaResult = markaService.updateMarka(updatedMarka);
-        if (updatedMarkaResult != null) {
-            return ResponseEntity.ok(updatedMarkaResult);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<MarkaResponse> updateMarka(@PathVariable Long id, @RequestBody MarkaRequest markaRequest) {
+        //Marka marka = Marka.fromModel(markaRequest);
+        Marka marka = markaRequest.toModel();
+        marka.setId(id);
+        Marka updatedMarka = markaService.updateMarka(marka);
+        MarkaResponse markaResponse = MarkaResponse.fromModel(updatedMarka);
+        return ResponseEntity.ok(markaResponse);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMarka(@PathVariable Long id) {
-        boolean isDeleted = markaService.deleteMarkaById(id);
-        if (isDeleted) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        markaService.deleteMarkaById(id);
+        return ResponseEntity.noContent().build();
     }
-
 
 
 

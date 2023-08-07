@@ -7,13 +7,13 @@ import java.util.List;
 
 public interface MarkaService {
 
-    List<MarkaEntity> getAllMarka();
+    List<Marka> getAllMarka();
 
-    MarkaEntity getMarkaById(Long id);
+    Marka getMarkaById(Long id);
 
-    MarkaEntity addMarka(MarkaEntity markaEntity);
+    Marka addMarka(Marka marka);
 
-    MarkaEntity updateMarka(MarkaEntity updatedMarka);
+    Marka updateMarka(Marka updatedMarka);
 
     boolean deleteMarkaById(Long id);
 }

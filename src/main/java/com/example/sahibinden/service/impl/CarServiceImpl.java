@@ -2,8 +2,11 @@ package com.example.sahibinden.service.impl;
 
 import com.example.sahibinden.exception.model.NotFoundException;
 import com.example.sahibinden.model.Car;
+import com.example.sahibinden.model.Marka;
 import com.example.sahibinden.model.dto.CarRequest;
+import com.example.sahibinden.model.dto.CarResponse;
 import com.example.sahibinden.model.entity.CarEntity;
+import com.example.sahibinden.model.entity.MarkaEntity;
 import com.example.sahibinden.repository.CarRepository;
 import com.example.sahibinden.service.CarService;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +31,11 @@ public class CarServiceImpl implements CarService {
                 .map(Car::fromEntity)
                 .collect(Collectors.toList());
     }
-
+    public Car addCar(Car car) {//Car service de car olması lazım
+        CarEntity carEntity = CarEntity.fromModel(car);
+        CarEntity addedCarEntity = carRepository.save(carEntity);
+        return Car.fromEntity(addedCarEntity);
+    }
 
 
 

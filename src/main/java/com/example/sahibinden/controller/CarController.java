@@ -1,10 +1,8 @@
-
 package com.example.sahibinden.controller;
 
 import com.example.sahibinden.model.Car;
 import com.example.sahibinden.model.dto.CarRequest;
 import com.example.sahibinden.model.dto.CarResponse;
-import com.example.sahibinden.model.entity.CarEntity;
 import com.example.sahibinden.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -23,8 +21,7 @@ public class CarController {
 
 
     @GetMapping
-    public ResponseEntity<List<CarResponse>> getAllCars(@RequestBody CarRequest carRequest) {
-        Car car = carRequest.toModel();
+    public ResponseEntity<List<CarResponse>> getAllCars() {
         List<Car> cars = carService.getAllCars();
         List<CarResponse> carResponses = cars.stream()
                 .map(CarResponse::fromModel)
@@ -42,6 +39,12 @@ public class CarController {
         } else {
             return ResponseEntity.notFound().build();
         }
+    }
+    @PostMapping
+    public ResponseEntity<CarResponse> createCar(@RequestBody CarRequest carRequest) {
+        Car car = carRequest.toModel();
+        CarResponse createdCar = CarResponse.fromModel(carService.addCar(car));
+        return ResponseEntity.status(HttpStatus.CREATED).body(createdCar);
     }
 
 

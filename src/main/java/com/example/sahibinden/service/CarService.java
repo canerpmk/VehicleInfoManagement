@@ -1,4 +1,3 @@
-
 package com.example.sahibinden.service;
 import com.example.sahibinden.model.Car;
 import com.example.sahibinden.model.entity.CarEntity;
@@ -12,5 +11,5 @@ public interface CarService {
 
     Car getCarById(Long id);
 
-
+    Car addCar(Car car);
 }

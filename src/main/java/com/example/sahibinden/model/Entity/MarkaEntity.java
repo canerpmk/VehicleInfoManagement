@@ -1,5 +1,6 @@
 package com.example.sahibinden.model.entity;
 
+import com.example.sahibinden.model.Car;
 import com.example.sahibinden.model.Marka;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -22,5 +23,11 @@ public class MarkaEntity extends Marka {
     @OneToMany
     @JsonIgnore
     private List<ModelEntity> model;
+    public static MarkaEntity fromModel(Marka marka){
+        MarkaEntity markaEntity = new MarkaEntity();
+        markaEntity.setId(marka.getId());
+        markaEntity.setName(marka.getName());
+        return markaEntity;
+    }
 
 }
