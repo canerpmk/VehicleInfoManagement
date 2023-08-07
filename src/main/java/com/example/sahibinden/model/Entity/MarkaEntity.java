@@ -23,6 +23,7 @@ public class MarkaEntity extends Marka {
     @OneToMany
     @JsonIgnore
     private List<ModelEntity> model;
+
     public static MarkaEntity fromModel(Marka marka){
         MarkaEntity markaEntity = new MarkaEntity();
         markaEntity.setId(marka.getId());

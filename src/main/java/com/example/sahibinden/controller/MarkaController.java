@@ -51,7 +51,6 @@ public class MarkaController {
     public ResponseEntity<MarkaResponse> updateMarka(@PathVariable Long id, @RequestBody MarkaRequest markaRequest) {
         //Marka marka = Marka.fromModel(markaRequest);
         Marka marka = markaRequest.toModel();
-        marka.setId(id);
         Marka updatedMarka = markaService.updateMarka(marka);
         MarkaResponse markaResponse = MarkaResponse.fromModel(updatedMarka);
         return ResponseEntity.ok(markaResponse);
