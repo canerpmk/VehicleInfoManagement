@@ -17,7 +17,7 @@ public class CarResponse {
     private Model model;
     private Motor motor;
     private Paket paket;
-    private Ozellik ozellik;//Response gelicek
+    private Ozellik ozellik;
 
     public static CarResponse fromModel(Car car) {
         return CarResponse.builder()

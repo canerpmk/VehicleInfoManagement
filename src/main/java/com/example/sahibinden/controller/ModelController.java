@@ -1,63 +1,66 @@
 package com.example.sahibinden.controller;
 
+import com.example.sahibinden.model.Marka;
+import com.example.sahibinden.model.Model;
+import com.example.sahibinden.model.dto.MarkaRequest;
+import com.example.sahibinden.model.dto.MarkaResponse;
+import com.example.sahibinden.model.dto.ModelRequest;
+import com.example.sahibinden.model.dto.ModelResponse;
 import com.example.sahibinden.model.entity.ModelEntity;
-import com.example.sahibinden.service.impl.ModelSerivceImpl;
+import com.example.sahibinden.service.MarkaService;
+import com.example.sahibinden.service.ModelService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/model")
-
+@RequiredArgsConstructor
 public class ModelController {
-    private final ModelSerivceImpl modelService;
+    private final ModelService modelService;
 
-    public ModelController(ModelSerivceImpl modelService) {
-        this.modelService = modelService;
+    @GetMapping("/{id}")
+    public ResponseEntity<ModelResponse> getModelById(@PathVariable Long id) {
+        Model model = modelService.getModelById(id);
+        ModelResponse modelResponse = ModelResponse.fromModel(model);
+        return ResponseEntity.ok(modelResponse);
     }
 
     @GetMapping
-    public ResponseEntity<List<ModelEntity>> getAllModel() {
-        List<ModelEntity> modeller = modelService.getAllModel();
-        return ResponseEntity.ok(modeller);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<ModelEntity> getModelById(@PathVariable Long id) {
-        ModelEntity model = modelService.getModelById(id);
-        if (model != null) {
-            return ResponseEntity.ok(model);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<List<ModelResponse>> getAllModel() {
+        List<Model> modeller = modelService.getAllModel();
+        List<ModelResponse> modelResponses = modeller.stream()
+                .map(ModelResponse::fromModel)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(modelResponses);
     }
 
     @PostMapping
-    public ResponseEntity<ModelEntity> createModel(@RequestBody ModelEntity model) {
-        ModelEntity createdModel = modelService.addModel(model);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdModel);
+    public ResponseEntity<ModelResponse> addModel(@RequestBody ModelRequest modelRequest) {
+
+        Model model = modelRequest.toModel();
+        Model addedModel = modelService.addModel(model);
+        ModelResponse modelResponse = ModelResponse.fromModel(addedModel);
+        return ResponseEntity.status(HttpStatus.CREATED).body(modelResponse);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<ModelEntity> updateModel(@PathVariable Long id, @RequestBody ModelEntity updatedModel) {
-        updatedModel.setId(id);
-        ModelEntity updatedModelResult = modelService.updateModel(updatedModel);
-        if (updatedModelResult != null) {
-            return ResponseEntity.ok(updatedModelResult);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<ModelResponse> updateModel(@PathVariable Long id, @RequestBody ModelRequest modelRequest) {
+
+        Model model = modelRequest.toModel();
+        Model updatedModel = modelService.updateModel(model);
+        ModelResponse modelResponse = ModelResponse.fromModel(updatedModel);
+        return ResponseEntity.ok(modelResponse);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteModel(@PathVariable Long id) {
-        boolean isDeleted = modelService.deleteModelById(id);
-        if (isDeleted) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        modelService.deleteModelById(id);
+        return ResponseEntity.noContent().build();
     }
 }

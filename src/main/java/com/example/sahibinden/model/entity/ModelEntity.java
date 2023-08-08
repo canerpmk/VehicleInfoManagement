@@ -20,9 +20,16 @@ public class ModelEntity extends Model {
     private Long id;
     private String name;
 
-
     @ManyToOne
     private MarkaEntity marka;
+
+
+    public static ModelEntity fromModel(Model model){
+        ModelEntity modelEntity = new ModelEntity();
+        modelEntity.setId(model.getId());
+        modelEntity.setName(model.getName());
+        return modelEntity;
+    }
 
 
 

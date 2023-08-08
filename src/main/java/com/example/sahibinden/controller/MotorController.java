@@ -1,62 +1,63 @@
 package com.example.sahibinden.controller;
 
+import com.example.sahibinden.model.Motor;
+import com.example.sahibinden.model.dto.MotorRequest;
+import com.example.sahibinden.model.dto.MotorResponse;
 import com.example.sahibinden.model.entity.MotorEntity;
+import com.example.sahibinden.service.MotorService;
 import com.example.sahibinden.service.impl.MotorServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/motor")
-public class MotorController {
-    private final MotorServiceImpl motorService;
+@RequiredArgsConstructor
 
-    public MotorController(MotorServiceImpl motorService) {
-        this.motorService = motorService;
+public class MotorController {
+    private final MotorService motorService;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<MotorResponse> getMotorById(@PathVariable Long id) {
+        Motor motor = motorService.getMotorById(id);
+        MotorResponse motorResponse = MotorResponse.fromModel(motor);
+        return ResponseEntity.ok(motorResponse);
     }
 
     @GetMapping
-    public ResponseEntity<List<MotorEntity>> getAllMotor() {
-        List<MotorEntity> motorler = motorService.getAllMotor();
-        return ResponseEntity.ok(motorler);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<MotorEntity> getMotorById(@PathVariable Long id) {
-        MotorEntity motor = motorService.getMotorById(id);
-        if (motor != null) {
-            return ResponseEntity.ok(motor);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<List<MotorResponse>> getAllMotorlar() {
+        List<Motor> motorlar = motorService.getAllMotor();
+        List<MotorResponse> motorResponses = motorlar.stream()
+                .map(MotorResponse::fromModel)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(motorResponses);
     }
 
     @PostMapping
-    public ResponseEntity<MotorEntity> createMotor(@RequestBody MotorEntity motor) {
-        MotorEntity createdMotor = motorService.addMotor(motor);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdMotor);
+    public ResponseEntity<MotorResponse> addMotor(@RequestBody MotorRequest motorRequest) {
+
+        Motor motor = motorRequest.toModel();
+        Motor addedMotor = motorService.addMotor(motor);
+        MotorResponse motorResponse = MotorResponse.fromModel(addedMotor);
+        return ResponseEntity.status(HttpStatus.CREATED).body(motorResponse);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<MotorEntity> updateMotor(@PathVariable Long id, @RequestBody MotorEntity updatedMotor) {
-        updatedMotor.setId(id);
-        MotorEntity updatedMotorResult = motorService.updateMotor(updatedMotor);
-        if (updatedMotorResult != null) {
-            return ResponseEntity.ok(updatedMotorResult);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<MotorResponse> updateMotor(@PathVariable Long id, @RequestBody MotorRequest motorRequest) {
+
+        Motor motor = motorRequest.toModel();
+        Motor updatedMotor = motorService.updateMotor(motor);
+        MotorResponse motorResponse = MotorResponse.fromModel(updatedMotor);
+        return ResponseEntity.ok(motorResponse);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteMotor(@PathVariable Long id) {
-        boolean isDeleted = motorService.deleteMotorById(id);
-        if (isDeleted) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        motorService.deleteMotorById(id);
+        return ResponseEntity.noContent().build();
     }
 }

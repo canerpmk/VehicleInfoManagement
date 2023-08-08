@@ -29,4 +29,15 @@ public class MotorEntity extends Motor {
     @Column
     private Double tork;
 
+
+    public static MotorEntity fromModel(Motor motor){
+        MotorEntity motorEntity=new MotorEntity();
+                motorEntity.setId(motor.getId());
+                motorEntity.setMotorgucu(motor.getMotorgucu());
+                motorEntity.setMotorhacmi(motor.getMotorhacmi());
+                motorEntity.setSilindirhacmi(motor.getMotorhacmi());
+                motorEntity.setTork(motor.getTork());
+        return motorEntity;
+    }
+
 }

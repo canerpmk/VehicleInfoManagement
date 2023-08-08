@@ -40,7 +40,7 @@ public class MarkaController {
 
     @PostMapping
     public ResponseEntity<MarkaResponse> addMarka(@RequestBody MarkaRequest markaRequest) {
-        //Marka marka = Marka.fromModel(markaRequest);
+
         Marka marka = markaRequest.toModel();
         Marka addedMarka = markaService.addMarka(marka);
         MarkaResponse markaResponse = MarkaResponse.fromModel(addedMarka);
@@ -49,7 +49,7 @@ public class MarkaController {
 
     @PutMapping("/{id}")
     public ResponseEntity<MarkaResponse> updateMarka(@PathVariable Long id, @RequestBody MarkaRequest markaRequest) {
-        //Marka marka = Marka.fromModel(markaRequest);
+
         Marka marka = markaRequest.toModel();
         Marka updatedMarka = markaService.updateMarka(marka);
         MarkaResponse markaResponse = MarkaResponse.fromModel(updatedMarka);

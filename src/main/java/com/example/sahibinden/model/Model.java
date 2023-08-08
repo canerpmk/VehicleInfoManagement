@@ -2,6 +2,8 @@
 package com.example.sahibinden.model;
 
 
+import com.example.sahibinden.model.entity.MarkaEntity;
+import com.example.sahibinden.model.entity.ModelEntity;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +20,12 @@ public class Model {
     private Long id;
     private String name;
 
+    public static Model fromEntity(ModelEntity modelEntity) {
+        return Model.builder()
+                .id(modelEntity.getId())
+                .name(modelEntity.getName())
+                .build();
+    }
 
 
 }

@@ -1,8 +1,8 @@
 
 package com.example.sahibinden.model;
 
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import com.example.sahibinden.model.entity.ModelEntity;
+import com.example.sahibinden.model.entity.MotorEntity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,5 +21,16 @@ public class Motor {
     private Double silindirhacmi;
     private Double silindirsayisi;
     private Double tork;
+
+    public static Motor fromEntity(MotorEntity motorEntity) {
+        return Motor.builder()
+                .id(motorEntity.getId())
+                .motorgucu(motorEntity.getMotorgucu())
+                .silindirhacmi(motorEntity.getSilindirhacmi())
+                .silindirsayisi(motorEntity.getSilindirsayisi())
+                .tork(motorEntity.getTork())
+                .build();
+                    }
+
 
 }

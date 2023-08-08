@@ -1,6 +1,8 @@
 
 package com.example.sahibinden.model;
 
+import com.example.sahibinden.model.entity.MotorEntity;
+import com.example.sahibinden.model.entity.OzellikEntity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -25,5 +27,18 @@ public class Ozellik {
     private int bagaj_hacmi;
     private String yakit_tur;
 
+    public static Ozellik fromEntity(OzellikEntity ozellikEntity) {
+        return Ozellik.builder()
+                .id(ozellikEntity.getId())
+                .vites_sayisi(ozellikEntity.getVites_sayisi())
+                .yakit_deposu(ozellikEntity.getYakit_deposu())
+                .max_hiz(ozellikEntity.getMax_hiz())
+                .si_tuketim(ozellikEntity.getSi_tuketim())
+                .sd_tuketim(ozellikEntity.getSd_tuketim())
+                .ort_tuketim(ozellikEntity.getOrt_tuketim())
+                .bagaj_hacmi(ozellikEntity.getBagaj_hacmi())
+                .yakit_tur(ozellikEntity.getYakit_tur())
+                .build();
+    }
 
 }

@@ -1,62 +1,60 @@
 package com.example.sahibinden.controller;
 
-import com.example.sahibinden.model.entity.OzellikEntity;
-import com.example.sahibinden.service.impl.OzellikServiceImpl;
+import com.example.sahibinden.model.Ozellik;
+import com.example.sahibinden.model.dto.OzellikRequest;
+import com.example.sahibinden.model.dto.OzellikResponse;
+import com.example.sahibinden.service.OzellikService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/ozellik")
+@RequiredArgsConstructor
 public class OzellikController {
-    private final OzellikServiceImpl ozellikService;
+    private final OzellikService ozellikService;
 
-    public OzellikController(OzellikServiceImpl ozellikService) {
-        this.ozellikService = ozellikService;
+    @GetMapping("/{id}")
+    public ResponseEntity<OzellikResponse> getOzellikById(@PathVariable Long id) {
+        Ozellik ozellik = ozellikService.getOzellikById(id);
+        OzellikResponse ozellikResponse = OzellikResponse.fromModel(ozellik);
+        return ResponseEntity.ok(ozellikResponse);
     }
 
     @GetMapping
-    public ResponseEntity<List<OzellikEntity>> getAllOzellik() {
-        List<OzellikEntity> ozellikler = ozellikService.getAllOzellik();
-        return ResponseEntity.ok(ozellikler);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<OzellikEntity> getOzellikById(@PathVariable Long id) {
-        OzellikEntity ozellik = ozellikService.getOzellikById(id);
-        if (ozellik != null) {
-            return ResponseEntity.ok(ozellik);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<List<OzellikResponse>> getAllOzellikler() {
+        List<Ozellik> ozellikler = ozellikService.getAllOzellik();
+        List<OzellikResponse> ozellikResponses = ozellikler.stream()
+                .map(OzellikResponse::fromModel)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(ozellikResponses);
     }
 
     @PostMapping
-    public ResponseEntity<OzellikEntity> createOzellik(@RequestBody OzellikEntity ozellik) {
-        OzellikEntity createdOzellik = ozellikService.addOzellik(ozellik);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdOzellik);
+    public ResponseEntity<OzellikResponse> addOzellik(@RequestBody OzellikRequest ozellikRequest) {
+
+        Ozellik ozellik = ozellikRequest.toModel();
+        Ozellik addedOzellik = ozellikService.addOzellik(ozellik);
+        OzellikResponse ozellikResponse = OzellikResponse.fromModel(addedOzellik);
+        return ResponseEntity.status(HttpStatus.CREATED).body(ozellikResponse);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<OzellikEntity> updateOzellik(@PathVariable Long id, @RequestBody OzellikEntity updatedOzellik) {
-        updatedOzellik.setId(id);
-        OzellikEntity updatedOzellikResult = ozellikService.updateOzellik(updatedOzellik);
-        if (updatedOzellikResult != null) {
-            return ResponseEntity.ok(updatedOzellikResult);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<OzellikResponse> updateOzellik(@PathVariable Long id, @RequestBody OzellikRequest ozellikRequest) {
+
+        Ozellik ozellik = ozellikRequest.toModel();
+        Ozellik updatedOzellik = ozellikService.updateOzellik(ozellik);
+        OzellikResponse ozellikResponse = OzellikResponse.fromModel(updatedOzellik);
+        return ResponseEntity.ok(ozellikResponse);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteOzellik(@PathVariable Long id) {
-        boolean isDeleted = ozellikService.deleteOzellikById(id);
-        if (isDeleted) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        ozellikService.deleteOzellikById(id);
+        return ResponseEntity.noContent().build();
     }
 }
