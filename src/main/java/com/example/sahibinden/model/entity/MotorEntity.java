@@ -16,17 +16,10 @@ public class MotorEntity extends Motor {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-
-    @Column
     private Double motorgucu;
-    @Column
     private Double motorhacmi;
-    @Column
     private Double silindirhacmi;
-    @Column
     private Double silindirsayisi;
-    @Column
     private Double tork;
 
 
@@ -35,7 +28,8 @@ public class MotorEntity extends Motor {
                 motorEntity.setId(motor.getId());
                 motorEntity.setMotorgucu(motor.getMotorgucu());
                 motorEntity.setMotorhacmi(motor.getMotorhacmi());
-                motorEntity.setSilindirhacmi(motor.getMotorhacmi());
+                motorEntity.setSilindirhacmi(motor.getSilindirhacmi());
+                motorEntity.setSilindirsayisi(motor.getSilindirsayisi());
                 motorEntity.setTork(motor.getTork());
         return motorEntity;
     }

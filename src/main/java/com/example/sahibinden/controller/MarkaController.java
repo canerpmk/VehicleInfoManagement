@@ -1,13 +1,9 @@
 package com.example.sahibinden.controller;
 
-import com.example.sahibinden.model.Car;
 import com.example.sahibinden.model.Marka;
-import com.example.sahibinden.model.dto.CarResponse;
 import com.example.sahibinden.model.dto.MarkaRequest;
 import com.example.sahibinden.model.dto.MarkaResponse;
-import com.example.sahibinden.model.entity.MarkaEntity;
 import com.example.sahibinden.service.MarkaService;
-import com.example.sahibinden.service.impl.MarkaServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,7 +26,7 @@ public class MarkaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<MarkaResponse>> getAllMarkalar() {
+    public ResponseEntity<List<MarkaResponse>> getAllMarka() {
         List<Marka> markalar = markaService.getAllMarka();
         List<MarkaResponse> markaResponses = markalar.stream()
                 .map(MarkaResponse::fromModel)
@@ -61,10 +57,5 @@ public class MarkaController {
         markaService.deleteMarkaById(id);
         return ResponseEntity.noContent().build();
     }
-
-
-
-
-
 
 }

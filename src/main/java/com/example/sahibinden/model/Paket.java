@@ -1,6 +1,8 @@
 
 package com.example.sahibinden.model;
 
+import com.example.sahibinden.model.entity.MarkaEntity;
+import com.example.sahibinden.model.entity.PaketEntity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,5 +20,10 @@ public class Paket {
     private Long id;
     private String paket;
 
-
+    public static Paket fromEntity(PaketEntity paketEntity) {
+        return Paket.builder()
+                .id(paketEntity.getId())
+                .paket(paketEntity.getPaket())
+                .build();
+    }
 }

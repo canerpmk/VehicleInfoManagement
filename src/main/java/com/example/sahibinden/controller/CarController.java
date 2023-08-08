@@ -18,8 +18,6 @@ import java.util.stream.Collectors;
 public class CarController {
     private final CarService carService;
 
-
-
     @GetMapping
     public ResponseEntity<List<CarResponse>> getAllCars() {
         List<Car> cars = carService.getAllCars();

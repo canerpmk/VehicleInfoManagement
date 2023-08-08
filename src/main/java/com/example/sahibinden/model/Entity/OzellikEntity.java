@@ -25,6 +25,19 @@ public class OzellikEntity extends Ozellik {
     private int bagaj_hacmi;
     private String yakit_tur;
 
+    public static OzellikEntity fromModel(Ozellik ozellik){
+        OzellikEntity ozellikEntity=new OzellikEntity();
+        ozellikEntity.setId(ozellik.getId());
+        ozellikEntity.setVites_sayisi(ozellik.getVites_sayisi());
+        ozellikEntity.setYakit_deposu(ozellik.getYakit_deposu());
+        ozellikEntity.setMax_hiz(ozellik.getMax_hiz());
+        ozellikEntity.setSi_tuketim(ozellik.getSi_tuketim());
+        ozellikEntity.setSd_tuketim(ozellik.getSd_tuketim());
+        ozellikEntity.setOrt_tuketim(ozellik.getOrt_tuketim());
+        ozellikEntity.setBagaj_hacmi(ozellik.getBagaj_hacmi());
+        ozellikEntity.setYakit_tur(ozellik.getYakit_tur());
+        return ozellikEntity;
+    }
 
 
 }

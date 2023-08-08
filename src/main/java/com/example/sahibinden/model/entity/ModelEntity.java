@@ -1,13 +1,11 @@
 package com.example.sahibinden.model.entity;
 
-import com.example.sahibinden.model.Marka;
 import com.example.sahibinden.model.Model;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
-
-import java.util.List;
 
 @Entity
 @Getter
@@ -23,14 +21,12 @@ public class ModelEntity extends Model {
     @ManyToOne
     private MarkaEntity marka;
 
-
-    public static ModelEntity fromModel(Model model){
+    public static ModelEntity fromModel(Model model) {
         ModelEntity modelEntity = new ModelEntity();
         modelEntity.setId(model.getId());
         modelEntity.setName(model.getName());
         return modelEntity;
     }
-
 
 
 }

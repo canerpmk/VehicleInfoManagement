@@ -1,7 +1,6 @@
 package com.example.sahibinden.model.dto;
 
 import com.example.sahibinden.model.Marka;
-import com.example.sahibinden.model.Model;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -11,15 +10,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class ModelRequest {
-    private String name;
-    private Long marka_id;
-    public Model toModel() {
-        return Model.builder()
-                .name(name)
-                .marka(Marka.builder().id(marka_id).build())
+public class PaketResponse {
+    private Long id;
+    private String paket;
+
+    public static MarkaResponse fromModel(Marka marka) {
+        return MarkaResponse.builder()
+                .id(marka.getId())
+                .name(marka.getName())
                 .build();
     }
-
-
 }

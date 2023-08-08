@@ -1,9 +1,9 @@
 package com.example.sahibinden.service.impl;
 
+import com.example.sahibinden.exception.model.CustomException;
 import com.example.sahibinden.model.Marka;
 import com.example.sahibinden.model.entity.MarkaEntity;
 import com.example.sahibinden.repository.MarkaRepository;
-import com.example.sahibinden.exception.model.CustomException;
 import com.example.sahibinden.service.MarkaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
