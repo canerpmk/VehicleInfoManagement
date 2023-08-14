@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -44,15 +45,14 @@ public class MarkaServiceImpl implements MarkaService {
             MarkaEntity updatedMarkaEntity = markaRepository.save(MarkaEntity.fromModel(marka));
             return Marka.fromEntity(updatedMarkaEntity);
         }
-        throw new CustomException(HttpStatus.NOT_FOUND, "Girdiğiniz id bulunamadı: " + marka.getId());
+        return null;
     }
-
 
     public boolean deleteMarkaById(Long id) {
-        if (markaRepository.existsById(id)) {
-            markaRepository.deleteById(id);
-            return true;
-        }
-        throw new CustomException(HttpStatus.NOT_FOUND, "Girdiğiniz id bulunamadı: " + id);
+        markaRepository.deleteById(id);
+        return !markaRepository.existsById(id);
     }
+
+
+
 }

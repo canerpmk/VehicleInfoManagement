@@ -19,11 +19,13 @@ public class Model {
     @Id
     private Long id;
     private String name;
+    private Marka marka;
 
     public static Model fromEntity(ModelEntity modelEntity) {
         return Model.builder()
                 .id(modelEntity.getId())
                 .name(modelEntity.getName())
+                .marka(modelEntity.getMarka())
                 .build();
     }
 

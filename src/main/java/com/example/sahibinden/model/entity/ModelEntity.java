@@ -28,6 +28,7 @@ public class ModelEntity extends Model {
         ModelEntity modelEntity = new ModelEntity();
         modelEntity.setId(model.getId());
         modelEntity.setName(model.getName());
+        modelEntity.setMarka(model.getMarka());
         return modelEntity;
     }
 

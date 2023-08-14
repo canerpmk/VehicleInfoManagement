@@ -36,7 +36,6 @@ public class OzellikController {
 
     @PostMapping
     public ResponseEntity<OzellikResponse> addOzellik(@RequestBody OzellikRequest ozellikRequest) {
-
         Ozellik ozellik = ozellikRequest.toModel();
         Ozellik addedOzellik = ozellikService.addOzellik(ozellik);
         OzellikResponse ozellikResponse = OzellikResponse.fromModel(addedOzellik);
@@ -45,11 +44,16 @@ public class OzellikController {
 
     @PutMapping("/{id}")
     public ResponseEntity<OzellikResponse> updateOzellik(@PathVariable Long id, @RequestBody OzellikRequest ozellikRequest) {
-
         Ozellik ozellik = ozellikRequest.toModel();
+        ozellik.setId(id);
         Ozellik updatedOzellik = ozellikService.updateOzellik(ozellik);
+
         OzellikResponse ozellikResponse = OzellikResponse.fromModel(updatedOzellik);
-        return ResponseEntity.ok(ozellikResponse);
+        if (updatedOzellik != null) {
+            return ResponseEntity.ok(ozellikResponse);
+        } else {
+            return ResponseEntity.status(updatedOzellik == null ? HttpStatus.OK : HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @DeleteMapping("/{id}")

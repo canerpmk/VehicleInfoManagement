@@ -1,8 +1,10 @@
 package com.example.sahibinden.controller;
 
 import com.example.sahibinden.model.Car;
+import com.example.sahibinden.model.Marka;
 import com.example.sahibinden.model.dto.CarRequest;
 import com.example.sahibinden.model.dto.CarResponse;
+import com.example.sahibinden.model.dto.MarkaResponse;
 import com.example.sahibinden.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -33,18 +35,37 @@ public class CarController {
     @GetMapping("/{id}")
     public ResponseEntity<CarResponse> getCarById(@PathVariable Long id) {
         Car car = carService.getCarById(id);
-        if (car != null) {
-            CarResponse carResponse = CarResponse.fromModel(car);
-            return ResponseEntity.ok(carResponse);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        CarResponse carResponse = CarResponse.fromModel(car);
+        return ResponseEntity.ok(carResponse);
     }
+    @GetMapping("/parse")
+    public ResponseEntity<String> parseWebPage() {
+        String url = "http://arabamkacyakar.com/alfa-romeo/1";
+        String parsedData = carService.parseWebPage(url);
+        return ResponseEntity.ok(parsedData);
+    }
+
+
     @PostMapping
     public ResponseEntity<CarResponse> createCar(@RequestBody CarRequest carRequest) {
         Car car = carRequest.toModel();
         CarResponse createdCar = CarResponse.fromModel(carService.addCar(car));
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCar);
+
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<CarResponse> updateMarka(@PathVariable Long id, @RequestBody CarRequest carRequest) {
+        Car car = carRequest.toModel();
+        Car updatedCar = carService.updateCar(car);
+        CarResponse carResponse = CarResponse.fromModel(updatedCar);
+        return ResponseEntity.ok(carResponse);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCar(@PathVariable Long id) {
+        carService.deleteCarById(id);
+        return ResponseEntity.noContent().build();
     }
 
 

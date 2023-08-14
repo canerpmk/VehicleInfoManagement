@@ -26,6 +26,7 @@ public class Motor {
         return Motor.builder()
                 .id(motorEntity.getId())
                 .motorgucu(motorEntity.getMotorgucu())
+                .motorhacmi(motorEntity.getMotorhacmi())
                 .silindirhacmi(motorEntity.getSilindirhacmi())
                 .silindirsayisi(motorEntity.getSilindirsayisi())
                 .tork(motorEntity.getTork())

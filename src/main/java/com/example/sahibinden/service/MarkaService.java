@@ -16,4 +16,5 @@ public interface MarkaService {
     Marka updateMarka(Marka updatedMarka);
 
     boolean deleteMarkaById(Long id);
+
 }

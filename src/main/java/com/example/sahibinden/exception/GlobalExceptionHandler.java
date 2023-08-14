@@ -10,8 +10,9 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 @ControllerAdvice
 public class GlobalExceptionHandler {
     @ExceptionHandler(CustomException.class)
-    public CustomExceptionResponse handleCustomException(CustomException ex) {
-        return CustomExceptionResponse.fromModel(ex);
+
+    public ResponseEntity<CustomExceptionResponse> handleCustomException(CustomException ex) {
+        return ResponseEntity.status(ex.getStatus()).body(CustomExceptionResponse.fromModel(ex));
     }
 
     @ExceptionHandler(Exception.class)

@@ -10,4 +10,8 @@ public class NotFoundException extends CustomException {
     public NotFoundException(Long id)  {
         super(HttpStatus.NOT_FOUND,  "Girdiğiniz id bulunamadı: " +id);
     }
+
+    public NotFoundException(HttpStatus notfound, String message) {
+        super(notfound,message);
+    }
 }

@@ -1,62 +1,65 @@
 package com.example.sahibinden.controller;
 
+import com.example.sahibinden.model.Paket;
+import com.example.sahibinden.model.dto.PaketRequest;
+import com.example.sahibinden.model.dto.PaketResponse;
 import com.example.sahibinden.model.entity.PaketEntity;
 import com.example.sahibinden.service.impl.PaketServiceImpl;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(path = "/paket")
+@RequiredArgsConstructor
 public class PaketController {
     private final PaketServiceImpl paketService;
 
-    public PaketController(PaketServiceImpl paketService) {
-        this.paketService = paketService;
+    @GetMapping("/{id}")
+    public ResponseEntity<PaketResponse> getPaketById(@PathVariable Long id) {
+        Paket paket = paketService.getPaketById(id);
+        PaketResponse paketResponse = PaketResponse.fromModel(paket);
+        return ResponseEntity.ok(paketResponse);
     }
 
     @GetMapping
-    public ResponseEntity<List<PaketEntity>> getAllPaket() {
-        List<PaketEntity> paketler = paketService.getAllPaket();
-        return ResponseEntity.ok(paketler);
-    }
-
-    @GetMapping("/{id}")
-    public ResponseEntity<PaketEntity> getPaketById(@PathVariable Long id) {
-        PaketEntity paket = paketService.getPaketById(id);
-        if (paket != null) {
-            return ResponseEntity.ok(paket);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+    public ResponseEntity<List<PaketResponse>> getAllPaketler() {
+        List<Paket> paketler = paketService.getAllPaket();
+        List<PaketResponse> paketResponses = paketler.stream()
+                .map(PaketResponse::fromModel)
+                .collect(Collectors.toList());
+        return ResponseEntity.ok(paketResponses);
     }
 
     @PostMapping
-    public ResponseEntity<PaketEntity> createPaket(@RequestBody PaketEntity paket) {
-        PaketEntity createdPaket = paketService.addPaket(paket);
-        return ResponseEntity.status(HttpStatus.CREATED).body(createdPaket);
+    public ResponseEntity<PaketResponse> addPaket(@RequestBody PaketRequest paketRequest) {
+        Paket paket = paketRequest.toModel();
+        Paket addedPaket = paketService.addPaket(paket);
+        PaketResponse paketResponse = PaketResponse.fromModel(addedPaket);
+        return ResponseEntity.status(HttpStatus.CREATED).body(paketResponse);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<PaketEntity> updatePaket(@PathVariable Long id, @RequestBody PaketEntity updatedPaket) {
-        updatedPaket.setId(id);
-        PaketEntity updatedPaketResult = paketService.updatePaket(updatedPaket);
-        if (updatedPaketResult != null) {
-            return ResponseEntity.ok(updatedPaketResult);
+    public ResponseEntity<PaketResponse> updatePaket(@PathVariable Long id, @RequestBody PaketRequest paketRequest) {
+        Paket paket = paketRequest.toModel();
+        paket.setId(id);
+        Paket updatedPaket = paketService.updatePaket(paket);
+
+        PaketResponse paketResponse = PaketResponse.fromModel(updatedPaket);
+        if (updatedPaket != null) {
+            return ResponseEntity.ok(paketResponse);
         } else {
-            return ResponseEntity.notFound().build();
+            return ResponseEntity.status(updatedPaket == null ? HttpStatus.OK : HttpStatus.NOT_FOUND).build();
         }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletePaket(@PathVariable Long id) {
-        boolean isDeleted = paketService.deletePaketById(id);
-        if (isDeleted) {
-            return ResponseEntity.ok().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        paketService.deletePaketById(id);
+        return ResponseEntity.noContent().build();
     }
 }

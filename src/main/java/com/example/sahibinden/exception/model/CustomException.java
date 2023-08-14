@@ -1,6 +1,7 @@
 
 package com.example.sahibinden.exception.model;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 
 public class CustomException extends RuntimeException{

@@ -48,11 +48,16 @@ public class MotorController {
 
     @PutMapping("/{id}")
     public ResponseEntity<MotorResponse> updateMotor(@PathVariable Long id, @RequestBody MotorRequest motorRequest) {
-
         Motor motor = motorRequest.toModel();
+        motor.setId(id);
         Motor updatedMotor = motorService.updateMotor(motor);
+
         MotorResponse motorResponse = MotorResponse.fromModel(updatedMotor);
-        return ResponseEntity.ok(motorResponse);
+        if (updatedMotor != null) {
+            return ResponseEntity.ok(motorResponse);
+        } else {
+            return ResponseEntity.status(updatedMotor == null ? HttpStatus.OK : HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @DeleteMapping("/{id}")

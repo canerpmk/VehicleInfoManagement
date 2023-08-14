@@ -1,5 +1,7 @@
 package com.example.sahibinden.service.impl;
+import com.example.sahibinden.model.Marka;
 import com.example.sahibinden.model.Ozellik;
+import com.example.sahibinden.model.entity.MarkaEntity;
 import com.example.sahibinden.model.entity.OzellikEntity;
 import com.example.sahibinden.repository.OzellikRepository;
 import com.example.sahibinden.exception.model.CustomException;
@@ -39,14 +41,11 @@ public class OzellikServiceImpl implements OzellikService {
             OzellikEntity updatedOzellikEntity = ozellikRepository.save(OzellikEntity.fromModel(ozellik));
             return Ozellik.fromEntity(updatedOzellikEntity);
         }
-        throw new CustomException(HttpStatus.NOT_FOUND, "Girdiğiniz id bulunamadı: " + ozellik.getId());
+        return null;
     }
 
     public boolean deleteOzellikById(Long id) {
-        if (ozellikRepository.existsById(id)) {
-            ozellikRepository.deleteById(id);
-            return true;
-        }
-        throw new CustomException(HttpStatus.NOT_FOUND, "Girdiğiniz id bulunamadı: " + id);
+        ozellikRepository.deleteById(id);
+        return !ozellikRepository.existsById(id);
     }
 }

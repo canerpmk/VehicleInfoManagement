@@ -51,11 +51,17 @@ public class ModelController {
 
     @PutMapping("/{id}")
     public ResponseEntity<ModelResponse> updateModel(@PathVariable Long id, @RequestBody ModelRequest modelRequest) {
-
         Model model = modelRequest.toModel();
+        model.setId(id);
         Model updatedModel = modelService.updateModel(model);
+
         ModelResponse modelResponse = ModelResponse.fromModel(updatedModel);
-        return ResponseEntity.ok(modelResponse);
+        if (updatedModel!=null) {
+            return ResponseEntity.ok(modelResponse);
+        }
+        else{
+            return ResponseEntity.status(updatedModel==null ? HttpStatus.OK : HttpStatus.NOT_FOUND).build();
+        }
     }
 
     @DeleteMapping("/{id}")

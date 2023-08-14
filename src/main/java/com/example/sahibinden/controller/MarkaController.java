@@ -32,9 +32,7 @@ public class MarkaController {
     @GetMapping
     public ResponseEntity<List<MarkaResponse>> getAllMarkalar() {
         List<Marka> markalar = markaService.getAllMarka();
-        List<MarkaResponse> markaResponses = markalar.stream()
-                .map(MarkaResponse::fromModel)
-                .collect(Collectors.toList());
+        List<MarkaResponse> markaResponses = markalar.stream().map(MarkaResponse::fromModel).collect(Collectors.toList());
         return ResponseEntity.ok(markaResponses);
     }
 
@@ -51,9 +49,18 @@ public class MarkaController {
     public ResponseEntity<MarkaResponse> updateMarka(@PathVariable Long id, @RequestBody MarkaRequest markaRequest) {
 
         Marka marka = markaRequest.toModel();
+        marka.setId(id);
         Marka updatedMarka = markaService.updateMarka(marka);
+
         MarkaResponse markaResponse = MarkaResponse.fromModel(updatedMarka);
-        return ResponseEntity.ok(markaResponse);
+        if (updatedMarka!=null) {
+            return ResponseEntity.ok(markaResponse);
+        }
+        else{
+            return ResponseEntity.status(updatedMarka==null ? HttpStatus.OK : HttpStatus.NOT_FOUND).build();
+        }
+
+
     }
 
     @DeleteMapping("/{id}")
@@ -61,10 +68,6 @@ public class MarkaController {
         markaService.deleteMarkaById(id);
         return ResponseEntity.noContent().build();
     }
-
-
-
-
 
 
 }

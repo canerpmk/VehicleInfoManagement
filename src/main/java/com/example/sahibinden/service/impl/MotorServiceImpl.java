@@ -40,17 +40,14 @@ public class MotorServiceImpl implements MotorService {
 
     public Motor updateMotor(Motor motor) {
         if (motorRepository.existsById(motor.getId())) {
-            MotorEntity updatedMotorEntity = motorRepository.save(MotorEntity.fromModel(motor));
-            return Motor.fromEntity(updatedMotorEntity);
+            MotorEntity updatedMarkaEntity = motorRepository.save(MotorEntity.fromModel(motor));
+            return Motor.fromEntity(updatedMarkaEntity);
         }
-        throw new CustomException(HttpStatus.NOT_FOUND, "Girdiğiniz id bulunamadı: " + motor.getId());
+        return null;
     }
 
     public boolean deleteMotorById(Long id) {
-        if (motorRepository.existsById(id)) {
-            motorRepository.deleteById(id);
-            return true;
-        }
-        throw new CustomException(HttpStatus.NOT_FOUND, "Girdiğiniz id bulunamadı: " + id);
+        motorRepository.deleteById(id);
+        return !motorRepository.existsById(id);
     }
 }
