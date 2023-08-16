@@ -1,7 +1,5 @@
 package com.example.sahibinden.model.entity;
 
-import com.example.sahibinden.model.Kasa;
-import com.example.sahibinden.model.Marka;
 import com.example.sahibinden.model.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
@@ -31,15 +29,13 @@ public class ModelEntity extends Model {
     private List<KasaEntity> kasa;
 
 
-    public static ModelEntity fromModel(Model model){
+    public static ModelEntity fromModel(Model model) {
         ModelEntity modelEntity = new ModelEntity();
         modelEntity.setId(model.getId());
         modelEntity.setName(model.getName());
         modelEntity.setMarka(model.getMarka());
         return modelEntity;
     }
-
-
 
 
 }

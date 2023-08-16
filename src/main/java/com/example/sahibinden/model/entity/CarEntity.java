@@ -1,7 +1,11 @@
 package com.example.sahibinden.model.entity;
+
 import com.example.sahibinden.model.Car;
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 
 @ToString
@@ -33,20 +37,18 @@ public class CarEntity extends Car {
     private KasaEntity kasa;
 
 
-    public static CarEntity fromModel(Car car){
+    public static CarEntity fromModel(Car car) {
         CarEntity carEntity = new CarEntity();
-            carEntity.setId(car.getId());
-            carEntity.setName(car.getName());
-            carEntity.setMarka(car.getMarka());
-            carEntity.setModel(car.getModel());
-            carEntity.setMotor(car.getMotor());
-            carEntity.setPaket(car.getPaket());
-            carEntity.setOzellik(car.getOzellik());
-            carEntity.setKasa(car.getKasa());
-            return carEntity;
+        carEntity.setId(car.getId());
+        carEntity.setName(car.getName());
+        carEntity.setMarka(car.getMarka());
+        carEntity.setModel(car.getModel());
+        carEntity.setMotor(car.getMotor());
+        carEntity.setPaket(car.getPaket());
+        carEntity.setOzellik(car.getOzellik());
+        carEntity.setKasa(car.getKasa());
+        return carEntity;
     }
-
-
 
 
 }

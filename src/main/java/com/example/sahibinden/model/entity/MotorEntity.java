@@ -2,7 +2,6 @@ package com.example.sahibinden.model.entity;
 
 import com.example.sahibinden.model.Motor;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,17 +22,16 @@ public class MotorEntity extends Motor {
     private Double tork;
 
 
-    public static MotorEntity fromModel(Motor motor){
-        MotorEntity motorEntity=new MotorEntity();
-                motorEntity.setId(motor.getId());
-                motorEntity.setMotorgucu(motor.getMotorgucu());
-                motorEntity.setMotorhacmi(motor.getMotorhacmi());
-                motorEntity.setSilindirhacmi(motor.getSilindirhacmi());
-                motorEntity.setSilindirsayisi(motor.getSilindirsayisi());
-                motorEntity.setTork(motor.getTork());
+    public static MotorEntity fromModel(Motor motor) {
+        MotorEntity motorEntity = new MotorEntity();
+        motorEntity.setId(motor.getId());
+        motorEntity.setMotorgucu(motor.getMotorgucu());
+        motorEntity.setMotorhacmi(motor.getMotorhacmi());
+        motorEntity.setSilindirhacmi(motor.getSilindirhacmi());
+        motorEntity.setSilindirsayisi(motor.getSilindirsayisi());
+        motorEntity.setTork(motor.getTork());
         return motorEntity;
     }
-
 
 
 }

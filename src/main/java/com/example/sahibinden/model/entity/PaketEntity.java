@@ -1,10 +1,7 @@
 package com.example.sahibinden.model.entity;
 
-import com.example.sahibinden.model.Marka;
-import com.example.sahibinden.model.Model;
 import com.example.sahibinden.model.Paket;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +16,8 @@ public class PaketEntity extends Paket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String paket;
-    public static PaketEntity fromModel(Paket paket){
+
+    public static PaketEntity fromModel(Paket paket) {
         PaketEntity paketEntity = new PaketEntity();
         paketEntity.setId(paket.getId());
         paketEntity.setPaket(paket.getPaket());
