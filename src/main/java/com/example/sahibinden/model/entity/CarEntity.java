@@ -1,6 +1,5 @@
 package com.example.sahibinden.model.entity;
 import com.example.sahibinden.model.Car;
-import com.example.sahibinden.model.dto.CarResponse;
 import jakarta.persistence.*;
 import lombok.*;
 
