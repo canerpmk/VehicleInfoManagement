@@ -6,9 +6,15 @@ import com.example.sahibinden.repository.MarkaRepository;
 import com.example.sahibinden.exception.model.CustomException;
 import com.example.sahibinden.service.MarkaService;
 import lombok.RequiredArgsConstructor;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -20,7 +26,7 @@ public class MarkaServiceImpl implements MarkaService {
 
 
     public Marka getMarkaById(Long id) {
-        MarkaEntity markaEntity = markaRepository.findById(id).orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "Girdiğiniz id bulunamadı: " + id));
+        MarkaEntity markaEntity = markaRepository.findById(id).orElseThrow();
         return Marka.fromEntity(markaEntity);
     }
 
@@ -37,6 +43,41 @@ public class MarkaServiceImpl implements MarkaService {
         MarkaEntity markaEntity = MarkaEntity.fromModel(marka);
         MarkaEntity addedMarkaEntity = markaRepository.save(markaEntity);
         return Marka.fromEntity(addedMarkaEntity);
+    }
+
+    public List<Marka> parseWebPage(String domain, String path) {
+        List<Marka> parseDataList = new ArrayList<>();
+
+        try {
+            Document document = Jsoup.connect(domain + path).get();
+            Elements modelList = document
+                    .getElementsByClass("results-container-in")
+                    .first()
+                    .getElementsByClass("col-md-3 brandborder");
+
+            for (Element brandElement : modelList) {
+                Element anchorElement = brandElement.select("a").first();
+                String linkHref = anchorElement.attr("href");
+                Element imgElement = brandElement.select("img").first();
+                String imgUrl = imgElement.attr("src");
+                Element linkTextElement=brandElement.select("img").first();
+                String linkText = linkTextElement.attr("alt");
+
+                Element infoElement = brandElement.select("a.btn-xs.btn-default").first();
+                String info = infoElement != null ? infoElement.attr("data-content") : "";
+
+                parseDataList.add(Marka.builder()
+                        .name(linkText)
+                        .shortName(linkHref)
+                        .imgUrl(imgUrl)
+                        .info(info)
+                        .build());
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return parseDataList;
     }
 
 

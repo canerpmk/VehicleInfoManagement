@@ -22,6 +22,7 @@ public class Motor {
     private Double silindirsayisi;
     private Double tork;
 
+
     public static Motor fromEntity(MotorEntity motorEntity) {
         return Motor.builder()
                 .id(motorEntity.getId())
@@ -31,7 +32,8 @@ public class Motor {
                 .silindirsayisi(motorEntity.getSilindirsayisi())
                 .tork(motorEntity.getTork())
                 .build();
-                    }
+    }
+
 
 
 }

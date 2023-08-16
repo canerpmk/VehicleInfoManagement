@@ -27,21 +27,11 @@ public class ParseController {
 
 
     @GetMapping("/parse")
-    public ResponseEntity<String> parseWebPage() {
+    public ResponseEntity<List<String>> parseWebPage() {
         String url = "http://arabamkacyakar.com/alfa-romeo/1";
-        String parsedData = carService.parseWebPage(url);
-        return ResponseEntity.ok(parsedData);
+        List<String> parsedDataList = carService.parseWebPage(url);
+        return ResponseEntity.ok(parsedDataList);
     }
 
-    @PostMapping("/x")
-    public ResponseEntity<CarResponse> createCar(@RequestBody CarRequest carRequest) {
-        String url = "http://arabamkacyakar.com/alfa-romeo/1";
-        String parsedData = carService.parseWebPage(url);
-
-        Car car = carRequest.toModel();
-        CarResponse createdCar = CarResponse.fromModel(carService.addCar(car));
-       // return ResponseEntity.status(HttpStatus.CREATED).body(createdCar);
-        return ResponseEntity.ok(createdCar);
-    }
 
 }

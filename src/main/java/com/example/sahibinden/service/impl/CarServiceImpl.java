@@ -14,6 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,9 +27,10 @@ public class CarServiceImpl implements CarService {
     private final MotorRepository motorService;
     private final OzellikRepository ozellikService;
     private final PaketRepository paketService;
+    private final KasaRepository kasaService;
 
     public Car getCarById(Long id) {
-        CarEntity carEntity = carRepository.findById(id).orElseThrow(() -> new CustomException(HttpStatus.NOT_FOUND, "girdiği" + id));
+        CarEntity carEntity = carRepository.findById(id).orElseThrow();
         return CarEntity.fromEntity(carEntity);
     }
 
@@ -44,36 +46,38 @@ public class CarServiceImpl implements CarService {
         ModelEntity model = modelService.findById(car.getModel().getId()).get();
         MotorEntity motor = motorService.findById(car.getMotor().getId()).get();
         OzellikEntity ozellik = ozellikService.findById(car.getModel().getId()).get();
-        PaketEntity paket = paketService.findById(car.getModel().getId()).get();
+        PaketEntity paket = paketService.findById(car.getPaket().getId()).get();
+        KasaEntity kasa=kasaService.findById(car.getKasa().getId()).get();
         CarEntity carEntity = CarEntity.fromModel(car);
         carEntity.setMarka(marka);
         carEntity.setModel(model);
         carEntity.setMotor(motor);
         carEntity.setOzellik(ozellik);
         carEntity.setPaket(paket);
+        carEntity.setKasa(kasa);
         CarEntity addedCarEntity = carRepository.save(carEntity);
 
         return Car.fromEntity(addedCarEntity);
 
     }
-    public String parseWebPage(String url) {
+    public List<String> parseWebPage(String url) {
+        List<String> parsedDataList = new ArrayList<>();
+
         try {
             Document document = Jsoup.connect(url).get();
             Element seriallist = document.getElementsByClass("seriallist").first();
-            //seriallist.get(0).children()
 
-            StringBuilder response = new StringBuilder();
             for (Element link : seriallist.children()) {
                 String linkText = link.text();
                 String linkHref = link.attr("href");
-                response.append("Text: ").append(linkText).append(", URL: ").append(linkHref).append("\n");
+                parsedDataList.add("Text: " + linkText + ", URL: " + linkHref);
             }
-
-            return response.toString();
         } catch (IOException e) {
+            // Hata yönetimi burada yapılabilir
             e.printStackTrace();
-            return "An error occurred while parsing the web page.";
         }
+
+        return parsedDataList;
     }
     public Car updateCar(Car car) {
         if (carRepository.existsById(car.getId())) {

@@ -31,4 +31,5 @@ public class MarkaEntity extends Marka {
         return markaEntity;
     }
 
+
 }

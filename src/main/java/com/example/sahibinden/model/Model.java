@@ -5,10 +5,7 @@ package com.example.sahibinden.model;
 import com.example.sahibinden.model.entity.MarkaEntity;
 import com.example.sahibinden.model.entity.ModelEntity;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 
 @Data
@@ -20,6 +17,10 @@ public class Model {
     private Long id;
     private String name;
     private Marka marka;
+    private String shortName;
+    private String url;
+
+
 
     public static Model fromEntity(ModelEntity modelEntity) {
         return Model.builder()

@@ -26,6 +26,7 @@ public class Ozellik {
     private Double ort_tuketim;
     private int bagaj_hacmi;
     private String yakit_tur;
+    private String shortname;
 
     public static Ozellik fromEntity(OzellikEntity ozellikEntity) {
         return Ozellik.builder()

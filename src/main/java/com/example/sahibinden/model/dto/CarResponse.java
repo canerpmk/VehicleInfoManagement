@@ -18,6 +18,7 @@ public class CarResponse {
     private Motor motor;
     private Paket paket;
     private Ozellik ozellik;
+    private Kasa  kasa;
 
     public static CarResponse fromModel(Car car) {
         return CarResponse.builder()
@@ -28,7 +29,10 @@ public class CarResponse {
                 .motor(car.getMotor())
                 .paket(car.getPaket())
                 .ozellik(car.getOzellik())
+                .kasa(car.getKasa())
                 .build();
     }
+
+
 
 }

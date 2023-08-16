@@ -16,4 +16,5 @@ public interface OzellikService {
 
     boolean deleteOzellikById(Long id);
 
+    List<String> parseWebPage(String url);
 }

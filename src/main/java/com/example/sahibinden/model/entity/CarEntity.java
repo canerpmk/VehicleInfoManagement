@@ -30,6 +30,8 @@ public class CarEntity extends Car {
 
     @ManyToOne
     private PaketEntity paket;
+    @ManyToOne
+    private KasaEntity kasa;
 
 
     public static CarEntity fromModel(Car car){
@@ -41,10 +43,9 @@ public class CarEntity extends Car {
             carEntity.setMotor(car.getMotor());
             carEntity.setPaket(car.getPaket());
             carEntity.setOzellik(car.getOzellik());
+            carEntity.setKasa(car.getKasa());
             return carEntity;
     }
-
-
 
 
 

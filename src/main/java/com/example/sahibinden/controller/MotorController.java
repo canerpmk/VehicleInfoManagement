@@ -36,6 +36,12 @@ public class MotorController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(motorResponses);
     }
+    @GetMapping("/parse")
+    public ResponseEntity<List<String>> parseWebPage() {
+        String url = "http://arabamkacyakar.com/alfa-romeo/1";
+        List<String> parsedDataList = motorService.parseWebPage(url);
+        return ResponseEntity.ok(parsedDataList);
+    }
 
     @PostMapping
     public ResponseEntity<MotorResponse> addMotor(@RequestBody MotorRequest motorRequest) {

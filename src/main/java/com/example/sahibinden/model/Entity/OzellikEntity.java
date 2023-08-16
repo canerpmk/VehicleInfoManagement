@@ -40,4 +40,6 @@ public class OzellikEntity extends Ozellik {
         return ozellikEntity;
     }
 
+
+
 }

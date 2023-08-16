@@ -18,6 +18,7 @@ public class CarRequest {
     private Long motor_id;
     private Long paket_id;
     private Long ozellik_id;
+    private Long kasa_id;
 
     public Car toModel() {
         return Car.builder()
@@ -28,7 +29,10 @@ public class CarRequest {
                 .motor(Motor.builder().id(motor_id).build())
                 .paket(Paket.builder().id(paket_id).build())
                 .ozellik(Ozellik.builder().id(ozellik_id).build())
+                .kasa(Kasa.builder().id(kasa_id).build())
                 .build();
     }
+
+
 
 }

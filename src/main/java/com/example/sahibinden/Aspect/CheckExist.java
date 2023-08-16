@@ -20,13 +20,14 @@ public class CheckExist {
     private final MotorRepository motorRepository;
     private final OzellikRepository ozellikRepository;
     private final PaketRepository paketRepository;
+    private final KasaRepository kasaRepository;
 
 
 
 
     @Before("execution(* com.example.sahibinden.service.*Service.*(Long, ..)) && args(id, ..)")
     public void checkEntityExistence(Long id) {
-         JpaRepository[] repositories = {carRepository, markaRepository, modelRepository, motorRepository, ozellikRepository, paketRepository};
+         JpaRepository[] repositories = {carRepository, markaRepository, modelRepository, motorRepository, ozellikRepository, paketRepository,kasaRepository};
 
         boolean idExists = Arrays.stream(repositories)
                 .anyMatch(repository -> repository.existsById(id));

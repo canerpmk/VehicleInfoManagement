@@ -15,6 +15,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -39,7 +40,18 @@ public class ModelController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(modelResponses);
     }
+    @GetMapping("/parse")
+    public ResponseEntity<List<Model>> parseWebPage() {
 
+        String domain ="http://arabamkacyakar.com/";
+        String modelPagePath ="aston-martin/1";
+
+
+        List<Model> dataFromUrl = modelService.parseWebPage(domain,modelPagePath);
+
+
+        return ResponseEntity.ok(dataFromUrl);
+    }
     @PostMapping
     public ResponseEntity<ModelResponse> addModel(@RequestBody ModelRequest modelRequest) {
 

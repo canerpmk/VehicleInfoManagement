@@ -17,8 +17,8 @@ public interface CarService {
     Car updateCar(Car car);
 
     boolean deleteCarById(Long id);
-    String parseWebPage(String url);
 
+    List<String> parseWebPage(String url);
 
 
     ;

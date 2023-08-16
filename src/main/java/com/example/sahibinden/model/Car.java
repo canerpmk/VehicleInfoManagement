@@ -21,6 +21,7 @@ public class Car {
     private Motor motor;
     private Paket paket;
     private Ozellik ozellik;
+    private Kasa kasa;
 
 
     public static Car fromEntity(CarEntity carEntity) {
@@ -32,7 +33,11 @@ public class Car {
                 .motor(carEntity.getMotor())
                 .paket(carEntity.getPaket())
                 .ozellik(carEntity.getOzellik())
+                .kasa(carEntity.getKasa())
                 .build();
     }
+
+
+
 
 }

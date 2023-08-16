@@ -27,5 +27,4 @@ public class PaketEntity extends Paket {
     }
 
 
-
 }

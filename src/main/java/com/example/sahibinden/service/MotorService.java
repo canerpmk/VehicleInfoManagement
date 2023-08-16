@@ -17,4 +17,5 @@ public interface MotorService {
 
     boolean deleteMotorById(Long id);
 
+    List<String> parseWebPage(String url);
 }

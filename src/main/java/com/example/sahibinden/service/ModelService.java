@@ -13,4 +13,5 @@ public interface ModelService {
     Model updateModel(Model model);
     boolean deleteModelById(Long id);
 
+    List<Model> parseWebPage(String domain, String path);
 }

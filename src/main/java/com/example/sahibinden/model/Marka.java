@@ -18,10 +18,14 @@ public class Marka {
     @Id
     private Long id;
     private String name;
+    private String shortName;
+    private String imgUrl;
+    private String info;
     public static Marka fromEntity(MarkaEntity markaEntity) {
         return Marka.builder()
                 .id(markaEntity.getId())
                 .name(markaEntity.getName())
                 .build();
     }
+
 }

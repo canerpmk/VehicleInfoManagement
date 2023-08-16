@@ -39,10 +39,10 @@ public class CarController {
         return ResponseEntity.ok(carResponse);
     }
     @GetMapping("/parse")
-    public ResponseEntity<String> parseWebPage() {
+    public ResponseEntity<List<String>> parseWebPage() {
         String url = "http://arabamkacyakar.com/alfa-romeo/1";
-        String parsedData = carService.parseWebPage(url);
-        return ResponseEntity.ok(parsedData);
+        List<String> parsedDataList = carService.parseWebPage(url);
+        return ResponseEntity.ok(parsedDataList);
     }
 
 
