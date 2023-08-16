@@ -42,7 +42,6 @@ public class MarkaController {
         String markaPagePath ="markalar";
         List<Marka> dataFromUrl = markaService.parseWebPage(domain,markaPagePath);
 
-
         return ResponseEntity.ok(dataFromUrl);
     }
     @PostMapping

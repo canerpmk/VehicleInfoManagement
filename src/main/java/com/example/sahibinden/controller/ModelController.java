@@ -33,11 +33,11 @@ public class ModelController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(modelResponses);
     }
-    @GetMapping("/parse")
-    public ResponseEntity<List<Model>> parseWebPage() {
+    @GetMapping("/parse/{modelPagePath}")
+    public ResponseEntity<List<Model>> parseWebPage(@PathVariable("modelPagePath") String modelPagePath) {
 
         String domain ="http://arabamkacyakar.com/";
-        String modelPagePath ="aston-martin/1";
+        modelPagePath +="/1";
 
 
         List<Model> dataFromUrl = modelService.parseWebPage(domain,modelPagePath);

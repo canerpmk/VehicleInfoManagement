@@ -1,6 +1,5 @@
 package com.example.sahibinden.service.impl;
 
-import com.example.sahibinden.exception.model.CustomException;
 import com.example.sahibinden.model.Marka;
 import com.example.sahibinden.model.entity.MarkaEntity;
 import com.example.sahibinden.repository.MarkaRepository;
@@ -10,13 +9,11 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 @Service
@@ -58,9 +55,10 @@ public class MarkaServiceImpl implements MarkaService {
             for (Element brandElement : modelList) {
                 Element anchorElement = brandElement.select("a").first();
                 String linkHref = anchorElement.attr("href");
+                linkHref = linkHref == null ? null : linkHref.substring(1, linkHref.length() - 2);
                 Element imgElement = brandElement.select("img").first();
                 String imgUrl = imgElement.attr("src");
-                Element linkTextElement=brandElement.select("img").first();
+                Element linkTextElement = brandElement.select("img").first();
                 String linkText = linkTextElement.attr("alt");
 
                 Element infoElement = brandElement.select("a.btn-xs.btn-default").first();
@@ -77,6 +75,8 @@ public class MarkaServiceImpl implements MarkaService {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+
         return parseDataList;
     }
 
@@ -93,7 +93,6 @@ public class MarkaServiceImpl implements MarkaService {
         markaRepository.deleteById(id);
         return !markaRepository.existsById(id);
     }
-
 
 
 }

@@ -53,10 +53,9 @@ public class ModelServiceImpl implements ModelService {
 
         try {
             Document document = Jsoup.connect(domain + path).get();
-            Element modelList = document.select("accordion-group2 panel2 .accordion-group ").first();
+            Elements modelElements = document.select(".accordion-group2 .accordion-group.selected li ");
 
 
-                Elements modelElements = modelList.select("li a");
                 for (Element modelElement : modelElements) {
                     String linkHref = modelElement.attr("href");
                     String linkName = modelElement.text();
