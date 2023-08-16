@@ -1,6 +1,5 @@
 package com.example.sahibinden.model.dto;
 
-import com.example.sahibinden.model.Car;
 import com.example.sahibinden.model.Marka;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

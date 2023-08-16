@@ -1,16 +1,10 @@
 package com.example.sahibinden.controller;
 
-import com.example.sahibinden.model.Marka;
 import com.example.sahibinden.model.Model;
-import com.example.sahibinden.model.dto.MarkaRequest;
-import com.example.sahibinden.model.dto.MarkaResponse;
 import com.example.sahibinden.model.dto.ModelRequest;
 import com.example.sahibinden.model.dto.ModelResponse;
-import com.example.sahibinden.model.entity.ModelEntity;
-import com.example.sahibinden.service.MarkaService;
 import com.example.sahibinden.service.ModelService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

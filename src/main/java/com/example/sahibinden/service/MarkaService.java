@@ -1,6 +1,6 @@
 package com.example.sahibinden.service;
+
 import com.example.sahibinden.model.Marka;
-import com.example.sahibinden.model.entity.MarkaEntity;
 
 import java.util.List;
 
