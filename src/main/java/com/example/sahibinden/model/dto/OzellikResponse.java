@@ -1,6 +1,5 @@
 package com.example.sahibinden.model.dto;
 
-import com.example.sahibinden.model.Motor;
 import com.example.sahibinden.model.Ozellik;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +20,7 @@ public class OzellikResponse {
     private Double ort_tuketim;
     private int bagaj_hacmi;
     private String yakit_tur;
+
     public static OzellikResponse fromModel(Ozellik ozellik) {
         return OzellikResponse.builder()
                 .id(ozellik.getId())

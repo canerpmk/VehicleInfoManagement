@@ -1,27 +1,22 @@
 package com.example.sahibinden.service.impl;
 
-import com.example.sahibinden.model.Marka;
 import com.example.sahibinden.model.Model;
 import com.example.sahibinden.model.entity.MarkaEntity;
 import com.example.sahibinden.model.entity.ModelEntity;
 import com.example.sahibinden.repository.MarkaRepository;
 import com.example.sahibinden.repository.ModelRepository;
-import com.example.sahibinden.exception.model.CustomException;
 import com.example.sahibinden.service.ModelService;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-
-import static org.aspectj.weaver.tools.cache.SimpleCacheFactory.path;
 
 @Service
 @RequiredArgsConstructor
@@ -48,6 +43,7 @@ public class ModelServiceImpl implements ModelService {
         ModelEntity addedModelEntity = modelRepository.save(modelEntity);
         return Model.fromEntity(addedModelEntity);
     }
+
     public List<Model> parseWebPage(String domain, String path) {
         List<Model> parseDataList = new ArrayList<>();
 
@@ -56,15 +52,15 @@ public class ModelServiceImpl implements ModelService {
             Elements modelElements = document.select(".accordion-group2 .accordion-group.selected li ");
 
 
-                for (Element modelElement : modelElements) {
-                    String linkHref = modelElement.attr("href");
-                    String linkName = modelElement.text();
+            for (Element modelElement : modelElements) {
+                String linkHref = modelElement.attr("href");
+                String linkName = modelElement.text();
 
-                    parseDataList.add(Model.builder()
-                            .name(linkName)
-                            .shortName(linkHref)
-                            .build());
-                }
+                parseDataList.add(Model.builder()
+                        .name(linkName)
+                        .shortName(linkHref)
+                        .build());
+            }
 
 
         } catch (IOException e) {

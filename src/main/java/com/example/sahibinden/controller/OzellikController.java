@@ -33,6 +33,7 @@ public class OzellikController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(ozellikResponses);
     }
+
     @GetMapping("/parse")
     public ResponseEntity<List<String>> parseWebPage() {
         String url = "http://arabamkacyakar.com/alfa-romeo/1";

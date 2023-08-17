@@ -3,7 +3,6 @@ package com.example.sahibinden.controller;
 import com.example.sahibinden.model.Paket;
 import com.example.sahibinden.model.dto.PaketRequest;
 import com.example.sahibinden.model.dto.PaketResponse;
-import com.example.sahibinden.model.entity.PaketEntity;
 import com.example.sahibinden.service.impl.PaketServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -34,6 +33,7 @@ public class PaketController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(paketResponses);
     }
+
     @GetMapping("/parse")
     public ResponseEntity<List<String>> parseWebPage() {
         String url = "http://arabamkacyakar.com/alfa-romeo/1";

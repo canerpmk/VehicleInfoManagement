@@ -1,18 +1,13 @@
 package com.example.sahibinden.service.impl;
 
-import com.example.sahibinden.model.Marka;
 import com.example.sahibinden.model.Motor;
-import com.example.sahibinden.model.entity.MarkaEntity;
 import com.example.sahibinden.model.entity.MotorEntity;
-import com.example.sahibinden.repository.MarkaRepository;
 import com.example.sahibinden.repository.MotorRepository;
-import com.example.sahibinden.exception.model.CustomException;
 import com.example.sahibinden.service.MotorService;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -42,6 +37,7 @@ public class MotorServiceImpl implements MotorService {
         MotorEntity addedMotorEntity = motorRepository.save(motorEntity);
         return Motor.fromEntity(addedMotorEntity);
     }
+
     public List<String> parseWebPage(String url) {
         List<String> parsedDataList = new ArrayList<>();
 

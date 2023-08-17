@@ -16,6 +16,7 @@ public class KasaRequest {
     private String tip;
     private Long model_id;
     private Long marka_id;
+
     public Kasa toModel() {
         return Kasa.builder()
                 .tip(tip)

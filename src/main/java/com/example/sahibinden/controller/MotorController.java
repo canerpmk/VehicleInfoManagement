@@ -3,9 +3,7 @@ package com.example.sahibinden.controller;
 import com.example.sahibinden.model.Motor;
 import com.example.sahibinden.model.dto.MotorRequest;
 import com.example.sahibinden.model.dto.MotorResponse;
-import com.example.sahibinden.model.entity.MotorEntity;
 import com.example.sahibinden.service.MotorService;
-import com.example.sahibinden.service.impl.MotorServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -36,6 +34,7 @@ public class MotorController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(motorResponses);
     }
+
     @GetMapping("/parse")
     public ResponseEntity<List<String>> parseWebPage() {
         String url = "http://arabamkacyakar.com/alfa-romeo/1";

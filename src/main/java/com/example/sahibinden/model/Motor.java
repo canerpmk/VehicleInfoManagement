@@ -1,7 +1,5 @@
-
 package com.example.sahibinden.model;
 
-import com.example.sahibinden.model.entity.ModelEntity;
 import com.example.sahibinden.model.entity.MotorEntity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
@@ -16,6 +14,7 @@ import lombok.NoArgsConstructor;
 public class Motor {
     @Id
     private Long id;
+    private String name;
     private Double motorgucu;
     private Double motorhacmi;
     private Double silindirhacmi;
@@ -33,7 +32,6 @@ public class Motor {
                 .tork(motorEntity.getTork())
                 .build();
     }
-
 
 
 }

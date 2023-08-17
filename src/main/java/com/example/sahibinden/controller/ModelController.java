@@ -33,18 +33,20 @@ public class ModelController {
                 .collect(Collectors.toList());
         return ResponseEntity.ok(modelResponses);
     }
+
     @GetMapping("/parse/{modelPagePath}")
     public ResponseEntity<List<Model>> parseWebPage(@PathVariable("modelPagePath") String modelPagePath) {
 
-        String domain ="http://arabamkacyakar.com/";
-        modelPagePath +="/1";
+        String domain = "http://arabamkacyakar.com/";
+        modelPagePath += "/1";
 
 
-        List<Model> dataFromUrl = modelService.parseWebPage(domain,modelPagePath);
+        List<Model> dataFromUrl = modelService.parseWebPage(domain, modelPagePath);
 
 
         return ResponseEntity.ok(dataFromUrl);
     }
+
     @PostMapping
     public ResponseEntity<ModelResponse> addModel(@RequestBody ModelRequest modelRequest) {
 
@@ -61,11 +63,10 @@ public class ModelController {
         Model updatedModel = modelService.updateModel(model);
 
         ModelResponse modelResponse = ModelResponse.fromModel(updatedModel);
-        if (updatedModel!=null) {
+        if (updatedModel != null) {
             return ResponseEntity.ok(modelResponse);
-        }
-        else{
-            return ResponseEntity.status(updatedModel==null ? HttpStatus.OK : HttpStatus.NOT_FOUND).build();
+        } else {
+            return ResponseEntity.status(updatedModel == null ? HttpStatus.OK : HttpStatus.NOT_FOUND).build();
         }
     }
 

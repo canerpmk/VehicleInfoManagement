@@ -22,7 +22,6 @@ public class MarkaServiceImpl implements MarkaService {
     private final MarkaRepository markaRepository;
 
 
-
     public Marka getMarkaById(Long id) {
         MarkaEntity markaEntity = markaRepository.findById(id).orElseThrow();
         return Marka.fromEntity(markaEntity);

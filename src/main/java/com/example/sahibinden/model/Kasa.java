@@ -1,7 +1,6 @@
 package com.example.sahibinden.model;
 
 import com.example.sahibinden.model.entity.KasaEntity;
-import com.example.sahibinden.model.entity.MarkaEntity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

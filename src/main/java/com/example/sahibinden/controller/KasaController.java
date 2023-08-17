@@ -1,7 +1,6 @@
 package com.example.sahibinden.controller;
 
 import com.example.sahibinden.model.Kasa;
-import com.example.sahibinden.model.Marka;
 import com.example.sahibinden.model.dto.KasaRequest;
 import com.example.sahibinden.model.dto.KasaResponse;
 import com.example.sahibinden.service.KasaService;
@@ -25,12 +24,13 @@ public class KasaController {
         KasaResponse kasaResponse = KasaResponse.fromModel(kasa);
         return ResponseEntity.ok(kasaResponse);
     }
+
     @GetMapping("/parse")
     public ResponseEntity<List<Kasa>> parseWebPage() {
 
-        String domain ="http://arabamkacyakar.com/";
-        String markaPagePath ="audi/a1/1";
-        List<Kasa> dataFromUrl = kasaService.parseWebPage(domain,markaPagePath);
+        String domain = "http://arabamkacyakar.com/";
+        String markaPagePath = "audi/a1/1";
+        List<Kasa> dataFromUrl = kasaService.parseWebPage(domain, markaPagePath);
 
 
         return ResponseEntity.ok(dataFromUrl);

@@ -19,7 +19,6 @@ public class KasaResponse {
     private Model model;
 
 
-
     public static KasaResponse fromModel(Kasa kasa) {
         return KasaResponse.builder()
                 .id(kasa.getId())

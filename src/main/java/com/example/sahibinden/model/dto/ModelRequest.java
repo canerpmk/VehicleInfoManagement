@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class ModelRequest {
     private String name;
-    private Long  marka_id;
+    private Long marka_id;
 
     public Model toModel() {
         return Model.builder()

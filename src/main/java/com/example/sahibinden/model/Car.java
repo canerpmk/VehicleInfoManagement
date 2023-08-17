@@ -1,8 +1,7 @@
 package com.example.sahibinden.model;
 
-import com.example.sahibinden.model.dto.CarResponse;
 import com.example.sahibinden.model.entity.CarEntity;
-import jakarta.persistence.*;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -36,8 +35,6 @@ public class Car {
                 .kasa(carEntity.getKasa())
                 .build();
     }
-
-
 
 
 }

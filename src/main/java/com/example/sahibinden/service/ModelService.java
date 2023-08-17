@@ -6,7 +6,9 @@ import java.util.List;
 
 public interface ModelService {
     List<Model> getAllModel();
+
     Model getModelById(Long id);
+
     Model addModel(Model model);
 
     Model updateModel(Model updatedModel);

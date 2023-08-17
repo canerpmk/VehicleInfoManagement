@@ -1,17 +1,13 @@
 package com.example.sahibinden.service.impl;
 
-import com.example.sahibinden.model.Motor;
 import com.example.sahibinden.model.Paket;
-import com.example.sahibinden.model.entity.MotorEntity;
 import com.example.sahibinden.model.entity.PaketEntity;
 import com.example.sahibinden.repository.PaketRepository;
-import com.example.sahibinden.exception.model.CustomException;
 import com.example.sahibinden.service.PaketService;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -42,6 +38,7 @@ public class PaketServiceImpl implements PaketService {
         PaketEntity addedPaketEntity = paketRepository.save(paketEntity);
         return Paket.fromEntity(addedPaketEntity);
     }
+
     public List<String> parseWebPage(String url) {
         List<String> parsedDataList = new ArrayList<>();
 

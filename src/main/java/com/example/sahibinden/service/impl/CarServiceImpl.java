@@ -9,7 +9,6 @@ import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -47,7 +46,7 @@ public class CarServiceImpl implements CarService {
         MotorEntity motor = motorService.findById(car.getMotor().getId()).get();
         OzellikEntity ozellik = ozellikService.findById(car.getModel().getId()).get();
         PaketEntity paket = paketService.findById(car.getPaket().getId()).get();
-        KasaEntity kasa=kasaService.findById(car.getKasa().getId()).get();
+        KasaEntity kasa = kasaService.findById(car.getKasa().getId()).get();
         CarEntity carEntity = CarEntity.fromModel(car);
         carEntity.setMarka(marka);
         carEntity.setModel(model);
@@ -60,6 +59,7 @@ public class CarServiceImpl implements CarService {
         return Car.fromEntity(addedCarEntity);
 
     }
+
     public List<String> parseWebPage(String url) {
         List<String> parsedDataList = new ArrayList<>();
 
@@ -79,6 +79,7 @@ public class CarServiceImpl implements CarService {
 
         return parsedDataList;
     }
+
     public Car updateCar(Car car) {
         if (carRepository.existsById(car.getId())) {
             CarEntity updatedCarEntity = carRepository.save(CarEntity.fromModel(car));

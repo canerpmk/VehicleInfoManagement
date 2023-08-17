@@ -1,9 +1,6 @@
 package com.example.sahibinden.model;
 
-import com.example.sahibinden.model.entity.CarEntity;
 import com.example.sahibinden.model.entity.MarkaEntity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -21,6 +18,7 @@ public class Marka {
     private String shortName;
     private String imgUrl;
     private String info;
+
     public static Marka fromEntity(MarkaEntity markaEntity) {
         return Marka.builder()
                 .id(markaEntity.getId())

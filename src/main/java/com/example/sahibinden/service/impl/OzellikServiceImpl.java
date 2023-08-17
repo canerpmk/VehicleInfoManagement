@@ -1,16 +1,13 @@
 package com.example.sahibinden.service.impl;
-import com.example.sahibinden.model.Marka;
+
 import com.example.sahibinden.model.Ozellik;
-import com.example.sahibinden.model.entity.MarkaEntity;
 import com.example.sahibinden.model.entity.OzellikEntity;
 import com.example.sahibinden.repository.OzellikRepository;
-import com.example.sahibinden.exception.model.CustomException;
 import com.example.sahibinden.service.OzellikService;
 import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;
@@ -59,6 +56,7 @@ public class OzellikServiceImpl implements OzellikService {
 
         return parsedDataList;
     }
+
     public Ozellik updateOzellik(Ozellik ozellik) {
         if (ozellikRepository.existsById(ozellik.getId())) {
             OzellikEntity updatedOzellikEntity = ozellikRepository.save(OzellikEntity.fromModel(ozellik));

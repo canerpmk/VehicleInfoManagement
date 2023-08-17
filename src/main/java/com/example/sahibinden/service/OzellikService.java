@@ -1,6 +1,5 @@
 package com.example.sahibinden.service;
 
-import com.example.sahibinden.model.Motor;
 import com.example.sahibinden.model.Ozellik;
 
 import java.util.List;

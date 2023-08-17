@@ -1,10 +1,6 @@
-
 package com.example.sahibinden.model;
 
-import com.example.sahibinden.model.entity.MotorEntity;
 import com.example.sahibinden.model.entity.OzellikEntity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

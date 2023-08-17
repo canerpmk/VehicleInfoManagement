@@ -1,8 +1,6 @@
 package com.example.sahibinden.service.impl;
 
 import com.example.sahibinden.model.Kasa;
-import com.example.sahibinden.model.Marka;
-import com.example.sahibinden.model.Model;
 import com.example.sahibinden.model.entity.KasaEntity;
 import com.example.sahibinden.model.entity.MarkaEntity;
 import com.example.sahibinden.model.entity.ModelEntity;
@@ -51,6 +49,7 @@ public class KasaServiceImpl implements KasaService {
         return Kasa.fromEntity(addedKasaEntity);
 
     }
+
     public List<Kasa> parseWebPage(String domain, String path) {
         List<Kasa> parseDataList = new ArrayList<>();
 
@@ -64,10 +63,10 @@ public class KasaServiceImpl implements KasaService {
                 String linkHref = anchorElement.attr("src");
                 Element imgElement = brandElement.select("h4").first();
                 String tip = imgElement.text();
-                Elements linkTextElement=brandElement.getElementsByClass("vehicle-block-content").first()
+                Elements linkTextElement = brandElement.getElementsByClass("vehicle-block-content").first()
                         .select("a");
                 String ozelliklink = linkTextElement.attr("href");
-                Elements motortipElement=brandElement.getElementsByClass("vehicle-block-content").first()
+                Elements motortipElement = brandElement.getElementsByClass("vehicle-block-content").first()
                         .select("a");
                 String motortip = linkTextElement.text();
                 parseDataList.add(Kasa.builder()

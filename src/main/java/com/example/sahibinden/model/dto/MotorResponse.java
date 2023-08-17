@@ -1,6 +1,5 @@
 package com.example.sahibinden.model.dto;
 
-import com.example.sahibinden.model.Model;
 import com.example.sahibinden.model.Motor;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -18,6 +17,7 @@ public class MotorResponse {
     private Double silindirhacmi;
     private Double silindirsayisi;
     private Double tork;
+
     public static MotorResponse fromModel(Motor motor) {
         return MotorResponse.builder()
                 .id(motor.getId())

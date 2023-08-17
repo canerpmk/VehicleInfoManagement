@@ -1,10 +1,8 @@
 package com.example.sahibinden.controller;
 
 import com.example.sahibinden.model.Car;
-import com.example.sahibinden.model.Marka;
 import com.example.sahibinden.model.dto.CarRequest;
 import com.example.sahibinden.model.dto.CarResponse;
-import com.example.sahibinden.model.dto.MarkaResponse;
 import com.example.sahibinden.service.CarService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -19,7 +17,6 @@ import java.util.stream.Collectors;
 @RequestMapping(path = "/car")
 public class CarController {
     private final CarService carService;
-
 
 
     @GetMapping
@@ -38,6 +35,7 @@ public class CarController {
         CarResponse carResponse = CarResponse.fromModel(car);
         return ResponseEntity.ok(carResponse);
     }
+
     @GetMapping("/parse")
     public ResponseEntity<List<String>> parseWebPage() {
         String url = "http://arabamkacyakar.com/alfa-romeo/1";
