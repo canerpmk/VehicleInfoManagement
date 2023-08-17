@@ -1,5 +1,6 @@
 package com.example.sahibinden.controller;
 
+import com.example.sahibinden.common.Randomizer;
 import com.example.sahibinden.model.Ozellik;
 import com.example.sahibinden.model.dto.OzellikRequest;
 import com.example.sahibinden.model.dto.OzellikResponse;
@@ -17,6 +18,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class OzellikController {
     private final OzellikService ozellikService;
+    private final Randomizer randomizer;
 
     @GetMapping("/{id}")
     public ResponseEntity<OzellikResponse> getOzellikById(@PathVariable Long id) {

@@ -14,12 +14,14 @@ import lombok.NoArgsConstructor;
 public class ModelResponse {
     private Long id;
     private String name;
+    private String shortName;
     private Marka marka;
 
     public static ModelResponse fromModel(Model model) {
         return ModelResponse.builder()
                 .id(model.getId())
                 .name(model.getName())
+                .shortName(model.getShortName())
                 .marka(model.getMarka())
                 .build();
     }

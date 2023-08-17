@@ -11,7 +11,11 @@ public interface MarkaService {
 
     Marka getMarkaById(Long id);
 
+    Marka getMarkaByShortName(String shortName);
+
     Marka addMarka(Marka marka);
+
+    List<Marka> addMarkas(List<Marka> markaList);
 
     Marka updateMarka(Marka updatedMarka);
 

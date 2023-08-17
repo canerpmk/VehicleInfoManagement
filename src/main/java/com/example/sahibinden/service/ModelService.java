@@ -11,6 +11,8 @@ public interface ModelService {
 
     Model addModel(Model model);
 
+    List<Model> addModels(List<Model> modelList);
+
     Model updateModel(Model updatedModel);
 
     boolean deleteModelById(Long id);

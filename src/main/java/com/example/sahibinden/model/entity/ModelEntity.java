@@ -14,11 +14,12 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(of = {"id"})
 @Table(name = "Model")
-public class ModelEntity extends Model {
+public class ModelEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String name;
+    private String shortName;
 
     @ManyToOne
     private MarkaEntity marka;
@@ -28,12 +29,12 @@ public class ModelEntity extends Model {
     @JsonIgnore
     private List<KasaEntity> kasa;
 
-
     public static ModelEntity fromModel(Model model) {
         ModelEntity modelEntity = new ModelEntity();
         modelEntity.setId(model.getId());
         modelEntity.setName(model.getName());
-        modelEntity.setMarka(model.getMarka());
+        modelEntity.setShortName(model.getShortName());
+        modelEntity.setMarka(MarkaEntity.fromModel(model.getMarka()));
         return modelEntity;
     }
 

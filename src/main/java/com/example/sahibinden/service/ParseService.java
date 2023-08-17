@@ -7,9 +7,14 @@ import com.example.sahibinden.model.Model;
 import java.util.List;
 
 public interface ParseService {
-    List<Marka> parseMarkaPage(String markaPagePath);
+    List<Marka> parseMarkaPage();
 
-    List<Model> parseModelPage(String modelPagePath);
+    List<Marka> updateMarkas();
+
+    List<Model> parseModelPage(String markaShortName);
+
+    List<Model> updateModels(String markaShortName);
+
 
     List<Kasa> parseKasaPage(String kasaPagePath);
 

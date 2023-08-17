@@ -44,6 +44,12 @@ public class ModelServiceImpl implements ModelService {
         return Model.fromEntity(addedModelEntity);
     }
 
+    public List<Model> addModels(List<Model> modelList) {
+        List<ModelEntity> modelEntityList = modelList.stream().map(ModelEntity::fromModel).toList();
+        List<ModelEntity> addedModelEntityList = modelRepository.saveAll(modelEntityList);
+        return addedModelEntityList.stream().map(Model::fromEntity).toList();
+    }
+
     public List<Model> parseWebPage(String domain, String path) {
         List<Model> parseDataList = new ArrayList<>();
 

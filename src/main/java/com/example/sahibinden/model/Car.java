@@ -27,12 +27,12 @@ public class Car {
         return Car.builder()
                 .id(carEntity.getId())
                 .name(carEntity.getName())
-                .marka(carEntity.getMarka())
-                .model(carEntity.getModel())
-                .motor(carEntity.getMotor())
-                .paket(carEntity.getPaket())
-                .ozellik(carEntity.getOzellik())
-                .kasa(carEntity.getKasa())
+                .marka(Marka.fromEntity(carEntity.getMarka()))
+                .model(Model.fromEntity(carEntity.getModel()))
+                .motor(Motor.fromEntity(carEntity.getMotor()))
+                .paket(Paket.fromEntity(carEntity.getPaket()))
+                .ozellik(Ozellik.fromEntity(carEntity.getOzellik()))
+                .kasa(Kasa.fromEntity(carEntity.getKasa()))
                 .build();
     }
 

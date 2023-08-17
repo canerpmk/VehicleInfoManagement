@@ -30,7 +30,7 @@ public class CarServiceImpl implements CarService {
 
     public Car getCarById(Long id) {
         CarEntity carEntity = carRepository.findById(id).orElseThrow();
-        return CarEntity.fromEntity(carEntity);
+        return Car.fromEntity(carEntity);
     }
 
     public List<Car> getAllCars() {

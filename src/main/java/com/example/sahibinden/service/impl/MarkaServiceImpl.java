@@ -27,6 +27,11 @@ public class MarkaServiceImpl implements MarkaService {
         return Marka.fromEntity(markaEntity);
     }
 
+    public Marka getMarkaByShortName(String shortName) {
+        MarkaEntity markaEntity = markaRepository.findMarkaEntityByShortName(shortName).orElseThrow();
+        return Marka.fromEntity(markaEntity);
+    }
+
 
     public List<Marka> getAllMarka() {
         List<MarkaEntity> markaEntities = markaRepository.findAll();
@@ -40,6 +45,11 @@ public class MarkaServiceImpl implements MarkaService {
         MarkaEntity markaEntity = MarkaEntity.fromModel(marka);
         MarkaEntity addedMarkaEntity = markaRepository.save(markaEntity);
         return Marka.fromEntity(addedMarkaEntity);
+    }
+    public List<Marka> addMarkas(List<Marka> markaList) {
+        List<MarkaEntity> markaEntityList = markaList.stream().map(MarkaEntity::fromModel).toList();
+        List<MarkaEntity> addedMarkaEntityList = markaRepository.saveAll(markaEntityList);
+        return addedMarkaEntityList.stream().map(Marka::fromEntity).toList();
     }
 
     public List<Marka> parseWebPage(String domain, String path) {

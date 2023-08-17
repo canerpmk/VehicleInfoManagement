@@ -14,7 +14,7 @@ import lombok.ToString;
 @Entity
 @Getter
 @Setter
-public class CarEntity extends Car {
+public class CarEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -41,12 +41,12 @@ public class CarEntity extends Car {
         CarEntity carEntity = new CarEntity();
         carEntity.setId(car.getId());
         carEntity.setName(car.getName());
-        carEntity.setMarka(car.getMarka());
-        carEntity.setModel(car.getModel());
-        carEntity.setMotor(car.getMotor());
-        carEntity.setPaket(car.getPaket());
-        carEntity.setOzellik(car.getOzellik());
-        carEntity.setKasa(car.getKasa());
+        carEntity.setMarka(MarkaEntity.fromModel(car.getMarka()));
+        carEntity.setModel(ModelEntity.fromModel(car.getModel()));
+        carEntity.setMotor(MotorEntity.fromModel(car.getMotor()));
+        carEntity.setPaket(PaketEntity.fromModel(car.getPaket()));
+        carEntity.setOzellik(OzellikEntity.fromModel(car.getOzellik()));
+        carEntity.setKasa(KasaEntity.fromModel(car.getKasa()));
         return carEntity;
     }
 

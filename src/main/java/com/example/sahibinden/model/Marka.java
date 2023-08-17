@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -18,12 +20,16 @@ public class Marka {
     private String shortName;
     private String imgUrl;
     private String info;
+    private List<Model> modelList;
 
     public static Marka fromEntity(MarkaEntity markaEntity) {
         return Marka.builder()
                 .id(markaEntity.getId())
                 .name(markaEntity.getName())
+                .shortName(markaEntity.getShortName())
+                .modelList(markaEntity.getModel().stream().map(Model::fromEntity).toList())
                 .build();
     }
+
 
 }

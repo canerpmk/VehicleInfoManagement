@@ -2,7 +2,8 @@ package com.example.sahibinden.controller;
 
 import com.example.sahibinden.model.Kasa;
 import com.example.sahibinden.model.Marka;
-import com.example.sahibinden.model.Model;
+import com.example.sahibinden.model.dto.MarkaResponse;
+import com.example.sahibinden.model.entity.ModelEntity;
 import com.example.sahibinden.service.ParseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -24,20 +25,25 @@ public class ParseController {
     @GetMapping("/marka")
     public ResponseEntity<List<Marka>> parseMarkaPage() {
 
-        String markaPagePath = "markalar";
-        List<Marka> dataFromUrl = parseService.parseMarkaPage(markaPagePath);
-
+        List<Marka> dataFromUrl = parseService.parseMarkaPage();
         return ResponseEntity.ok(dataFromUrl);
     }
 
-    @GetMapping("/model/{modelPagePath}/1")
-    public ResponseEntity<List<Model>> parseModelPage(@PathVariable("modelPagePath") String modelPagePath) {
+    @GetMapping("/marka/update")
+    public ResponseEntity<List<MarkaResponse>> updateMarkaPage() {
+        List<MarkaResponse> updatedMarkaList = parseService.updateMarkas().stream().map(MarkaResponse::fromModel).toList();
+        return ResponseEntity.ok(updatedMarkaList);
+    }
 
-        modelPagePath += "/1";
-        List<Model> dataFromUrl = parseService.parseModelPage(modelPagePath);
-
-
-        return ResponseEntity.ok(dataFromUrl);
+    @GetMapping("/model/{markaPagePath}/update")
+    public ResponseEntity<List<ModelEntity>> updateModelPage(@PathVariable("markaPagePath") String markaPagePath) {
+        List<ModelEntity> parsedModelList = parseService.updateModels(markaPagePath).stream().map(ModelEntity::fromModel).toList();
+        return ResponseEntity.ok(parsedModelList);
+    }
+    @GetMapping("/model/{markaPagePath}")
+    public ResponseEntity<List<ModelEntity>> parseModelPage(@PathVariable("markaPagePath") String markaPagePath) {
+        List<ModelEntity> parsedModelList = parseService.parseModelPage(markaPagePath).stream().map(ModelEntity::fromModel).toList();
+        return ResponseEntity.ok(parsedModelList);
     }
 
     @GetMapping("/kasa")

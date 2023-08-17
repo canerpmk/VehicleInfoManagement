@@ -3,7 +3,10 @@ package com.example.sahibinden.service.impl;
 import com.example.sahibinden.model.Kasa;
 import com.example.sahibinden.model.Marka;
 import com.example.sahibinden.model.Model;
+import com.example.sahibinden.service.MarkaService;
+import com.example.sahibinden.service.ModelService;
 import com.example.sahibinden.service.ParseService;
+import lombok.RequiredArgsConstructor;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
@@ -14,16 +17,25 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+@RequiredArgsConstructor
 @Service
 public class ParseServiceImpl implements ParseService {
+    private final MarkaService markaService;
+    private final ModelService modelService;
 
     private static final String DOMAIN = "http://arabamkacyakar.com/";
+    private static final String PATH_MARKA = "markalar";
 
-    public List<Marka> parseMarkaPage(String path) {
+    public List<Marka> updateMarkas() {
+        List<Marka> markaList = parseMarkaPage();
+        return markaService.addMarkas(markaList);
+    }
+
+    public List<Marka> parseMarkaPage() {
         List<Marka> parseDataList = new ArrayList<>();
 
         try {
-            Document document = Jsoup.connect(DOMAIN + path).get();
+            Document document = Jsoup.connect(DOMAIN + PATH_MARKA).get();
             Elements modelList = document
                     .getElementsByClass("results-container-in")
                     .first()
@@ -57,11 +69,18 @@ public class ParseServiceImpl implements ParseService {
         return parseDataList;
     }
 
-    public List<Model> parseModelPage(String path) {
-        List<Model> parseDataList = new ArrayList<>();
+    public List<Model> updateModels(String markaShortName) {
+        Marka marka = markaService.getMarkaByShortName(markaShortName);
+        List<Model> modelList = parseModelPage(markaShortName).stream().peek(model -> model.setMarka(marka)).toList();
+
+        return modelService.addModels(modelList);
+    }
+
+    public List<Model> parseModelPage(String markaShortName) {
+        List<Model> modelList = new ArrayList<>();
 
         try {
-            Document document = Jsoup.connect(DOMAIN + path).get();
+            Document document = Jsoup.connect(DOMAIN + markaShortName + "/1").get();
             Elements modelElements = document.select(".accordion-group2 .accordion-group.selected li ");
 
 
@@ -69,7 +88,8 @@ public class ParseServiceImpl implements ParseService {
                 String linkHref = modelElement.attr("href");
                 String linkName = modelElement.text();
 
-                parseDataList.add(Model.builder()
+                modelList.add(Model.builder()
+                        .marka(Marka.builder().shortName(markaShortName).build())
                         .name(linkName)
                         .shortName(linkHref)
                         .build());
@@ -79,7 +99,7 @@ public class ParseServiceImpl implements ParseService {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return parseDataList;
+        return modelList;
     }
 
     public List<Kasa> parseKasaPage(String path) {
