@@ -1,13 +1,11 @@
 package com.example.sahibinden.model.entity;
 
-import com.example.sahibinden.model.Motor;
 import com.example.sahibinden.model.Ozellik;
-import com.example.sahibinden.model.Paket;
 import jakarta.persistence.*;
-import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
+
 @Entity
 @Getter
 @Setter
@@ -26,8 +24,8 @@ public class OzellikEntity extends Ozellik {
     private int bagaj_hacmi;
     private String yakit_tur;
 
-    public static OzellikEntity fromModel(Ozellik ozellik){
-        OzellikEntity ozellikEntity=new OzellikEntity();
+    public static OzellikEntity fromModel(Ozellik ozellik) {
+        OzellikEntity ozellikEntity = new OzellikEntity();
         ozellikEntity.setId(ozellik.getId());
         ozellikEntity.setVites_sayisi(ozellik.getVites_sayisi());
         ozellikEntity.setYakit_deposu(ozellik.getYakit_deposu());
@@ -39,7 +37,6 @@ public class OzellikEntity extends Ozellik {
         ozellikEntity.setYakit_tur(ozellik.getYakit_tur());
         return ozellikEntity;
     }
-
 
 
 }

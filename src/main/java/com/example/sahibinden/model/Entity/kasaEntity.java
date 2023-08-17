@@ -22,7 +22,8 @@ public class KasaEntity extends Kasa {
 
     @ManyToOne
     private MarkaEntity marka;
-    public static KasaEntity fromModel(Kasa kasa){
+
+    public static KasaEntity fromModel(Kasa kasa) {
         KasaEntity kasaEntity = new KasaEntity();
         kasaEntity.setId(kasa.getId());
         kasaEntity.setTip(kasa.getTip());
