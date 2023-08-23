@@ -244,10 +244,9 @@ public class ParseServiceImpl implements ParseService {
                     }
 
                     Motor motor = Motor.builder()
-                            .imgUrl(imgUrl)
                             .shortName(shortName)
                             .yil(motorYil)
-                            .motorName(motorName)
+                            .name(motorName)
 
                             .build();
 
@@ -292,10 +291,9 @@ public class ParseServiceImpl implements ParseService {
                     }
 
                     Motor motor = Motor.builder()
-                            .imgUrl(imgUrl)
                             .shortName(shortName)
                             .yil(motorYil)
-                            .motorName(motorName)
+                            .name(motorName)
 
                             .build();
 

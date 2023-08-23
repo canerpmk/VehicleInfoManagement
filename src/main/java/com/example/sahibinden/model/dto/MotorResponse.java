@@ -12,19 +12,17 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class MotorResponse {
     private Long id;
-    private String imgUrl;
     private String shortName;
     private String yil;
     private KasaResponse kasa;
-    private String motorName;
+    private String name;
 
     public static MotorResponse fromModel(Motor motor) {
         return MotorResponse.builder()
                 .id(motor.getId())
-                .imgUrl(motor.getImgUrl())
                 .shortName(motor.getShortName())
                 .yil(motor.getYil())
-                .motorName(motor.getMotorName())
+                .name(motor.getName())
                 .kasa(KasaResponse.fromModel(motor.getKasa()))
                 .build();
     }

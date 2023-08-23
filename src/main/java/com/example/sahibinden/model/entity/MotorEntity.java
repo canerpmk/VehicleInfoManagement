@@ -15,21 +15,30 @@ public class MotorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private Double motorgucu;
-    private Double motorhacmi;
-    private Double silindirhacmi;
+    private Double guc;
+    private Double hacim;
     private Double silindirsayisi;
     private Double tork;
+    private String name;
+    private String yil;
+    @Column(unique = true)
+    private String shortName;
 
+
+    @ManyToOne
+    private KasaEntity kasa;
 
     public static MotorEntity fromModel(Motor motor) {
         MotorEntity motorEntity = new MotorEntity();
         motorEntity.setId(motor.getId());
-        motorEntity.setMotorgucu(motor.getMotorgucu());
-        motorEntity.setMotorhacmi(motor.getMotorhacmi());
-        motorEntity.setSilindirhacmi(motor.getSilindirhacmi());
+        motorEntity.setGuc(motor.getGuc());
+        motorEntity.setHacim(motor.getHacim());
         motorEntity.setSilindirsayisi(motor.getSilindirsayisi());
         motorEntity.setTork(motor.getTork());
+        motorEntity.setName(motor.getName());
+        motorEntity.setYil(motor.getYil());
+        motorEntity.setShortName(motor.getShortName());
+        motorEntity.setKasa(KasaEntity.fromModel(motor.getKasa()));
         return motorEntity;
     }
 

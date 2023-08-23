@@ -11,15 +11,13 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MotorRequest {
-    private String imgUrl;
     private String shortName;
-    private String motorName;
+    private String name;
 
     public Motor toModel() {
         return Motor.builder()
                 .shortName(shortName)
-                .imgUrl(imgUrl)
-                .motorName(motorName)
+                .name(name)
                 .build();
     }
 }

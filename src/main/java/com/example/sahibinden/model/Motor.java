@@ -14,21 +14,27 @@ import lombok.NoArgsConstructor;
 public class Motor {
     @Id
     private Long id;
-    private String imgUrl;
     private String shortName;
     private String yil;
-    private String motorName;
+    private String name;
+    private Double guc;
+    private Double hacim;
+    private Double silindirsayisi;
+    private Double tork;
 
     private Kasa kasa;
 
     public static Motor fromEntity(MotorEntity motorEntity) {
         return Motor.builder()
                 .id(motorEntity.getId())
-                .imgUrl(motorEntity.getImgUrl())
                 .shortName(motorEntity.getShortName())
                 .kasa(Kasa.fromEntity(motorEntity.getKasa()))
                 .yil(motorEntity.getYil())
-                .motorName(motorEntity.getMotorName())
+                .name(motorEntity.getName())
+                .guc(motorEntity.getGuc())
+                .hacim(motorEntity.getHacim())
+                .silindirsayisi(motorEntity.getSilindirsayisi())
+                .tork(motorEntity.getTork())
                 .build();
     }
 
