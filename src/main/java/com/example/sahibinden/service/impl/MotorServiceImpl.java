@@ -5,13 +5,8 @@ import com.example.sahibinden.model.entity.MotorEntity;
 import com.example.sahibinden.repository.MotorRepository;
 import com.example.sahibinden.service.MotorService;
 import lombok.RequiredArgsConstructor;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -32,29 +27,21 @@ public class MotorServiceImpl implements MotorService {
                 .collect(Collectors.toList());
     }
 
+    public Motor getKMotorByShortName(String shortName) {
+        MotorEntity motorEntity = motorRepository.findMotorEntityByShortName(shortName).orElseThrow();
+        return Motor.fromEntity(motorEntity);
+    }
+
     public Motor addMotor(Motor motor) {
         MotorEntity motorEntity = MotorEntity.fromModel(motor);
         MotorEntity addedMotorEntity = motorRepository.save(motorEntity);
         return Motor.fromEntity(addedMotorEntity);
     }
 
-    public List<String> parseWebPage(String url) {
-        List<String> parsedDataList = new ArrayList<>();
-
-        try {
-            Document document = Jsoup.connect(url).get();
-            Element seriallist = document.getElementsByClass("seriallist").first();
-
-            for (Element link : seriallist.children()) {
-                String linkText = link.text();
-                String linkHref = link.attr("href");
-                parsedDataList.add("Text: " + linkText + ", URL: " + linkHref);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return parsedDataList;
+    public List<Motor> addMotors(List<Motor> motorList) {
+        List<MotorEntity> motorEntityList = motorList.stream().map(MotorEntity::fromModel).toList();
+        List<MotorEntity> addedMotorEntityList = motorRepository.saveAll(motorEntityList);
+        return addedMotorEntityList.stream().map(Motor::fromEntity).toList();
     }
 
     public Motor updateMotor(Motor motor) {

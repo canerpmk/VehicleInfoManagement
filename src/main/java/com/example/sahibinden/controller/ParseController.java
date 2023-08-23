@@ -2,8 +2,12 @@ package com.example.sahibinden.controller;
 
 import com.example.sahibinden.model.Kasa;
 import com.example.sahibinden.model.Marka;
+import com.example.sahibinden.model.Motor;
+import com.example.sahibinden.model.Ozellik;
 import com.example.sahibinden.model.dto.MarkaResponse;
+import com.example.sahibinden.model.entity.KasaEntity;
 import com.example.sahibinden.model.entity.ModelEntity;
+import com.example.sahibinden.model.entity.MotorEntity;
 import com.example.sahibinden.service.ParseService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -40,24 +44,53 @@ public class ParseController {
         List<ModelEntity> parsedModelList = parseService.updateModels(markaPagePath).stream().map(ModelEntity::fromModel).toList();
         return ResponseEntity.ok(parsedModelList);
     }
+
     @GetMapping("/model/{markaPagePath}")
     public ResponseEntity<List<ModelEntity>> parseModelPage(@PathVariable("markaPagePath") String markaPagePath) {
         List<ModelEntity> parsedModelList = parseService.parseModelPage(markaPagePath).stream().map(ModelEntity::fromModel).toList();
         return ResponseEntity.ok(parsedModelList);
     }
 
-    @GetMapping("/kasa")
-    public ResponseEntity<List<Kasa>> parseKasaPage() {
-        String kasaPagePath = "audi/a1/1";
-        List<Kasa> dataFromUrl = parseService.parseKasaPage(kasaPagePath);
+
+    @GetMapping("/kasa/{markaPagePath}/{modelPagePath}")
+    public ResponseEntity<List<KasaEntity>> parseKasaPage(@PathVariable("markaPagePath") String markaPagePath, @PathVariable("modelPagePath") String modelPagePath) {
+        List<KasaEntity> parsedKasaList = parseService.parseKasaPage(markaPagePath, modelPagePath).stream().map(KasaEntity::fromModel).toList();
+        return ResponseEntity.ok(parsedKasaList);
+    }
+
+    @GetMapping("/kasa/{markaPagePath}/{modelPagePath}/update")
+    public ResponseEntity<List<KasaEntity>> updateKasaPage(@PathVariable("markaPagePath") String markaPagePath, @PathVariable("modelPagePath") String modelPagePath) {
+        List<KasaEntity> parsedKasaList = parseService.updateKasas(markaPagePath, modelPagePath).stream().map(KasaEntity::fromModel).toList();
+        return ResponseEntity.ok(parsedKasaList);
+    }
+
+
+    @GetMapping("/motor/{markaPagePath}/{modelPagePath}/{kasaPagePath}/update")
+    public ResponseEntity<List<MotorEntity>> updateMotorPage(@PathVariable("markaPagePath") String markaPagePath, @PathVariable("modelPagePath") String modelPagePath, @PathVariable String kasaPagePath) {
+        List<MotorEntity> parsedKasaList = parseService.updateMotors(markaPagePath, modelPagePath, kasaPagePath).stream().map(MotorEntity::fromModel).toList();
+        return ResponseEntity.ok(parsedKasaList);
+    }
+
+
+    @GetMapping("/motor")
+    public ResponseEntity<List<Motor>> parseMotorPage() {
+        List<Motor> dataFromUrl = parseService.parseMotorrPage();
         return ResponseEntity.ok(dataFromUrl);
     }
 
-    @GetMapping("/motor")
-    public ResponseEntity<List<String>> parseMotorPage() {
-        String url = "http://arabamkacyakar.com/alfa-romeo/1";
-        List<String> parsedDataList = parseService.parseMotorPage(url);
-        return ResponseEntity.ok(parsedDataList);
+
+    @GetMapping("/kasa")
+    public ResponseEntity<List<Kasa>> parseKasaPage() {
+        List<Kasa> dataFromUrl = parseService.parseKasaaPage();
+        return ResponseEntity.ok(dataFromUrl);
     }
+
+    @GetMapping("/ozellik")
+    public ResponseEntity<List<Ozellik>> parseOzellikPage() {
+
+        List<Ozellik> dataFromUrl = parseService.parseOzellikPage();
+        return ResponseEntity.ok(dataFromUrl);
+    }
+
 
 }

@@ -6,14 +6,9 @@ import com.example.sahibinden.model.entity.*;
 import com.example.sahibinden.repository.*;
 import com.example.sahibinden.service.CarService;
 import lombok.RequiredArgsConstructor;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -58,26 +53,6 @@ public class CarServiceImpl implements CarService {
 
         return Car.fromEntity(addedCarEntity);
 
-    }
-
-    public List<String> parseWebPage(String url) {
-        List<String> parsedDataList = new ArrayList<>();
-
-        try {
-            Document document = Jsoup.connect(url).get();
-            Element seriallist = document.getElementsByClass("seriallist").first();
-
-            for (Element link : seriallist.children()) {
-                String linkText = link.text();
-                String linkHref = link.attr("href");
-                parsedDataList.add("Text: " + linkText + ", URL: " + linkHref);
-            }
-        } catch (IOException e) {
-            // Hata yönetimi burada yapılabilir
-            e.printStackTrace();
-        }
-
-        return parsedDataList;
     }
 
     public Car updateCar(Car car) {

@@ -7,14 +7,8 @@ import com.example.sahibinden.repository.MarkaRepository;
 import com.example.sahibinden.repository.ModelRepository;
 import com.example.sahibinden.service.ModelService;
 import lombok.RequiredArgsConstructor;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
-import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -29,12 +23,18 @@ public class ModelServiceImpl implements ModelService {
         return Model.fromEntity(modelEntity);
     }
 
+    public Model getModelByShortName(String shortName) {
+        ModelEntity modelEntity = modelRepository.findModelEntityByShortName(shortName).orElseThrow();
+        return Model.fromEntity(modelEntity);
+    }
+
     public List<Model> getAllModel() {
         List<ModelEntity> modelEntities = modelRepository.findAll();
         return modelEntities.stream()
                 .map(Model::fromEntity)
                 .collect(Collectors.toList());
     }
+
 
     public Model addModel(Model model) {
         MarkaEntity marka = markaRepository.findById(model.getMarka().getId()).get();
@@ -44,35 +44,11 @@ public class ModelServiceImpl implements ModelService {
         return Model.fromEntity(addedModelEntity);
     }
 
+
     public List<Model> addModels(List<Model> modelList) {
         List<ModelEntity> modelEntityList = modelList.stream().map(ModelEntity::fromModel).toList();
         List<ModelEntity> addedModelEntityList = modelRepository.saveAll(modelEntityList);
         return addedModelEntityList.stream().map(Model::fromEntity).toList();
-    }
-
-    public List<Model> parseWebPage(String domain, String path) {
-        List<Model> parseDataList = new ArrayList<>();
-
-        try {
-            Document document = Jsoup.connect(domain + path).get();
-            Elements modelElements = document.select(".accordion-group2 .accordion-group.selected li ");
-
-
-            for (Element modelElement : modelElements) {
-                String linkHref = modelElement.attr("href");
-                String linkName = modelElement.text();
-
-                parseDataList.add(Model.builder()
-                        .name(linkName)
-                        .shortName(linkHref)
-                        .build());
-            }
-
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return parseDataList;
     }
 
 

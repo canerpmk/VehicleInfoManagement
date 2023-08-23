@@ -13,6 +13,7 @@ import lombok.NoArgsConstructor;
 public class MarkaRequest {
     private String name;
 
+
     public Marka toModel() {
         return Marka.builder()
                 .name(name)

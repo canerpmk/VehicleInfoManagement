@@ -5,13 +5,8 @@ import com.example.sahibinden.model.entity.OzellikEntity;
 import com.example.sahibinden.repository.OzellikRepository;
 import com.example.sahibinden.service.OzellikService;
 import lombok.RequiredArgsConstructor;
-import org.jsoup.Jsoup;
-import org.jsoup.nodes.Document;
-import org.jsoup.nodes.Element;
 import org.springframework.stereotype.Service;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -38,24 +33,6 @@ public class OzellikServiceImpl implements OzellikService {
         return Ozellik.fromEntity(addedOzellikEntity);
     }
 
-    public List<String> parseWebPage(String url) {
-        List<String> parsedDataList = new ArrayList<>();
-
-        try {
-            Document document = Jsoup.connect(url).get();
-            Element seriallist = document.getElementsByClass("seriallist").first();
-
-            for (Element link : seriallist.children()) {
-                String linkText = link.text();
-                String linkHref = link.attr("href");
-                parsedDataList.add("Text: " + linkText + ", URL: " + linkHref);
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return parsedDataList;
-    }
 
     public Ozellik updateOzellik(Ozellik ozellik) {
         if (ozellikRepository.existsById(ozellik.getId())) {

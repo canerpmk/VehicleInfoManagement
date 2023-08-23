@@ -11,19 +11,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MotorRequest {
-    private Double motorgucu;
-    private Double motorhacmi;
-    private Double silindirhacmi;
-    private Double silindirsayisi;
-    private Double tork;
+    private String imgUrl;
+    private String shortName;
+    private String motorName;
 
     public Motor toModel() {
         return Motor.builder()
-                .motorgucu(motorgucu)
-                .motorhacmi(motorhacmi)
-                .silindirhacmi(silindirhacmi)
-                .silindirsayisi(silindirsayisi)
-                .tork(tork)
+                .shortName(shortName)
+                .imgUrl(imgUrl)
+                .motorName(motorName)
                 .build();
     }
 }

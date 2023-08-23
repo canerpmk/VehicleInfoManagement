@@ -36,14 +36,6 @@ public class CarController {
         return ResponseEntity.ok(carResponse);
     }
 
-    @GetMapping("/parse")
-    public ResponseEntity<List<String>> parseWebPage() {
-        String url = "http://arabamkacyakar.com/alfa-romeo/1";
-        List<String> parsedDataList = carService.parseWebPage(url);
-        return ResponseEntity.ok(parsedDataList);
-    }
-
-
     @PostMapping
     public ResponseEntity<CarResponse> createCar(@RequestBody CarRequest carRequest) {
         Car car = carRequest.toModel();

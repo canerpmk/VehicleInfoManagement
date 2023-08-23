@@ -8,6 +8,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+
+import static com.example.sahibinden.common.Utils.collectionAsStream;
+
 
 @Data
 @Builder
@@ -17,10 +21,9 @@ public class Model {
     @Id
     private Long id;
     private String name;
-    private Marka marka;
     private String shortName;
-    private String url;
-
+    private List<Kasa> kasaList;
+    private Marka marka;
 
     public static Model fromEntity(ModelEntity modelEntity) {
         return Model.builder()
@@ -28,6 +31,7 @@ public class Model {
                 .name(modelEntity.getName())
                 .shortName(modelEntity.getShortName())
                 .marka(Marka.fromEntity(modelEntity.getMarka()))
+                .kasaList(collectionAsStream(modelEntity.getKasa()).map(Kasa::fromEntity).toList())
                 .build();
     }
 

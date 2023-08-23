@@ -11,19 +11,24 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class OzellikRequest {
-    private Double vites_sayisi;
+    private String vites_kutusu;
     private Double yakit_deposu;
     private Double max_hiz;
-    private Double si_tuketim;
-    private Double sd_tuketim;
-    private Double ort_tuketim;
+    private String si_tuketim;
+    private String sd_tuketim;
+    private String ort_tuketim;
     private int bagaj_hacmi;
     private String yakit_tur;
+
+    private Double motorgucu;
+    private Double motorhacmi;
+    private Double silindirsayisi;
+    private Double tork;
 
     public Ozellik toModel() {
         return Ozellik.builder()
 
-                .vites_sayisi(vites_sayisi)
+                .vites_kutusu(vites_kutusu)
                 .yakit_deposu(yakit_deposu)
                 .max_hiz(max_hiz)
                 .si_tuketim(si_tuketim)
@@ -31,6 +36,10 @@ public class OzellikRequest {
                 .ort_tuketim(ort_tuketim)
                 .bagaj_hacmi(bagaj_hacmi)
                 .yakit_tur(yakit_tur)
+                .motorgucu(motorgucu)
+                .motorhacmi(motorhacmi)
+                .silindirsayisi(silindirsayisi)
+                .tork(tork)
                 .build();
     }
 

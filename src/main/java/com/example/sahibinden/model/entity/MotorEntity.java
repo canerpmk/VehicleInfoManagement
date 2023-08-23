@@ -11,7 +11,7 @@ import lombok.Setter;
 @Setter
 @EqualsAndHashCode(of = {"id"})
 @Table(name = "Motor")
-public class MotorEntity{
+public class MotorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

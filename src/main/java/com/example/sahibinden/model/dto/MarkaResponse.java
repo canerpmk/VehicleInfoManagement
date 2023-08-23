@@ -16,13 +16,19 @@ public class MarkaResponse {
     private Long id;
     private String name;
     private String shortName;
+    private String imgUrl;
+    private String info;
+
     private List<ModelResponse> modelList;
+
 
     public static MarkaResponse fromModel(Marka marka) {
         return MarkaResponse.builder()
                 .id(marka.getId())
                 .name(marka.getName())
                 .shortName(marka.getShortName())
+                .imgUrl(marka.getImgUrl())
+                .info(marka.getInfo())
                 .modelList(marka.getModelList().stream().map(ModelResponse::fromModel).toList())
                 .build();
     }

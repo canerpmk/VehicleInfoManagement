@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+import static com.example.sahibinden.common.Utils.collectionAsStream;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -27,7 +29,9 @@ public class Marka {
                 .id(markaEntity.getId())
                 .name(markaEntity.getName())
                 .shortName(markaEntity.getShortName())
-                .modelList(markaEntity.getModel().stream().map(Model::fromEntity).toList())
+                .imgUrl(markaEntity.getImgUrl())
+                .info(markaEntity.getInfo())
+                .modelList(collectionAsStream(markaEntity.getModel()).map(Model::fromEntity).toList())
                 .build();
     }
 

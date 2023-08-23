@@ -25,16 +25,6 @@ public class KasaController {
         return ResponseEntity.ok(kasaResponse);
     }
 
-    @GetMapping("/parse")
-    public ResponseEntity<List<Kasa>> parseWebPage() {
-
-        String domain = "http://arabamkacyakar.com/";
-        String markaPagePath = "audi/a1/1";
-        List<Kasa> dataFromUrl = kasaService.parseWebPage(domain, markaPagePath);
-
-
-        return ResponseEntity.ok(dataFromUrl);
-    }
 
     @GetMapping
     public ResponseEntity<List<KasaResponse>> getAllKasalar() {

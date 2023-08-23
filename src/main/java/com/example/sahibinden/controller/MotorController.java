@@ -35,12 +35,6 @@ public class MotorController {
         return ResponseEntity.ok(motorResponses);
     }
 
-    @GetMapping("/parse")
-    public ResponseEntity<List<String>> parseWebPage() {
-        String url = "http://arabamkacyakar.com/alfa-romeo/1";
-        List<String> parsedDataList = motorService.parseWebPage(url);
-        return ResponseEntity.ok(parsedDataList);
-    }
 
     @PostMapping
     public ResponseEntity<MotorResponse> addMotor(@RequestBody MotorRequest motorRequest) {
@@ -50,6 +44,7 @@ public class MotorController {
         MotorResponse motorResponse = MotorResponse.fromModel(addedMotor);
         return ResponseEntity.status(HttpStatus.CREATED).body(motorResponse);
     }
+
 
     @PutMapping("/{id}")
     public ResponseEntity<MotorResponse> updateMotor(@PathVariable Long id, @RequestBody MotorRequest motorRequest) {

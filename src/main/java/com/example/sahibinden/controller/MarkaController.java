@@ -32,15 +32,6 @@ public class MarkaController {
         return ResponseEntity.ok(markaResponses);
     }
 
-    @GetMapping("/parse")
-    public ResponseEntity<List<Marka>> parseWebPage() {
-
-        String domain = "http://arabamkacyakar.com/";
-        String markaPagePath = "markalar";
-        List<Marka> dataFromUrl = markaService.parseWebPage(domain, markaPagePath);
-
-        return ResponseEntity.ok(dataFromUrl);
-    }
 
     @PostMapping
     public ResponseEntity<MarkaResponse> addMarka(@RequestBody MarkaRequest markaRequest) {

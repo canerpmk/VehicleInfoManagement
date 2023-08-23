@@ -34,12 +34,6 @@ public class PaketController {
         return ResponseEntity.ok(paketResponses);
     }
 
-    @GetMapping("/parse")
-    public ResponseEntity<List<String>> parseWebPage() {
-        String url = "http://arabamkacyakar.com/alfa-romeo/1";
-        List<String> parsedDataList = paketService.parseWebPage(url);
-        return ResponseEntity.ok(parsedDataList);
-    }
 
     @PostMapping
     public ResponseEntity<PaketResponse> addPaket(@RequestBody PaketRequest paketRequest) {

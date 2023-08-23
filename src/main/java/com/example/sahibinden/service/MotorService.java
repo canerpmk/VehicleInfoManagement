@@ -11,9 +11,13 @@ public interface MotorService {
 
     Motor addMotor(Motor motor);
 
+    List<Motor> addMotors(List<Motor> motorList);
+
     Motor updateMotor(Motor updatedMotor);
 
     boolean deleteMotorById(Long id);
 
-    List<String> parseWebPage(String url);
+    Motor getKMotorByShortName(String shortName);
+
+
 }

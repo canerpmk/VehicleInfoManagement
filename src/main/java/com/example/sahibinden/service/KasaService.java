@@ -16,5 +16,8 @@ public interface KasaService {
 
     boolean deleteKasaById(Long id);
 
-    List<Kasa> parseWebPage(String domain, String path);
+    List<Kasa> addKasas(List<Kasa> kasaList);
+
+    Kasa getKasaByShortName(String shortName);
+
 }

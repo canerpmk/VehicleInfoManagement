@@ -21,5 +21,5 @@ public interface MarkaService {
 
     boolean deleteMarkaById(Long id);
 
-    List<Marka> parseWebPage(String domain, String path);
+
 }

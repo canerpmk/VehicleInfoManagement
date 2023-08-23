@@ -9,4 +9,6 @@ import java.util.Optional;
 @Repository
 public interface MarkaRepository extends JpaRepository<MarkaEntity, Long> {
     Optional<MarkaEntity> findMarkaEntityByShortName(String shortName);
+
+
 }

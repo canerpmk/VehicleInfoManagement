@@ -34,19 +34,6 @@ public class ModelController {
         return ResponseEntity.ok(modelResponses);
     }
 
-    @GetMapping("/parse/{modelPagePath}")
-    public ResponseEntity<List<Model>> parseWebPage(@PathVariable("modelPagePath") String modelPagePath) {
-
-        String domain = "http://arabamkacyakar.com/";
-        modelPagePath += "/1";
-
-
-        List<Model> dataFromUrl = modelService.parseWebPage(domain, modelPagePath);
-
-
-        return ResponseEntity.ok(dataFromUrl);
-    }
-
     @PostMapping
     public ResponseEntity<ModelResponse> addModel(@RequestBody ModelRequest modelRequest) {
 
