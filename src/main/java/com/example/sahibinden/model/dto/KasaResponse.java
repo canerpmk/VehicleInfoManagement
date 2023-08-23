@@ -14,6 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 public class KasaResponse {
     private Long id;
+    private String yil;
     private String kasatip;
     private String shortName;
     private String imgUrl;
@@ -23,9 +24,10 @@ public class KasaResponse {
     public static KasaResponse fromModel(Kasa kasa) {
         return KasaResponse.builder()
                 .id(kasa.getId())
-                .kasatip(kasa.getKasatip())
+                .yil(kasa.getYil())
+                .kasatip(kasa.getKasaTip())
                 .imgUrl(kasa.getImgUrl())
-                .motortip(kasa.getMotortip())
+                .motortip(kasa.getMotorTip())
                 .shortName(kasa.getShortName())
                 .motorList(kasa.getMotorList().stream().map(MotorResponse::fromModel).toList())
                 .build();

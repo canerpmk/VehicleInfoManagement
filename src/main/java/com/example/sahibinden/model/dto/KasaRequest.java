@@ -11,6 +11,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class KasaRequest {
+    private String yil;
     private String kasatip;
     private String shortName;
     private String imgUrl;
@@ -18,8 +19,9 @@ public class KasaRequest {
 
     public Kasa toModel() {
         return Kasa.builder()
-                .kasatip(kasatip)
-                .motortip(motortip)
+                .yil(yil)
+                .kasaTip(kasatip)
+                .motorTip(motortip)
                 .shortName(shortName)
                 .imgUrl(imgUrl)
                 .build();

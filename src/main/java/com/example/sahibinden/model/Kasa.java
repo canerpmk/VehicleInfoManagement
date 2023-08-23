@@ -18,10 +18,11 @@ import static com.example.sahibinden.common.Utils.collectionAsStream;
 public class Kasa {
     @Id
     private Long id;
-    private String kasatip;
+    private String yil;
+    private String kasaTip;
     private String shortName;
     private String imgUrl;
-    private String motortip;
+    private String motorTip;
 
     private Model model;
     private List<Motor> motorList;
@@ -29,10 +30,11 @@ public class Kasa {
     public static Kasa fromEntity(KasaEntity kasaEntity) {
         return Kasa.builder()
                 .id(kasaEntity.getId())
-                .kasatip(kasaEntity.getKasatip())
+                .yil(kasaEntity.getYil())
+                .kasaTip(kasaEntity.getKasatip())
                 .shortName(kasaEntity.getShortName())
                 .imgUrl(kasaEntity.getImgUrl())
-                .motortip(kasaEntity.getMotortip())
+                .motorTip(kasaEntity.getMotortip())
                 .model(Model.fromEntity(kasaEntity.getModel()))
                 .motorList(collectionAsStream(kasaEntity.getMotor()).map(Motor::fromEntity).toList())
                 .build();

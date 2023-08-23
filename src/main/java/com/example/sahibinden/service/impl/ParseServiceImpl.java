@@ -24,7 +24,7 @@ public class ParseServiceImpl implements ParseService {
     private final MotorService motorService;
     private final OzellikService ozellikService;
 
-    private static final String DOMAIN = "http://arabamkacyakar.com/volkswagen/golf/ortalama-yakit-tuketimi/828373164";
+    private static final String DOMAIN = "http://arabamkacyakar.com/";
     private static final String PATH_MARKA = "markalar";
 
     public List<Marka> updateMarkas() {
@@ -130,11 +130,16 @@ public class ParseServiceImpl implements ParseService {
             for (Element brandElement : KasalList) {
                 Element anchorElement = brandElement.select("img").first();
                 String linkHref = anchorElement.attr("src");
-                Element imgElement = brandElement.select("h4").first();
-                String kasatip = imgElement.text();
+                Element kasaTipElement = brandElement.select("img").first();
+                String kasatip = kasaTipElement.attr("alt");
                 Elements linkTextElement = brandElement.getElementsByClass("vehicle-block-content").first()
                         .select("a");
                 String motortip = linkTextElement.text();
+                Element nameElement = brandElement.getElementsByClass("vehicle-block-content").first().getElementsByClass("vehicle-title text-center").first();
+                String yil=null;
+                if (nameElement.text().length() >= 11) {
+                    yil = nameElement.text().substring(0, 11).replace(" ", "");
+                }
                 Elements shortNameElements = brandElement.select("a");
 
                 for (Element shortNameElement : shortNameElements) {
@@ -142,13 +147,14 @@ public class ParseServiceImpl implements ParseService {
                     String[] link = shortNameHref.split("/");
                     String shortName = null;
                     if (link.length > 1) {
-                        shortName = link[3] + "/" + link[4];
+                        shortName = link[3];
                         parseDataList.add(
                                 Kasa.builder()
-                                        .kasatip(kasatip)
-                                        .shortName(shortName)
+                                        .yil(yil)
+                                        .kasaTip(kasatip)
+                                        .shortName(yil+"_"+shortName)
                                         .imgUrl(linkHref)
-                                        .motortip(motortip)
+                                        .motorTip(motortip)
                                         .model(Model.builder().shortName(modelShortName).build())
                                         .build()
 
@@ -190,10 +196,10 @@ public class ParseServiceImpl implements ParseService {
                 }
 
                 parseDataList.add(Kasa.builder()
-                        .kasatip(kasatip)
+                        .kasaTip(kasatip)
                         .shortName(shortName)
                         .imgUrl(linkHref)
-                        .motortip(motortip)
+                        .motorTip(motortip)
                         .build()
 
                 );
