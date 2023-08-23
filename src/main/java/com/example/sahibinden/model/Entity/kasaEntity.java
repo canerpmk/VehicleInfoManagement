@@ -21,7 +21,7 @@ public class KasaEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String kasatip;
-
+    private String yil;
     private String shortName;
     private String imgUrl;
     private String motortip;
@@ -35,12 +35,16 @@ public class KasaEntity {
 
 
     public static KasaEntity fromModel(Kasa kasa) {
+        if (kasa==null){
+            return null;
+        }
         KasaEntity kasaEntity = new KasaEntity();
         kasaEntity.setId(kasa.getId());
-        kasaEntity.setKasatip(kasa.getKasatip());
+        kasaEntity.setYil(kasa.getYil());
+        kasaEntity.setKasatip(kasa.getKasaTip());
         kasaEntity.setShortName(kasa.getShortName());
         kasaEntity.setImgUrl(kasa.getImgUrl());
-        kasaEntity.setMotortip(kasa.getMotortip());
+        kasaEntity.setMotortip(kasa.getMotorTip());
         kasaEntity.setModel(ModelEntity.fromModel(kasa.getModel()));
         kasaEntity.setMotor(collectionAsStream(kasa.getMotorList()).map(MotorEntity::fromModel).toList());
         return kasaEntity;

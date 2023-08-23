@@ -128,6 +128,7 @@ public class ParseServiceImpl implements ParseService {
 
 
             for (Element brandElement : KasalList) {
+                String kasaShortName = null;
                 Element anchorElement = brandElement.select("img").first();
                 String linkHref = anchorElement.attr("src");
                 Element kasaTipElement = brandElement.select("img").first();
@@ -136,31 +137,30 @@ public class ParseServiceImpl implements ParseService {
                         .select("a");
                 String motortip = linkTextElement.text();
                 Element nameElement = brandElement.getElementsByClass("vehicle-block-content").first().getElementsByClass("vehicle-title text-center").first();
-                String yil=null;
+                String yil = null;
                 if (nameElement.text().length() >= 11) {
                     yil = nameElement.text().substring(0, 11).replace(" ", "");
                 }
                 Elements shortNameElements = brandElement.select("a");
 
+                Kasa kasa = Kasa.builder()
+                        .yil(yil)
+                        .kasaTip(kasatip)
+                        .imgUrl(linkHref)
+                        .motorTip(motortip)
+                        .model(Model.builder().shortName(modelShortName).build())
+                        .build();
                 for (Element shortNameElement : shortNameElements) {
                     String shortNameHref = shortNameElement.attr("href");
                     String[] link = shortNameHref.split("/");
-                    String shortName = null;
-                    if (link.length > 1) {
-                        shortName = link[3];
-                        parseDataList.add(
-                                Kasa.builder()
-                                        .yil(yil)
-                                        .kasaTip(kasatip)
-                                        .shortName(yil+"_"+shortName)
-                                        .imgUrl(linkHref)
-                                        .motorTip(motortip)
-                                        .model(Model.builder().shortName(modelShortName).build())
-                                        .build()
 
-                        );
+                    if (link.length > 3 && kasaShortName == null) {
+                        kasaShortName = link[3];
+                        kasa.setShortName(yil + "_" + kasaShortName);
                     }
+                    //kasa.addMotor(Motor.builder().shortName(link[4]).name(shortNameElement.text()).build());
                 }
+                parseDataList.add(kasa);
 
             }
 

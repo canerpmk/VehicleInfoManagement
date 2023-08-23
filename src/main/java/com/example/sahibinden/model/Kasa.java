@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.example.sahibinden.common.Utils.collectionAsStream;
@@ -26,6 +27,12 @@ public class Kasa {
 
     private Model model;
     private List<Motor> motorList;
+    public void addMotor(Motor motor){
+        if (motorList==null){
+            motorList=new ArrayList<>();
+        }
+        motorList.add(motor);
+    }
 
     public static Kasa fromEntity(KasaEntity kasaEntity) {
         return Kasa.builder()
