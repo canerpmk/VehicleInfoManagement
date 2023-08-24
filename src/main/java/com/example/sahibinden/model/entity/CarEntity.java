@@ -2,18 +2,17 @@ package com.example.sahibinden.model.entity;
 
 import com.example.sahibinden.model.Car;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.*;
 
 
 @ToString
+@Builder
 @EqualsAndHashCode(of = {"id"})
 @Table(name = "Car")
 @Entity
 @Getter
 @Setter
+@RequiredArgsConstructor
 public class CarEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,16 +37,17 @@ public class CarEntity {
 
 
     public static CarEntity fromModel(Car car) {
-        CarEntity carEntity = new CarEntity();
-        carEntity.setId(car.getId());
-        carEntity.setName(car.getName());
-        carEntity.setMarka(MarkaEntity.fromModel(car.getMarka()));
-        carEntity.setModel(ModelEntity.fromModel(car.getModel()));
-        carEntity.setMotor(MotorEntity.fromModel(car.getMotor()));
-        carEntity.setPaket(PaketEntity.fromModel(car.getPaket()));
-        carEntity.setOzellik(OzellikEntity.fromModel(car.getOzellik()));
-        carEntity.setKasa(KasaEntity.fromModel(car.getKasa()));
-        return carEntity;
+
+        return CarEntity.builder().id(car.getId())
+                .name(car.getName())
+                .marka(MarkaEntity.fromModel(car.getMarka()))
+                .model(ModelEntity.fromModel(car.getModel()))
+                .motor(MotorEntity.fromModel(car.getMotor()))
+                .paket(PaketEntity.fromModel(car.getPaket()))
+                .ozellik(OzellikEntity.fromModel(car.getOzellik()))
+                .kasa(KasaEntity.fromModel(car.getKasa()))
+                .build();
+
     }
 
 

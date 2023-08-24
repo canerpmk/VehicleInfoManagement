@@ -43,7 +43,7 @@ public class Kasa {
                 .imgUrl(kasaEntity.getImgUrl())
                 .motorTip(kasaEntity.getMotortip())
                 .model(Model.fromEntity(kasaEntity.getModel()))
-                .motorList(collectionAsStream(kasaEntity.getMotor()).map(Motor::fromEntity).toList())
+                .motorList(collectionAsStream(kasaEntity.getMotor()).map(Motor::fromEntityWithoutParents).toList())
                 .build();
     }
 }

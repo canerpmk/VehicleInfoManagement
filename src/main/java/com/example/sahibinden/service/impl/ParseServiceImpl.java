@@ -158,7 +158,7 @@ public class ParseServiceImpl implements ParseService {
                         kasaShortName = link[3];
                         kasa.setShortName(yil + "_" + kasaShortName);
                     }
-                    //kasa.addMotor(Motor.builder().shortName(link[4]).name(shortNameElement.text()).build());
+                    kasa.addMotor(Motor.builder().shortName(link[4]).name(shortNameElement.text()).build());
                 }
                 parseDataList.add(kasa);
 

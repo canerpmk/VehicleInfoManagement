@@ -12,6 +12,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Motor {
+
     @Id
     private Long id;
     private String shortName;
@@ -29,6 +30,19 @@ public class Motor {
                 .id(motorEntity.getId())
                 .shortName(motorEntity.getShortName())
                 .kasa(Kasa.fromEntity(motorEntity.getKasa()))
+                .yil(motorEntity.getYil())
+                .name(motorEntity.getName())
+                .guc(motorEntity.getGuc())
+                .hacim(motorEntity.getHacim())
+                .silindirsayisi(motorEntity.getSilindirsayisi())
+                .tork(motorEntity.getTork())
+                .build();
+    }
+    public static Motor fromEntityWithoutParents(MotorEntity motorEntity) {
+        return Motor.builder()
+                .id(motorEntity.getId())
+                .shortName(motorEntity.getShortName())
+                //.kasa(Kasa.fromEntity(motorEntity.getKasa()))
                 .yil(motorEntity.getYil())
                 .name(motorEntity.getName())
                 .guc(motorEntity.getGuc())
