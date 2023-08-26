@@ -39,7 +39,7 @@ public class CarServiceImpl implements CarService {
         MarkaEntity marka = markaService.findById(car.getMarka().getId()).get();
         ModelEntity model = modelService.findById(car.getModel().getId()).get();
         MotorEntity motor = motorService.findById(car.getMotor().getId()).get();
-        OzellikEntity ozellik = ozellikService.findById(car.getModel().getId()).get();
+        OzellikEntity ozellik = ozellikService.findById(car.getOzellik().getId()).get();
         PaketEntity paket = paketService.findById(car.getPaket().getId()).get();
         KasaEntity kasa = kasaService.findById(car.getKasa().getId()).get();
         CarEntity carEntity = CarEntity.fromModel(car);
@@ -62,6 +62,7 @@ public class CarServiceImpl implements CarService {
         }
         throw new CustomException(HttpStatus.NOT_FOUND, "Girdiğiniz id bulunamadı: " + car.getId());
     }
+
 
     public boolean deleteCarById(Long id) {
         carRepository.deleteById(id);
