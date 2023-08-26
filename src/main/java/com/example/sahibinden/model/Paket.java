@@ -17,7 +17,7 @@ public class Paket {
     private String paket;
 
     public static Paket fromEntity(PaketEntity paketEntity) {
-        return Paket.builder()
+        return paketEntity==null ? null: Paket.builder()
                 .id(paketEntity.getId())
                 .paket(paketEntity.getPaket())
                 .build();

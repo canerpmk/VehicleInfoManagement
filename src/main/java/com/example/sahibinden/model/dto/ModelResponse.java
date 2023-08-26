@@ -20,7 +20,7 @@ public class ModelResponse {
     private List<KasaResponse> kasaList;
 
     public static ModelResponse fromModel(Model model) {
-        return ModelResponse.builder()
+        return model==null ? null :ModelResponse.builder()
                 .id(model.getId())
                 .name(model.getName())
                 .shortName(model.getShortName())

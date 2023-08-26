@@ -26,7 +26,7 @@ public class Model {
     private Marka marka;
 
     public static Model fromEntity(ModelEntity modelEntity) {
-        return Model.builder()
+        return modelEntity==null ? null:Model.builder()
                 .id(modelEntity.getId())
                 .name(modelEntity.getName())
                 .shortName(modelEntity.getShortName())

@@ -3,9 +3,7 @@ package com.example.sahibinden.model.entity;
 import com.example.sahibinden.model.Kasa;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -16,6 +14,9 @@ import static com.example.sahibinden.common.Utils.collectionAsStream;
 @Setter
 @EqualsAndHashCode(of = {"id"})
 @Table(name = "Kasa")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class KasaEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,7 +30,7 @@ public class KasaEntity {
     @ManyToOne
     private ModelEntity model;
 
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL)
     @JsonIgnore
     private List<MotorEntity> motor;
 
@@ -38,16 +39,18 @@ public class KasaEntity {
         if (kasa==null){
             return null;
         }
-        KasaEntity kasaEntity = new KasaEntity();
-        kasaEntity.setId(kasa.getId());
-        kasaEntity.setYil(kasa.getYil());
-        kasaEntity.setKasatip(kasa.getKasaTip());
-        kasaEntity.setShortName(kasa.getShortName());
-        kasaEntity.setImgUrl(kasa.getImgUrl());
-        kasaEntity.setMotortip(kasa.getMotorTip());
-        kasaEntity.setModel(ModelEntity.fromModel(kasa.getModel()));
-        kasaEntity.setMotor(collectionAsStream(kasa.getMotorList()).map(MotorEntity::fromModel).toList());
-        return kasaEntity;
+      return  KasaEntity.builder()
+                .id(kasa.getId())
+                .yil(kasa.getYil())
+                .kasatip(kasa.getKasaTip())
+                .shortName(kasa.getShortName())
+                .imgUrl(kasa.getImgUrl())
+                .motortip(kasa.getMotorTip())
+                .model(ModelEntity.fromModel(kasa.getModel()))
+                .motor(collectionAsStream(kasa.getMotorList()).map(MotorEntity::fromModel).toList())
+              .build();
+
+
     }
 
 }

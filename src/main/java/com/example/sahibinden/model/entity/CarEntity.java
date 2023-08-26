@@ -12,7 +12,8 @@ import lombok.*;
 @Entity
 @Getter
 @Setter
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 public class CarEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -37,8 +38,10 @@ public class CarEntity {
 
 
     public static CarEntity fromModel(Car car) {
-
-        return CarEntity.builder().id(car.getId())
+        if (car==null){
+            return null;
+        }
+        return   CarEntity.builder().id(car.getId())
                 .name(car.getName())
                 .marka(MarkaEntity.fromModel(car.getMarka()))
                 .model(ModelEntity.fromModel(car.getModel()))

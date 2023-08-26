@@ -35,7 +35,8 @@ public class Kasa {
     }
 
     public static Kasa fromEntity(KasaEntity kasaEntity) {
-        return Kasa.builder()
+
+        return kasaEntity==null ? null: Kasa.builder()
                 .id(kasaEntity.getId())
                 .yil(kasaEntity.getYil())
                 .kasaTip(kasaEntity.getKasatip())

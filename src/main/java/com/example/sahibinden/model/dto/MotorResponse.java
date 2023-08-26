@@ -18,7 +18,7 @@ public class MotorResponse {
     private String name;
 
     public static MotorResponse fromModel(Motor motor) {
-        return MotorResponse.builder()
+        return motor==null ? null :MotorResponse.builder()
                 .id(motor.getId())
                 .shortName(motor.getShortName())
                 .yil(motor.getYil())

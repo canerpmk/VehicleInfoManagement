@@ -22,7 +22,7 @@ public class KasaResponse {
     private List<MotorResponse> motorList;
 
     public static KasaResponse fromModel(Kasa kasa) {
-        return KasaResponse.builder()
+        return kasa==null ? null :KasaResponse.builder()
                 .id(kasa.getId())
                 .yil(kasa.getYil())
                 .kasatip(kasa.getKasaTip())

@@ -31,7 +31,7 @@ public class Ozellik {
     private Double tork;
 
     public static Ozellik fromEntity(OzellikEntity ozellikEntity) {
-        return Ozellik.builder()
+        return ozellikEntity==null ?null: Ozellik.builder()
                 .id(ozellikEntity.getId())
                 .vites_kutusu(ozellikEntity.getVites_kutusu())
                 .yakit_deposu(ozellikEntity.getYakit_deposu())
