@@ -5,7 +5,6 @@ import com.example.sahibinden.model.entity.KasaEntity;
 import com.example.sahibinden.model.entity.ModelEntity;
 import com.example.sahibinden.model.entity.MotorEntity;
 import com.example.sahibinden.repository.KasaRepository;
-import com.example.sahibinden.repository.MarkaRepository;
 import com.example.sahibinden.repository.ModelRepository;
 import com.example.sahibinden.service.KasaService;
 import lombok.RequiredArgsConstructor;
@@ -15,13 +14,11 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static java.util.stream.Collectors.toCollection;
 
 @Service
 @RequiredArgsConstructor
 public class KasaServiceImpl implements KasaService {
     private final KasaRepository kasaRepository;
-    private final MarkaRepository markaRepository;
     private final ModelRepository modelRepository;
 
 

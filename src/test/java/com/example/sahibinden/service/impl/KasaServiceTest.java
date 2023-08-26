@@ -6,8 +6,6 @@ import com.example.sahibinden.model.entity.KasaEntity;
 import com.example.sahibinden.model.entity.ModelEntity;
 import com.example.sahibinden.repository.KasaRepository;
 import com.example.sahibinden.repository.ModelRepository;
-import com.example.sahibinden.service.KasaService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -18,25 +16,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;
-import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 @ExtendWith(MockitoExtension.class)
 public class KasaServiceTest {
-    @Mock(lenient = true)
+    @Mock
     private KasaRepository kasaRepository;
 
     @InjectMocks
     private KasaServiceImpl kasaService;
 
-    @Mock(lenient = true)
+    @Mock
     private ModelRepository modelRepository;
 
     @Test
-    public void testGetKasaById() {
+    public void getKasaById() {
         Long kasaId = 1L;
         KasaEntity kasaEntity = new KasaEntity();
         kasaEntity.setId(kasaId);
@@ -50,8 +46,9 @@ public class KasaServiceTest {
         assertEquals("sedan", kasa.getShortName());
 
     }
+
     @Test
-    public void testGetKasaByShortName() {
+    public void getKasaByShortName() {
         String shortName = "sedan";
         KasaEntity kasaEntity = new KasaEntity();
         kasaEntity.setId(1L);
@@ -65,8 +62,10 @@ public class KasaServiceTest {
         assertEquals(shortName, kasa.getShortName());
 
     }
+
     @Test
-    public void testGetAllKasa() {
+    public void allKasa() {
+
         List<KasaEntity> kasaEntityList = new ArrayList<>();
         KasaEntity kasaEntity1 = new KasaEntity();
         kasaEntity1.setId(1L);
@@ -90,59 +89,65 @@ public class KasaServiceTest {
         assertEquals(2L, kasa2.getId());
 
     }
+
     @Test
-    public void testAddKasa() {
-        // Test verileri oluşturma
+    public void addKasa() {
+        Long modelId = 1L;
         ModelEntity modelEntity = new ModelEntity();
-        modelEntity.setId(1L);
-        // Diğer gerekli alanları da ayarlayabilirsiniz...
+        modelEntity.setId(modelId);
 
-        Kasa kasa = new Kasa();
-        kasa.setId(1L);
-        kasa.setModel(new Model());
-        // Diğer gerekli alanları da ayarlayabilirsiniz...
+        Kasa kasaToAdd = Kasa.builder()
+                .model(Model.builder().id(modelId).build())
+                .build();
 
-        KasaEntity kasaEntity = new KasaEntity();
-        kasaEntity.setId(1L);
-        // Diğer gerekli alanları da ayarlayabilirsiniz...
+        KasaEntity addedKasaEntity = KasaEntity.builder()
+                .id(1L)
+                .model(modelEntity)
+                .build();
 
-        // Mock davranışlarını ayarlama
-        when(modelRepository.findById(1L)).thenReturn(java.util.Optional.of(modelEntity));
-        when(kasaRepository.save(any(KasaEntity.class))).thenReturn(kasaEntity);
+        when(modelRepository.findById(modelId)).thenReturn(Optional.of(modelEntity));
+        when(kasaRepository.save(any(KasaEntity.class))).thenReturn(addedKasaEntity);
 
-        // Metodu çağırma
-        Kasa addedKasa = kasaService.addKasa(kasa);
 
-        // Sonuçları kontrol etme
-        assertEquals(1L, addedKasa.getId());
-        // Diğer alanları kontrol edebilirsiniz...
+        Kasa addedKasa = kasaService.addKasa(kasaToAdd);
 
-        verify(modelRepository, times(1)).findById(1L);
-        verify(kasaRepository, times(1)).save(any(KasaEntity.class));
+
+        assertEquals(addedKasaEntity.getId(), addedKasa.getId());
+        assertEquals(modelId, addedKasa.getModel().getId());
     }
 
     @Test
     void updateKasa() {
-        // Given
-        Long existingKasaId = 1L;
-        Kasa existingKasa = Kasa.builder().id(existingKasaId).id(1L).build();
-        Kasa updatedKasa = Kasa.builder().id(existingKasaId).id(1L).build();
+        Long kasaId = 1L;
+        Kasa kasaToUpdate = Kasa.builder().id(kasaId).build();
+        KasaEntity updatedKasaEntity = KasaEntity.builder().id(kasaId).build();
 
-        KasaRepository kasaRepository = mock(KasaRepository.class);
-        when(kasaRepository.existsById(existingKasaId)).thenReturn(true);
-        when(kasaRepository.save(any())).thenReturn(KasaEntity.fromModel(updatedKasa));
+        when(kasaRepository.existsById(kasaId)).thenReturn(true);
+        when(kasaRepository.save(any(KasaEntity.class))).thenReturn(updatedKasaEntity);
 
-        // When
-        Kasa result = kasaService.updateKasa(updatedKasa);
 
-        // Then
-        assertNotNull(result);
-        assertEquals(updatedKasa.getId(), result.getId());
-        assertEquals(updatedKasa.getId(), result.getId());
+        Kasa updatedKasa = kasaService.updateKasa(kasaToUpdate);
 
-        verify(kasaRepository, times(1)).existsById(existingKasaId);
-        verify(kasaRepository, times(1)).save(any());
-    }
+
+        assertNotNull(updatedKasa);
+        assertEquals(kasaId, updatedKasa.getId());
 
     }
+
+    @Test
+    void deleteKasa() {
+        Long kasaId = 1L;
+
+        when(kasaRepository.existsById(kasaId)).thenReturn(false);
+        doNothing().when(kasaRepository).deleteById(kasaId);
+
+        boolean isDeleted = kasaService.deleteKasaById(kasaId);
+
+
+        assertTrue(isDeleted);
+
+        verify(kasaRepository).existsById(kasaId);
+        verify(kasaRepository).deleteById(kasaId);
+    }
+}
 
