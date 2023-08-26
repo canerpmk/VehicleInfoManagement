@@ -1,16 +1,18 @@
 package com.example.sahibinden.model.entity;
 
 import com.example.sahibinden.model.Motor;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Getter
 @Setter
 @EqualsAndHashCode(of = {"id"})
 @Table(name = "Motor")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class MotorEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -26,20 +28,25 @@ public class MotorEntity {
 
 
     @ManyToOne
+    @JsonIgnore
     private KasaEntity kasa;
 
     public static MotorEntity fromModel(Motor motor) {
-        MotorEntity motorEntity = new MotorEntity();
-        motorEntity.setId(motor.getId());
-        motorEntity.setGuc(motor.getGuc());
-        motorEntity.setHacim(motor.getHacim());
-        motorEntity.setSilindirsayisi(motor.getSilindirsayisi());
-        motorEntity.setTork(motor.getTork());
-        motorEntity.setName(motor.getName());
-        motorEntity.setYil(motor.getYil());
-        motorEntity.setShortName(motor.getShortName());
-        motorEntity.setKasa(KasaEntity.fromModel(motor.getKasa()));
-        return motorEntity;
+        if (motor==null){
+            return null;
+        }
+     return MotorEntity.builder()
+             .id(motor.getId())
+             .guc(motor.getGuc())
+             .hacim(motor.getHacim())
+             .silindirsayisi(motor.getSilindirsayisi())
+             .tork(motor.getTork())
+             .name(motor.getName())
+             .yil(motor.getYil())
+             .shortName(motor.getShortName())
+             .kasa(KasaEntity.fromModel(motor.getKasa()))
+             .build();
+
     }
 
 

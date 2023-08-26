@@ -15,8 +15,4 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(ex.getStatus()).body(CustomExceptionResponse.fromModel(ex));
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<String> handleOtherExceptions(Exception ex) {
-        return new ResponseEntity<>("Bir  hata oluştu." + ex.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-    }
 }

@@ -26,10 +26,10 @@ public class Motor {
     private Kasa kasa;
 
     public static Motor fromEntity(MotorEntity motorEntity) {
-        return Motor.builder()
+        return motorEntity==null ? null:Motor.builder()
                 .id(motorEntity.getId())
                 .shortName(motorEntity.getShortName())
-                .kasa(Kasa.fromEntity(motorEntity.getKasa()))
+//                .kasa(Kasa.fromEntity(motorEntity.getKasa()))
                 .yil(motorEntity.getYil())
                 .name(motorEntity.getName())
                 .guc(motorEntity.getGuc())
@@ -38,8 +38,9 @@ public class Motor {
                 .tork(motorEntity.getTork())
                 .build();
     }
+
     public static Motor fromEntityWithoutParents(MotorEntity motorEntity) {
-        return Motor.builder()
+        return motorEntity==null ? null: Motor.builder()
                 .id(motorEntity.getId())
                 .shortName(motorEntity.getShortName())
                 //.kasa(Kasa.fromEntity(motorEntity.getKasa()))
@@ -51,6 +52,5 @@ public class Motor {
                 .tork(motorEntity.getTork())
                 .build();
     }
-
-
 }
+

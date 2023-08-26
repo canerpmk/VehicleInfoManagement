@@ -23,7 +23,7 @@ public class MarkaResponse {
 
 
     public static MarkaResponse fromModel(Marka marka) {
-        return MarkaResponse.builder()
+        return marka==null ? null :MarkaResponse.builder()
                 .id(marka.getId())
                 .name(marka.getName())
                 .shortName(marka.getShortName())

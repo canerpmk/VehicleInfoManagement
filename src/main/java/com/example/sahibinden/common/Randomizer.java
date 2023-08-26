@@ -15,7 +15,7 @@ public class Randomizer {
     }
 
     public String generate(Integer length) {
-        length = length == null ? DEFAULT_LENGTH : length;
+        length = length == null || length<DEFAULT_LENGTH ? DEFAULT_LENGTH : length;
         Random random = new Random();
         StringBuilder randomString = new StringBuilder();
         for (int i = 0; i < length; i++) {

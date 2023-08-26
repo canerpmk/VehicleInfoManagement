@@ -3,9 +3,7 @@ package com.example.sahibinden.model.entity;
 import com.example.sahibinden.model.Model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -14,6 +12,9 @@ import java.util.List;
 @Setter
 @EqualsAndHashCode(of = {"id"})
 @Table(name = "Model")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class ModelEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,6 +31,9 @@ public class ModelEntity {
     private List<KasaEntity> kasa;
 
     public static ModelEntity fromModel(Model model) {
+        if (model==null){
+            return null;
+        }
         ModelEntity modelEntity = new ModelEntity();
         modelEntity.setId(model.getId());
         modelEntity.setName(model.getName());

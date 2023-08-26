@@ -15,7 +15,7 @@ public class PaketResponse {
     private String paket;
 
     public static PaketResponse fromModel(Paket paket) {
-        return PaketResponse.builder()
+        return paket==null ? null :PaketResponse.builder()
                 .id(paket.getId())
                 .paket(paket.getPaket())
                 .build();

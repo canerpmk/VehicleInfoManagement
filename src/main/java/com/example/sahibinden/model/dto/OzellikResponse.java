@@ -27,7 +27,7 @@ public class OzellikResponse {
     private Double tork;
 
     public static OzellikResponse fromModel(Ozellik ozellik) {
-        return OzellikResponse.builder()
+        return ozellik==null ? null :OzellikResponse.builder()
                 .id(ozellik.getId())
                 .vites_kutusu(ozellik.getVites_kutusu())
                 .yakit_deposu(ozellik.getYakit_deposu())

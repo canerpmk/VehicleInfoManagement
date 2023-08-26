@@ -24,7 +24,7 @@ public class Car {
 
 
     public static Car fromEntity(CarEntity carEntity) {
-        return Car.builder()
+        return carEntity==null ? null:Car.builder()
                 .id(carEntity.getId())
                 .name(carEntity.getName())
                 .marka(Marka.fromEntity(carEntity.getMarka()))
