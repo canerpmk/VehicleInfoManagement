@@ -23,8 +23,6 @@ public class Ozellik {
     private Integer bagaj_hacmi;
     private String yakit_tur;
     private String shortname;
-
-
     private Double motorgucu;
     private Double motorhacmi;
     private Double silindirsayisi;

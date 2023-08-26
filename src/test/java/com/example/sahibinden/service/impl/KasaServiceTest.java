@@ -6,6 +6,8 @@ import com.example.sahibinden.model.entity.KasaEntity;
 import com.example.sahibinden.model.entity.ModelEntity;
 import com.example.sahibinden.repository.KasaRepository;
 import com.example.sahibinden.repository.ModelRepository;
+import com.example.sahibinden.service.KasaService;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -17,9 +19,9 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 @ExtendWith(MockitoExtension.class)
@@ -119,6 +121,28 @@ public class KasaServiceTest {
         verify(kasaRepository, times(1)).save(any(KasaEntity.class));
     }
 
+    @Test
+    void updateKasa() {
+        // Given
+        Long existingKasaId = 1L;
+        Kasa existingKasa = Kasa.builder().id(existingKasaId).id(1L).build();
+        Kasa updatedKasa = Kasa.builder().id(existingKasaId).id(1L).build();
 
+        KasaRepository kasaRepository = mock(KasaRepository.class);
+        when(kasaRepository.existsById(existingKasaId)).thenReturn(true);
+        when(kasaRepository.save(any())).thenReturn(KasaEntity.fromModel(updatedKasa));
 
-}
+        // When
+        Kasa result = kasaService.updateKasa(updatedKasa);
+
+        // Then
+        assertNotNull(result);
+        assertEquals(updatedKasa.getId(), result.getId());
+        assertEquals(updatedKasa.getId(), result.getId());
+
+        verify(kasaRepository, times(1)).existsById(existingKasaId);
+        verify(kasaRepository, times(1)).save(any());
+    }
+
+    }
+
