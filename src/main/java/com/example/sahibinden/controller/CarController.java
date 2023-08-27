@@ -45,7 +45,7 @@ public class CarController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CarResponse> updateMarka(@PathVariable Long id, @RequestBody CarRequest carRequest) {
+    public ResponseEntity<CarResponse> updateCar(@PathVariable Long id, @RequestBody CarRequest carRequest) {
         Car car = carRequest.toModel();
         Car updatedCar = carService.updateCar(car);
         CarResponse carResponse = CarResponse.fromModel(updatedCar);
@@ -57,6 +57,4 @@ public class CarController {
         carService.deleteCarById(id);
         return ResponseEntity.noContent().build();
     }
-
-
 }

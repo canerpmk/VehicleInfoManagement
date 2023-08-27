@@ -95,17 +95,22 @@ public class ModelServiceTest {
     }
 
     @Test
-    void addModel(){
+    void testAddModel() {
+        // Mock MarkaEntity
         MarkaEntity mockMarkaEntity = new MarkaEntity();
         mockMarkaEntity.setId(1L);
 
-        // Mock ModelEntity
+        // Mock Model
         Model mockModel = new Model();
         mockModel.setId(1L);
         mockModel.setName("MockModelName");
         mockModel.setMarka(new Marka());
+        mockModel.getMarka().setId(1L);
 
+        // Stub markaRepository.findById
         when(markaRepository.findById(1L)).thenReturn(Optional.of(mockMarkaEntity));
+
+        // Stub modelRepository.save
         when(modelRepository.save(any(ModelEntity.class))).thenAnswer(invocation -> {
             ModelEntity savedEntity = invocation.getArgument(0);
             savedEntity.setId(1L); // Set a mock ID
@@ -116,16 +121,14 @@ public class ModelServiceTest {
         Model result = modelService.addModel(mockModel);
 
         // Verify
-        assertNotNull(result);
         assertEquals(1L, result.getId());
         assertEquals("MockModelName", result.getName());
-        assertNotNull(result.getMarka());
         assertEquals(1L, result.getMarka().getId());
 
         verify(markaRepository, times(1)).findById(1L);
         verify(modelRepository, times(1)).save(any(ModelEntity.class));
-
     }
+
 
 
     @Test

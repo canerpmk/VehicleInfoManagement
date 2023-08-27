@@ -18,7 +18,7 @@ public class OzellikResponse {
     private String si_tuketim;
     private String sd_tuketim;
     private String ort_tuketim;
-    private int bagaj_hacmi;
+    private Integer bagaj_hacmi;
     private String yakit_tur;
 
     private Double motorgucu;

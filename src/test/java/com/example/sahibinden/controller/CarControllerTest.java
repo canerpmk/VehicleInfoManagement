@@ -28,15 +28,15 @@ public class CarControllerTest {
     private CarController carController;
 
     @Test
-    void testGetAllCars() {
-        // Mock CarResponse list
+    void getAllCars() {
+        // Given
         List<CarResponse> mockCarResponses = new ArrayList<>();
         when(carService.getAllCars()).thenReturn(new ArrayList<>());
 
-        // Call the method
+        // When
         ResponseEntity<List<CarResponse>> responseEntity = carController.getAllCars();
 
-        // Verify
+        // Then
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(responseEntity.getBody());
         assertEquals(mockCarResponses, responseEntity.getBody());
@@ -45,7 +45,7 @@ public class CarControllerTest {
     }
 
     @Test
-    void testGetCarById() {
+    void getCarById() {
         Long carId = 1L;
         Car mockCar = new Car();
         when(carService.getCarById(carId)).thenReturn(mockCar);
@@ -61,7 +61,7 @@ public class CarControllerTest {
     }
 
     @Test
-    void testCreateCar() {
+    void createCar() {
         CarRequest mockCarRequest = new CarRequest();
         Car mockAddedCar = new Car();
         when(carService.addCar(any(Car.class))).thenReturn(mockAddedCar);
@@ -77,14 +77,14 @@ public class CarControllerTest {
     }
 
     @Test
-    void testUpdateCar() {
+    void updateCar() {
         Long carId = 1L;
         CarRequest mockCarRequest = new CarRequest();
         Car mockUpdatedCar = new Car();
         when(carService.updateCar(any(Car.class))).thenReturn(mockUpdatedCar);
 
         // Call the method
-        ResponseEntity<CarResponse> responseEntity = carController.updateMarka(carId, mockCarRequest);
+        ResponseEntity<CarResponse> responseEntity = carController.updateCar(carId, mockCarRequest);
 
         // Verify
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
@@ -92,11 +92,10 @@ public class CarControllerTest {
 
         verify(carService, times(1)).updateCar(any(Car.class));
     }
-
     @Test
-    void testDeleteCar() {
+    void deleteCar() {
         Long carId = 1L;
-        doNothing().when(carService).deleteCarById(carId);
+        when(carService.deleteCarById(carId)).thenReturn(true); // veya false, metoda bağlı olarak
 
         // Call the method
         ResponseEntity<Void> responseEntity = carController.deleteCar(carId);
