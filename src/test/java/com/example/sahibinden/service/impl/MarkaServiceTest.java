@@ -34,6 +34,7 @@ public class MarkaServiceTest {
 
         Marka marka = markaService.getMarkaById(markaId);
 
+
         assertEquals(markaId, marka.getId());
 
     }
@@ -109,6 +110,24 @@ public class MarkaServiceTest {
         verify(markaRepository).existsById(markaId);
         verify(markaRepository).save(any(MarkaEntity.class));
 
+    } @Test
+    void testAddMarkas() {
+        List<Marka> inputMarkaList = new ArrayList<>();
+        // Create and add Marka instances to inputMarkaList
+        // ...
+
+        List<MarkaEntity> mockedMarkaEntityList = new ArrayList<>();
+        // Create and add MarkaEntity instances to mockedMarkaEntityList
+        // ...
+
+        when(markaRepository.saveAll(any())).thenReturn(mockedMarkaEntityList);
+
+        List<Marka> returnedMarkaList = markaService.addMarkas(inputMarkaList);
+
+        assertNotNull(returnedMarkaList);
+        assertEquals(mockedMarkaEntityList.size(), returnedMarkaList.size());
+        verify(markaRepository).saveAll(any());
+        verifyNoMoreInteractions(markaRepository);
     }
 
     @Test
