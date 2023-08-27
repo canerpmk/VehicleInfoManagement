@@ -41,7 +41,7 @@ class CarServiceTest {
 
     @Test
     void getCarById() {
-        //Given
+
         final long carId = 3L;
         CarEntity carEntity = CarEntity.builder().id(carId).build();
         Optional<CarEntity> optionalCarEntity = Optional.of(carEntity);
@@ -49,10 +49,10 @@ class CarServiceTest {
 
         when(carRepository.findById(carId)).thenReturn(optionalCarEntity);
 
-        //When
+
         Car actual = carService.getCarById(carId);
 
-        //Then
+
         assertEquals(expected, actual);
 
 
@@ -60,26 +60,25 @@ class CarServiceTest {
 
     @Test
     void getAllCars() {
-        // Given
+
         CarEntity carEntity1 = CarEntity.builder().id(1L).build();
         CarEntity carEntity2 = CarEntity.builder().id(2L).build();
         List<CarEntity> carEntities = Arrays.asList(carEntity1, carEntity2);
 
         when(carRepository.findAll()).thenReturn(carEntities);
 
-        // When
+
         List<Car> cars = carService.getAllCars();
 
-        // Then
-        assertEquals(2, cars.size()); // Assuming two cars were returned
+
+        assertEquals(2, cars.size());
         assertEquals(carEntity1.getId(), cars.get(0).getId());
         assertEquals(carEntity2.getId(), cars.get(1).getId());
-        // Additional assertions or comparisons based on your implementation
+
     }
 
     @Test
     void addCar() {
-        // Given
         Car car = Car.builder()
                 .marka(Marka.builder().id(1L).build())
                 .model(Model.builder().id(2L).build())
@@ -106,17 +105,16 @@ class CarServiceTest {
         CarEntity mockAddedCarEntity = CarEntity.builder().id(7L).build();
         when(carRepository.save(Mockito.any(CarEntity.class))).thenReturn(mockAddedCarEntity);
 
-        // When
+
         Car addedCar = carService.addCar(car);
 
-        // Then
+
         Assertions.assertNotNull(addedCar);
         assertEquals(mockAddedCarEntity.getId(), addedCar.getId());
     }
 
     @Test
     void updateCar() {
-        // Given
         final long carId = 3L;
         CarEntity carEntity = CarEntity.builder().id(carId).build();
         Car updatedCar = Car.builder().id(carEntity.getId()).name("Updated Car").build();
@@ -124,10 +122,8 @@ class CarServiceTest {
         when(carRepository.existsById(carId)).thenReturn(true);
         when(carRepository.save(any(CarEntity.class))).thenReturn(CarEntity.fromModel(updatedCar));
 
-        // When
         Car actualUpdatedCar = carService.updateCar(updatedCar);
 
-        // Then
         assertEquals(updatedCar.getId(), actualUpdatedCar.getId());
         assertEquals(updatedCar.getName(), actualUpdatedCar.getName());
         assertEquals(updatedCar.getOzellik(), actualUpdatedCar.getOzellik());
