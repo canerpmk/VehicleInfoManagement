@@ -1,19 +1,15 @@
 package com.example.sahibinden.service.impl;
 
-import com.example.sahibinden.model.Kasa;
 import com.example.sahibinden.model.Marka;
 import com.example.sahibinden.model.Model;
-import com.example.sahibinden.model.entity.KasaEntity;
 import com.example.sahibinden.model.entity.MarkaEntity;
 import com.example.sahibinden.model.entity.ModelEntity;
 import com.example.sahibinden.repository.MarkaRepository;
 import com.example.sahibinden.repository.ModelRepository;
-import com.example.sahibinden.service.ModelService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.ArrayList;

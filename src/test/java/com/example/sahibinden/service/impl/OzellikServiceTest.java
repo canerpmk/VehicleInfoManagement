@@ -27,7 +27,7 @@ public class OzellikServiceTest {
     void testGetOzellikById() {
         Long ozellikId = 1L;
         OzellikEntity mockedOzellikEntity = new OzellikEntity();
-        // Set properties for mockedOzellikEntity
+
 
         when(ozellikRepository.findById(ozellikId)).thenReturn(java.util.Optional.of(mockedOzellikEntity));
 
@@ -42,8 +42,7 @@ public class OzellikServiceTest {
     @Test
     void testGetAllOzellik() {
         List<OzellikEntity> mockedOzellikEntities = new ArrayList<>();
-        // Create and add OzellikEntity instances to mockedOzellikEntities
-        // ...
+
 
         when(ozellikRepository.findAll()).thenReturn(mockedOzellikEntities);
 
@@ -58,10 +57,10 @@ public class OzellikServiceTest {
     @Test
     void testAddOzellik() {
         Ozellik inputOzellik = new Ozellik();
-        // Set properties for inputOzellik
+
 
         OzellikEntity mockedOzellikEntity = new OzellikEntity();
-        // Set properties for mockedOzellikEntity
+
         when(ozellikRepository.save(any())).thenReturn(mockedOzellikEntity);
 
         Ozellik returnedOzellik = ozellikService.addOzellik(inputOzellik);
@@ -75,10 +74,8 @@ public class OzellikServiceTest {
     @Test
     void testUpdateOzellik() {
         Ozellik inputOzellik = new Ozellik();
-        // Set properties for inputOzellik
 
         OzellikEntity existingOzellikEntity = new OzellikEntity();
-        // Set properties for existingOzellikEntity
         when(ozellikRepository.existsById(inputOzellik.getId())).thenReturn(true);
         when(ozellikRepository.save(any())).thenReturn(existingOzellikEntity);
 

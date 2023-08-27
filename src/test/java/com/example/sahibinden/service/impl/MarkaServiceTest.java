@@ -113,12 +113,10 @@ public class MarkaServiceTest {
     } @Test
     void testAddMarkas() {
         List<Marka> inputMarkaList = new ArrayList<>();
-        // Create and add Marka instances to inputMarkaList
-        // ...
+
 
         List<MarkaEntity> mockedMarkaEntityList = new ArrayList<>();
-        // Create and add MarkaEntity instances to mockedMarkaEntityList
-        // ...
+
 
         when(markaRepository.saveAll(any())).thenReturn(mockedMarkaEntityList);
 

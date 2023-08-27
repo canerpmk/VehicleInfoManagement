@@ -26,7 +26,6 @@ public class PaketServiceTest {
     void testGetPaketById() {
         Long paketId = 1L;
         PaketEntity mockedPaketEntity = new PaketEntity();
-        // Set properties for mockedPaketEntity
 
         when(paketRepository.findById(paketId)).thenReturn(java.util.Optional.of(mockedPaketEntity));
 
@@ -41,8 +40,7 @@ public class PaketServiceTest {
     @Test
     void testGetAllPaket() {
         List<PaketEntity> mockedPaketEntities = new ArrayList<>();
-        // Create and add PaketEntity instances to mockedPaketEntities
-        // ...
+
 
         when(paketRepository.findAll()).thenReturn(mockedPaketEntities);
 
@@ -57,10 +55,9 @@ public class PaketServiceTest {
     @Test
     void testAddPaket() {
         Paket inputPaket = new Paket();
-        // Set properties for inputPaket
 
         PaketEntity mockedPaketEntity = new PaketEntity();
-        // Set properties for mockedPaketEntity
+
         when(paketRepository.save(any())).thenReturn(mockedPaketEntity);
 
         Paket returnedPaket = paketService.addPaket(inputPaket);
@@ -74,10 +71,8 @@ public class PaketServiceTest {
     @Test
     void testUpdatePaket() {
         Paket inputPaket = new Paket();
-        // Set properties for inputPaket
 
         PaketEntity existingPaketEntity = new PaketEntity();
-        // Set properties for existingPaketEntity
         when(paketRepository.existsById(inputPaket.getId())).thenReturn(true);
         when(paketRepository.save(any())).thenReturn(existingPaketEntity);
 
