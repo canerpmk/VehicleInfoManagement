@@ -72,6 +72,7 @@ public class MotorServiceTest {
         verify(motorRepository).findMotorEntityByShortName("ABC");
         verifyNoMoreInteractions(motorRepository);
     }
+
     @Test
     void testAddMotor() {
 
@@ -97,7 +98,6 @@ public class MotorServiceTest {
     void testAddMotors() {
 
         List<Motor> inputMotors = new ArrayList<>();
-
 
 
         List<MotorEntity> mockedMotorEntities = new ArrayList<>();

@@ -6,6 +6,7 @@ import com.example.sahibinden.model.dto.MarkaResponse;
 import com.example.sahibinden.model.dto.ModelResponse;
 import com.example.sahibinden.model.dto.MotorResponse;
 import com.example.sahibinden.service.ParseService;
+import com.example.sahibinden.utils.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -30,7 +31,6 @@ public class ParseControllerTest {
 
     @InjectMocks
     private ParseController parseController;
-
 
 
     @Test
@@ -70,6 +70,7 @@ public class ParseControllerTest {
 
         verify(parseService, times(1)).updateMarkas();
     }
+
     @Test
     void testUpdateModelPage() {
         String mockMarkaPagePath = "mockMarkaPath";
@@ -113,6 +114,7 @@ public class ParseControllerTest {
 
         verify(parseService, times(1)).parseModelPage(mockMarkaPagePath);
     }
+
     @Test
     void testParseKasaPage() {
         String mockMarkaPagePath = "mockMarkaPath";
@@ -158,6 +160,7 @@ public class ParseControllerTest {
 
         verify(parseService, times(1)).updateKasas(mockMarkaPagePath, mockModelPagePath);
     }
+
     @Test
     void testUpdateMotorPage() {
         String mockMarkaPagePath = "mockMarkaPath";
@@ -184,9 +187,7 @@ public class ParseControllerTest {
 
     @Test
     void testParseMotorPage() {
-        List<Motor> mockParsedMotorList = new ArrayList<>();
-        mockParsedMotorList.add(new Motor());
-        mockParsedMotorList.add(new Motor());
+        List<Motor> mockParsedMotorList = List.of(TestUtils.motorBuilder(), TestUtils.motorBuilder());
 
         when(parseService.parseMotorrPage()).thenReturn(mockParsedMotorList);
 
@@ -198,6 +199,7 @@ public class ParseControllerTest {
 
         verify(parseService, times(1)).parseMotorrPage();
     }
+
     @Test
     void testParseKasaaPage() {
         List<Kasa> mockKasaList = new ArrayList<>();

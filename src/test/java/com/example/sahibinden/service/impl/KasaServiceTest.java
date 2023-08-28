@@ -117,6 +117,23 @@ public class KasaServiceTest {
     }
 
     @Test
+    public void testAddKasas() {
+        List<Kasa> kasaList = new ArrayList<>();
+        Kasa kasa1 = new Kasa();
+        Kasa kasa2 = new Kasa();
+        kasaList.add(kasa1);
+        kasaList.add(kasa2);
+
+        KasaEntity savedKasaEntity = new KasaEntity();
+        when(kasaRepository.save(any(KasaEntity.class))).thenReturn(savedKasaEntity);
+
+        List<Kasa> result = kasaService.addKasas(kasaList);
+
+        assertNotNull(result);
+        assertEquals(kasaList.size(), result.size());
+    }
+
+    @Test
     void updateKasa() {
         Long kasaId = 1L;
         Kasa kasaToUpdate = Kasa.builder().id(kasaId).build();

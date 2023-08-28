@@ -3,7 +3,6 @@ package com.example.sahibinden.controller;
 import com.example.sahibinden.model.Model;
 import com.example.sahibinden.model.dto.ModelRequest;
 import com.example.sahibinden.model.dto.ModelResponse;
-import com.example.sahibinden.service.MarkaService;
 import com.example.sahibinden.service.ModelService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -41,6 +40,7 @@ public class ModelControllerTest {
 
         verify(modelService, times(1)).getModelById(modelId);
     }
+
     @Test
     void getAllModel() {
         List<Model> mockModeller = Arrays.asList(new Model(), new Model());
@@ -54,6 +54,7 @@ public class ModelControllerTest {
 
         verify(modelService, times(1)).getAllModel();
     }
+
     @Test
     void addModel() {
         ModelRequest mockModelRequest = new ModelRequest();
@@ -67,6 +68,7 @@ public class ModelControllerTest {
 
         verify(modelService, times(1)).addModel(any(Model.class));
     }
+
     @Test
     void updateModel() {
         Long modelId = 1L;
@@ -81,6 +83,7 @@ public class ModelControllerTest {
 
         verify(modelService, times(1)).updateModel(any(Model.class));
     }
+
     @Test
     void deleteModel() {
         Long modelId = 1L;
@@ -91,8 +94,6 @@ public class ModelControllerTest {
 
         verify(modelService, times(1)).deleteModelById(modelId);
     }
-
-
 
 
 }

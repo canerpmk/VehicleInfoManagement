@@ -110,7 +110,9 @@ public class MarkaServiceTest {
         verify(markaRepository).existsById(markaId);
         verify(markaRepository).save(any(MarkaEntity.class));
 
-    } @Test
+    }
+
+    @Test
     void testAddMarkas() {
         List<Marka> inputMarkaList = new ArrayList<>();
 

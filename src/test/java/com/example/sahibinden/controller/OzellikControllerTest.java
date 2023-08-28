@@ -3,7 +3,6 @@ package com.example.sahibinden.controller;
 import com.example.sahibinden.model.Ozellik;
 import com.example.sahibinden.model.dto.OzellikRequest;
 import com.example.sahibinden.model.dto.OzellikResponse;
-import com.example.sahibinden.service.MotorService;
 import com.example.sahibinden.service.OzellikService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -42,6 +41,7 @@ public class OzellikControllerTest {
 
         verify(ozellikService, times(1)).getOzellikById(ozellikId);
     }
+
     @Test
     void getAllOzellikler() {
         List<Ozellik> mockOzellikler = Arrays.asList(new Ozellik(), new Ozellik());
@@ -55,6 +55,7 @@ public class OzellikControllerTest {
 
         verify(ozellikService, times(1)).getAllOzellik();
     }
+
     @Test
     void addOzellik() {
         OzellikRequest mockOzellikRequest = new OzellikRequest();
@@ -68,6 +69,7 @@ public class OzellikControllerTest {
 
         verify(ozellikService, times(1)).addOzellik(any(Ozellik.class));
     }
+
     @Test
     void updateOzellik() {
         Long ozellikId = 1L;
@@ -82,6 +84,7 @@ public class OzellikControllerTest {
 
         verify(ozellikService, times(1)).updateOzellik(any(Ozellik.class));
     }
+
     @Test
     void deleteOzellik() {
         Long ozellikId = 1L;
@@ -92,8 +95,6 @@ public class OzellikControllerTest {
 
         verify(ozellikService, times(1)).deleteOzellikById(ozellikId);
     }
-
-
 
 
 }
