@@ -3,6 +3,7 @@ package com.example.sahibinden.service.impl;
 import com.example.sahibinden.model.Ozellik;
 import com.example.sahibinden.model.entity.OzellikEntity;
 import com.example.sahibinden.repository.OzellikRepository;
+import com.example.sahibinden.utils.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,17 +26,17 @@ public class OzellikServiceTest {
 
     @Test
     void testGetOzellikById() {
-        Long ozellikId = 1L;
-        OzellikEntity mockedOzellikEntity = new OzellikEntity();
+
+        OzellikEntity mockedOzellikEntity = TestUtils.ozellikEntity();
 
 
-        when(ozellikRepository.findById(ozellikId)).thenReturn(java.util.Optional.of(mockedOzellikEntity));
+        when(ozellikRepository.findById(mockedOzellikEntity.getId())).thenReturn(java.util.Optional.of(mockedOzellikEntity));
 
-        Ozellik returnedOzellik = ozellikService.getOzellikById(ozellikId);
+        Ozellik returnedOzellik = ozellikService.getOzellikById(mockedOzellikEntity.getId());
 
         assertNotNull(returnedOzellik);
         assertEquals(mockedOzellikEntity.getId(), returnedOzellik.getId());
-        verify(ozellikRepository).findById(ozellikId);
+        verify(ozellikRepository).findById(mockedOzellikEntity.getId());
         verifyNoMoreInteractions(ozellikRepository);
     }
 
@@ -56,10 +57,10 @@ public class OzellikServiceTest {
 
     @Test
     void testAddOzellik() {
-        Ozellik inputOzellik = new Ozellik();
+        Ozellik inputOzellik = TestUtils.ozellikBuilder();
 
 
-        OzellikEntity mockedOzellikEntity = new OzellikEntity();
+        OzellikEntity mockedOzellikEntity = TestUtils.ozellikEntity();
 
         when(ozellikRepository.save(any())).thenReturn(mockedOzellikEntity);
 
@@ -73,9 +74,9 @@ public class OzellikServiceTest {
 
     @Test
     void testUpdateOzellik() {
-        Ozellik inputOzellik = new Ozellik();
+        Ozellik inputOzellik = TestUtils.ozellikBuilder();
 
-        OzellikEntity existingOzellikEntity = new OzellikEntity();
+        OzellikEntity existingOzellikEntity = TestUtils.ozellikEntity();
         when(ozellikRepository.existsById(inputOzellik.getId())).thenReturn(true);
         when(ozellikRepository.save(any())).thenReturn(existingOzellikEntity);
 
@@ -90,7 +91,7 @@ public class OzellikServiceTest {
 
     @Test
     void testDeleteOzellikById() {
-        Long ozellikId = 1L;
+        Long ozellikId = TestUtils.randomId();
         when(ozellikRepository.existsById(ozellikId)).thenReturn(false);
 
         boolean isDeleted = ozellikService.deleteOzellikById(ozellikId);

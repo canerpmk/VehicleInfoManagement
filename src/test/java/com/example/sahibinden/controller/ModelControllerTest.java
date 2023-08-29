@@ -4,6 +4,7 @@ import com.example.sahibinden.model.Model;
 import com.example.sahibinden.model.dto.ModelRequest;
 import com.example.sahibinden.model.dto.ModelResponse;
 import com.example.sahibinden.service.ModelService;
+import com.example.sahibinden.utils.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -12,7 +13,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -29,24 +29,25 @@ public class ModelControllerTest {
 
     @Test
     void getModelById() {
-        Long modelId = 1L;
-        Model mockModel = new Model();
-        when(modelService.getModelById(modelId)).thenReturn(mockModel);
+        Model mockModel = TestUtils.modelBuilder();
+        when(modelService.getModelById(mockModel.getId())).thenReturn(mockModel);
 
-        ResponseEntity<ModelResponse> responseEntity = modelController.getModelById(modelId);
+        ResponseEntity<ModelResponse> responseEntity = modelController.getModelById(mockModel.getId());
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(responseEntity.getBody());
 
-        verify(modelService, times(1)).getModelById(modelId);
+        verify(modelService, times(1)).getModelById(mockModel.getId());
     }
 
     @Test
     void getAllModel() {
-        List<Model> mockModeller = Arrays.asList(new Model(), new Model());
+        List<Model> mockModeller = List.of(TestUtils.modelBuilder(), TestUtils.modelBuilder());
         when(modelService.getAllModel()).thenReturn(mockModeller);
 
+
         ResponseEntity<List<ModelResponse>> responseEntity = modelController.getAllModel();
+
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(responseEntity.getBody());
@@ -58,7 +59,7 @@ public class ModelControllerTest {
     @Test
     void addModel() {
         ModelRequest mockModelRequest = new ModelRequest();
-        Model mockAddedModel = new Model();
+        Model mockAddedModel = TestUtils.modelBuilder();
         when(modelService.addModel(any(Model.class))).thenReturn(mockAddedModel);
 
         ResponseEntity<ModelResponse> responseEntity = modelController.addModel(mockModelRequest);
@@ -71,12 +72,11 @@ public class ModelControllerTest {
 
     @Test
     void updateModel() {
-        Long modelId = 1L;
         ModelRequest mockModelRequest = new ModelRequest();
-        Model mockUpdatedModel = new Model();
+        Model mockUpdatedModel = TestUtils.modelBuilder();
         when(modelService.updateModel(any(Model.class))).thenReturn(mockUpdatedModel);
 
-        ResponseEntity<ModelResponse> responseEntity = modelController.updateModel(modelId, mockModelRequest);
+        ResponseEntity<ModelResponse> responseEntity = modelController.updateModel(mockUpdatedModel.getId(), mockModelRequest);
 
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(responseEntity.getBody());

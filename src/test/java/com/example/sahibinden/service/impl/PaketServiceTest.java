@@ -3,6 +3,7 @@ package com.example.sahibinden.service.impl;
 import com.example.sahibinden.model.Paket;
 import com.example.sahibinden.model.entity.PaketEntity;
 import com.example.sahibinden.repository.PaketRepository;
+import com.example.sahibinden.utils.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,16 +26,16 @@ public class PaketServiceTest {
 
     @Test
     void testGetPaketById() {
-        Long paketId = 1L;
-        PaketEntity mockedPaketEntity = new PaketEntity();
 
-        when(paketRepository.findById(paketId)).thenReturn(java.util.Optional.of(mockedPaketEntity));
+        PaketEntity mockedPaketEntity = TestUtils.paketEntity();
 
-        Paket returnedPaket = paketService.getPaketById(paketId);
+        when(paketRepository.findById(mockedPaketEntity.getId())).thenReturn(java.util.Optional.of(mockedPaketEntity));
+
+        Paket returnedPaket = paketService.getPaketById(mockedPaketEntity.getId());
 
         assertNotNull(returnedPaket);
         assertEquals(mockedPaketEntity.getId(), returnedPaket.getId());
-        verify(paketRepository).findById(paketId);
+        verify(paketRepository).findById(mockedPaketEntity.getId());
         verifyNoMoreInteractions(paketRepository);
     }
 
@@ -55,9 +56,9 @@ public class PaketServiceTest {
 
     @Test
     void testAddPaket() {
-        Paket inputPaket = new Paket();
+        Paket inputPaket = TestUtils.paketBuilder();
 
-        PaketEntity mockedPaketEntity = new PaketEntity();
+        PaketEntity mockedPaketEntity = TestUtils.paketEntity();
 
         when(paketRepository.save(any())).thenReturn(mockedPaketEntity);
 
@@ -71,9 +72,9 @@ public class PaketServiceTest {
 
     @Test
     void testUpdatePaket() {
-        Paket inputPaket = new Paket();
+        Paket inputPaket = TestUtils.paketBuilder();
 
-        PaketEntity existingPaketEntity = new PaketEntity();
+        PaketEntity existingPaketEntity = TestUtils.paketEntity();
         when(paketRepository.existsById(inputPaket.getId())).thenReturn(true);
         when(paketRepository.save(any())).thenReturn(existingPaketEntity);
 
@@ -88,7 +89,7 @@ public class PaketServiceTest {
 
     @Test
     void testDeletePaketById() {
-        Long paketId = 1L;
+        Long paketId = TestUtils.randomId();
         when(paketRepository.existsById(paketId)).thenReturn(false);
 
         boolean isDeleted = paketService.deletePaketById(paketId);
