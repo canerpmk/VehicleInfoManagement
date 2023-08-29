@@ -1,10 +1,13 @@
 package com.example.sahibinden.service;
 
+import com.example.sahibinden.model.Ozellik;
 import com.example.sahibinden.model.Paket;
+
+import java.util.List;
 
 public interface PaketService {
 
-
+    List<Paket> getAllPaket();
     Paket getPaketById(Long id);
 
     Paket addPaket(Paket paket);

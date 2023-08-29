@@ -122,6 +122,7 @@ public class KasaServiceTest {
         assertEquals(kasaList.size(), result.size());
     }
 
+
     @Test
     void updateKasa() {
 
