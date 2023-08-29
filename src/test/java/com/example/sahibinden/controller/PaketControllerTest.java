@@ -4,6 +4,8 @@ import com.example.sahibinden.model.Paket;
 import com.example.sahibinden.model.dto.PaketRequest;
 import com.example.sahibinden.model.dto.PaketResponse;
 import com.example.sahibinden.service.impl.PaketServiceImpl;
+import com.example.sahibinden.utils.TestUtils;
+import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -19,6 +21,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
 
+@RequiredArgsConstructor
 @ExtendWith(MockitoExtension.class)
 public class PaketControllerTest {
     @Mock
@@ -26,20 +29,6 @@ public class PaketControllerTest {
 
     @InjectMocks
     private PaketController paketController;
-
-    @Test
-    void getPaketById() {
-        Long paketId = 1L;
-        Paket mockPaket = new Paket();
-        when(paketService.getPaketById(paketId)).thenReturn(mockPaket);
-
-        ResponseEntity<PaketResponse> responseEntity = paketController.getPaketById(paketId);
-
-        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
-        assertNotNull(responseEntity.getBody());
-
-        verify(paketService, times(1)).getPaketById(paketId);
-    }
 
     @Test
     void getAllPaketler() {
@@ -94,4 +83,20 @@ public class PaketControllerTest {
 
         verify(paketService, times(1)).deletePaketById(paketId);
     }
+
+    @Test
+    public void testGetPaketById() {
+        Long id = 1L;
+        Paket expectedPaket = TestUtils.paketBuilder();
+        PaketResponse expectedResponse = PaketResponse.fromModel(expectedPaket);
+
+        when(paketService.getPaketById(id)).thenReturn(expectedPaket);
+
+
+        ResponseEntity<PaketResponse> responseEntity = paketController.getPaketById(id);
+
+        assertEquals(expectedResponse, responseEntity.getBody());
+        assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
+    }
+
 }

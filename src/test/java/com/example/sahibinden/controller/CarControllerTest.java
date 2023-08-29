@@ -4,6 +4,7 @@ import com.example.sahibinden.model.Car;
 import com.example.sahibinden.model.dto.CarRequest;
 import com.example.sahibinden.model.dto.CarResponse;
 import com.example.sahibinden.service.CarService;
+import com.example.sahibinden.utils.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -47,13 +48,11 @@ public class CarControllerTest {
     @Test
     void getCarById() {
         Long carId = 1L;
-        Car mockCar = new Car();
+        Car mockCar = TestUtils.carBuilder();
         when(carService.getCarById(carId)).thenReturn(mockCar);
 
-        // Call the method
         ResponseEntity<CarResponse> responseEntity = carController.getCarById(carId);
 
-        // Verify
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(responseEntity.getBody());
 
@@ -63,13 +62,12 @@ public class CarControllerTest {
     @Test
     void createCar() {
         CarRequest mockCarRequest = new CarRequest();
-        Car mockAddedCar = new Car();
+        Car mockAddedCar = TestUtils.carBuilder();
         when(carService.addCar(any(Car.class))).thenReturn(mockAddedCar);
 
-        // Call the method
         ResponseEntity<CarResponse> responseEntity = carController.createCar(mockCarRequest);
 
-        // Verify
+
         assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
         assertNotNull(responseEntity.getBody());
 
@@ -80,13 +78,11 @@ public class CarControllerTest {
     void updateCar() {
         Long carId = 1L;
         CarRequest mockCarRequest = new CarRequest();
-        Car mockUpdatedCar = new Car();
+        Car mockUpdatedCar = TestUtils.carBuilder();
         when(carService.updateCar(any(Car.class))).thenReturn(mockUpdatedCar);
 
-        // Call the method
         ResponseEntity<CarResponse> responseEntity = carController.updateCar(carId, mockCarRequest);
 
-        // Verify
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(responseEntity.getBody());
 
@@ -96,12 +92,10 @@ public class CarControllerTest {
     @Test
     void deleteCar() {
         Long carId = 1L;
-        when(carService.deleteCarById(carId)).thenReturn(true); // veya false, metoda bağlı olarak
+        when(carService.deleteCarById(carId)).thenReturn(true);
 
-        // Call the method
         ResponseEntity<Void> responseEntity = carController.deleteCar(carId);
 
-        // Verify
         assertEquals(HttpStatus.NO_CONTENT, responseEntity.getStatusCode());
 
         verify(carService, times(1)).deleteCarById(carId);

@@ -4,6 +4,7 @@ import com.example.sahibinden.model.Kasa;
 import com.example.sahibinden.model.dto.KasaRequest;
 import com.example.sahibinden.model.dto.KasaResponse;
 import com.example.sahibinden.service.KasaService;
+import com.example.sahibinden.utils.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -29,30 +30,24 @@ public class KasaControllerTest {
 
     @Test
     void testGetKasaById() {
-        Long kasaId = 1L;
-        Kasa mockKasa = new Kasa();
-        when(kasaService.getKasaById(kasaId)).thenReturn(mockKasa);
+        Kasa mockKasa = TestUtils.kasaBuilder();
+        when(kasaService.getKasaById(mockKasa.getId())).thenReturn(mockKasa);
 
-        // Call the method
-        ResponseEntity<KasaResponse> responseEntity = kasaController.getKasaById(kasaId);
+        ResponseEntity<KasaResponse> responseEntity = kasaController.getKasaById(mockKasa.getId());
 
-        // Verify
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(responseEntity.getBody());
 
-        verify(kasaService, times(1)).getKasaById(kasaId);
+        verify(kasaService, times(1)).getKasaById(mockKasa.getId());
     }
 
     @Test
     void getAllKasalar() {
-        // Verilen
         List<KasaResponse> mockKasaResponses = new ArrayList<>();
         when(kasaService.getAllKasa()).thenReturn(new ArrayList<>());
 
-        // Zaman
         ResponseEntity<List<KasaResponse>> responseEntity = kasaController.getAllKasalar();
 
-        // Sonuç
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(responseEntity.getBody());
         assertEquals(mockKasaResponses, responseEntity.getBody());
@@ -63,39 +58,38 @@ public class KasaControllerTest {
 
     @Test
     void testAddKasa() {
-        // Prepare a mock KasaRequest
         KasaRequest mockKasaRequest = new KasaRequest();
 
-        // Prepare the expected added Kasa
-        Kasa expectedAddedKasa = new Kasa();
+
+        Kasa expectedAddedKasa = TestUtils.kasaBuilder();
         when(kasaService.addKasa(any(Kasa.class))).thenReturn(expectedAddedKasa);
 
-        // Call the method
+
         ResponseEntity<KasaResponse> responseEntity = kasaController.addKasa(mockKasaRequest);
 
-        // Verify
+
         assertEquals(HttpStatus.CREATED, responseEntity.getStatusCode());
         assertNotNull(responseEntity.getBody());
 
-        // Check if the response body matches the expected added Kasa
+
         KasaResponse responseBody = responseEntity.getBody();
         assertEquals(expectedAddedKasa.getId(), responseBody.getId());
-        // Perform other checks on the response body properties if needed
+
 
         verify(kasaService, times(1)).addKasa(any(Kasa.class));
     }
 
     @Test
     void testUpdateKasa() {
-        Long kasaId = 1L;
+
         KasaRequest mockKasaRequest = new KasaRequest();
-        Kasa mockUpdatedKasa = new Kasa();
+        Kasa mockUpdatedKasa = TestUtils.kasaBuilder();
         when(kasaService.updateKasa(any(Kasa.class))).thenReturn(mockUpdatedKasa);
 
-        // Call the method
-        ResponseEntity<KasaResponse> responseEntity = kasaController.updateKasa(kasaId, mockKasaRequest);
 
-        // Verify
+        ResponseEntity<KasaResponse> responseEntity = kasaController.updateKasa(mockUpdatedKasa.getId(), mockKasaRequest);
+
+
         assertEquals(HttpStatus.OK, responseEntity.getStatusCode());
         assertNotNull(responseEntity.getBody());
 

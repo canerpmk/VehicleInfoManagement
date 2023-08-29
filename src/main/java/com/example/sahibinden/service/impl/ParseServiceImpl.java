@@ -24,8 +24,8 @@ public class ParseServiceImpl implements ParseService {
     private final MotorService motorService;
     private final OzellikService ozellikService;
 
-    private static final String DOMAIN = "http://arabamkacyakar.com/";
-    private static final String PATH_MARKA = "markalar";
+    public static final String DOMAIN = "http://arabamkacyakar.com/";
+    public static final String PATH_MARKA = "markalar";
 
     public List<Marka> updateMarkas() {
         List<Marka> markaList = parseMarkaPage();
