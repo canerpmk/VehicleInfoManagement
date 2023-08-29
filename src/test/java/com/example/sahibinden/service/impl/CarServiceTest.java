@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,39 +56,18 @@ class CarServiceTest {
 
 
         assertEquals(expected, actual);
-
-
     }
-
-    @BeforeEach
-    void setup() {
-        final long carId = 3L;
-        CarEntity carEntity = CarEntity.builder().id(carId).build();
-        Optional<CarEntity> optionalCarEntity = Optional.of(carEntity);
-
-        // Simulate the behavior of the carRepository.findById method
-        when(carRepository.findById(carId)).thenReturn(optionalCarEntity);
-        when(carRepository.findById(anyLong())).thenReturn(Optional.empty());
-    }
-
     @Test
-    void getCarById_NotMatching() {
-        final long carId = 3L;
+    void getCarById_CarNotFound() {
+        CarEntity carEntity = TestUtils.carEntity();
+        Car expected = TestUtils.carBuilder(carEntity.getId());
 
-        Car actual = carService.getCarById(carId);
+        when(carRepository.findById(carEntity.getId())).thenReturn(Optional.empty());
 
-        assertNotEquals(carId, actual);
+        Car actual = carService.getCarById(carEntity.getId());
+
+        assertNotEquals(expected, actual);
     }
-
-    @Test
-    void getCarById_Empty() {
-        final long carId = 4L;
-
-        Car actual = carService.getCarById(carId);
-
-        assertNull(actual);
-    }
-
 
     @Test
     void getAllCars() {
@@ -104,6 +84,35 @@ class CarServiceTest {
         assertEquals(carEntityList.get(0).getId(), cars.get(0).getId());
         assertEquals(carEntityList.get(1).getId(), cars.get(1).getId());
 
+    }
+    @Test
+    void getAllCars_EmptyList() {
+
+        List<CarEntity> emptyCarEntityList = new ArrayList<>();
+        when(carRepository.findAll()).thenReturn(emptyCarEntityList);
+
+        List<Car> result = carService.getAllCars();
+
+        assertEquals(0, result.size());
+        verify(carRepository, times(1)).findAll();
+    }
+    @Test
+    void getAllCars_SingleCar() {
+
+        CarEntity carEntity = TestUtils.carEntity(1L);
+        List<CarEntity> carEntityList = List.of(carEntity);
+
+        when(carRepository.findAll()).thenReturn(carEntityList);
+
+        List<Car> expectedCars = List.of(TestUtils.carBuilder(1L));
+
+        List<Car> actualCars = carService.getAllCars();
+
+
+        assertNotNull(actualCars);
+        assertEquals(expectedCars.size(), actualCars.size());
+        assertEquals(expectedCars.get(0), actualCars.get(0));
+        verify(carRepository, times(1)).findAll();
     }
 
     @Test
