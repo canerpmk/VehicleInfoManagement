@@ -116,6 +116,7 @@ public class KasaServiceTest {
         assertEquals(modelId, addedKasa.getModel().getId());
     }
 
+
     @Test
     void updateKasa() {
         Long kasaId = 1L;

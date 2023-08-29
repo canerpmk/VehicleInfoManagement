@@ -1,8 +1,6 @@
 package com.example.sahibinden.controller;
 
-import com.example.sahibinden.model.Car;
 import com.example.sahibinden.model.Kasa;
-import com.example.sahibinden.model.dto.CarResponse;
 import com.example.sahibinden.model.dto.KasaRequest;
 import com.example.sahibinden.model.dto.KasaResponse;
 import com.example.sahibinden.service.KasaService;
@@ -20,6 +18,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.mockito.Mockito.*;
+
 @ExtendWith(MockitoExtension.class)
 public class KasaControllerTest {
     @Mock

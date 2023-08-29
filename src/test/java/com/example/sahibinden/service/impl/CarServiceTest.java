@@ -4,6 +4,7 @@ import com.example.sahibinden.model.*;
 import com.example.sahibinden.model.entity.*;
 import com.example.sahibinden.repository.*;
 import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -15,8 +16,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class)
@@ -39,6 +39,7 @@ class CarServiceTest {
     @InjectMocks
     CarServiceImpl carService;
 
+
     @Test
     void getCarById() {
 
@@ -57,6 +58,36 @@ class CarServiceTest {
 
 
     }
+
+    @BeforeEach
+    void setup() {
+        final long carId = 3L;
+        CarEntity carEntity = CarEntity.builder().id(carId).build();
+        Optional<CarEntity> optionalCarEntity = Optional.of(carEntity);
+
+        // Simulate the behavior of the carRepository.findById method
+        when(carRepository.findById(carId)).thenReturn(optionalCarEntity);
+        when(carRepository.findById(anyLong())).thenReturn(Optional.empty());
+    }
+
+    @Test
+    void getCarById_NotMatching() {
+        final long carId = 3L;
+
+        Car actual = carService.getCarById(carId);
+
+        assertNotEquals(carId, actual);
+    }
+
+    @Test
+    void getCarById_Empty() {
+        final long carId = 4L;
+
+        Car actual = carService.getCarById(carId);
+
+        assertNull(actual);
+    }
+
 
     @Test
     void getAllCars() {

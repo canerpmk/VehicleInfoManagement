@@ -3,7 +3,6 @@ package com.example.sahibinden.controller;
 import com.example.sahibinden.model.Marka;
 import com.example.sahibinden.model.dto.MarkaRequest;
 import com.example.sahibinden.model.dto.MarkaResponse;
-import com.example.sahibinden.service.KasaService;
 import com.example.sahibinden.service.MarkaService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,6 +26,7 @@ public class MarkaControllerTest {
 
     @InjectMocks
     private MarkaController markaController;
+
     @Test
     void getMarkaById() {
         Long markaId = 1L;
@@ -40,6 +40,7 @@ public class MarkaControllerTest {
 
         verify(markaService, times(1)).getMarkaById(markaId);
     }
+
     @Test
     void getAllMarkalar() {
         List<Marka> mockMarkalar = Arrays.asList(new Marka(), new Marka());
@@ -53,6 +54,7 @@ public class MarkaControllerTest {
 
         verify(markaService, times(1)).getAllMarka();
     }
+
     @Test
     void addMarka() {
         MarkaRequest mockMarkaRequest = new MarkaRequest();
@@ -66,6 +68,7 @@ public class MarkaControllerTest {
 
         verify(markaService, times(1)).addMarka(any(Marka.class));
     }
+
     @Test
     void updateMarka() {
         Long markaId = 1L;
@@ -80,6 +83,7 @@ public class MarkaControllerTest {
 
         verify(markaService, times(1)).updateMarka(any(Marka.class));
     }
+
     @Test
     void deleteMarka() {
         Long markaId = 1L;

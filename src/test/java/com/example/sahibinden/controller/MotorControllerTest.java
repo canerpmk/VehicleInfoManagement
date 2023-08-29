@@ -3,7 +3,6 @@ package com.example.sahibinden.controller;
 import com.example.sahibinden.model.Motor;
 import com.example.sahibinden.model.dto.MotorRequest;
 import com.example.sahibinden.model.dto.MotorResponse;
-import com.example.sahibinden.service.ModelService;
 import com.example.sahibinden.service.MotorService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -27,6 +26,7 @@ public class MotorControllerTest {
 
     @InjectMocks
     private MotorController motorController;
+
     @Test
     void getMotorById() {
         Long motorId = 1L;
@@ -40,6 +40,7 @@ public class MotorControllerTest {
 
         verify(motorService, times(1)).getMotorById(motorId);
     }
+
     @Test
     void getAllMotorlar() {
         List<Motor> mockMotorlar = Arrays.asList(new Motor(), new Motor());
@@ -53,6 +54,7 @@ public class MotorControllerTest {
 
         verify(motorService, times(1)).getAllMotor();
     }
+
     @Test
     void addMotor() {
         MotorRequest mockMotorRequest = new MotorRequest();
@@ -66,6 +68,7 @@ public class MotorControllerTest {
 
         verify(motorService, times(1)).addMotor(any(Motor.class));
     }
+
     @Test
     void updateMotor() {
         Long motorId = 1L;
@@ -80,6 +83,7 @@ public class MotorControllerTest {
 
         verify(motorService, times(1)).updateMotor(any(Motor.class));
     }
+
     @Test
     void deleteMotor() {
         Long motorId = 1L;
@@ -90,9 +94,6 @@ public class MotorControllerTest {
 
         verify(motorService, times(1)).deleteMotorById(motorId);
     }
-
-
-
 
 
 }

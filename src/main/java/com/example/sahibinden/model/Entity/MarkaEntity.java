@@ -35,12 +35,12 @@ public class MarkaEntity {
             return null;
         }
         return MarkaEntity.builder()
-        .id(marka.getId())
-        .name(marka.getName())
-        .shortName(marka.getShortName())
-        .imgUrl(marka.getImgUrl())
-        .info(marka.getInfo())
-        .model(collectionAsStream(marka.getModelList()).map(ModelEntity::fromModel).toList()).build();
+                .id(marka.getId())
+                .name(marka.getName())
+                .shortName(marka.getShortName())
+                .imgUrl(marka.getImgUrl())
+                .info(marka.getInfo())
+                .model(collectionAsStream(marka.getModelList()).map(ModelEntity::fromModel).toList()).build();
 
     }
 

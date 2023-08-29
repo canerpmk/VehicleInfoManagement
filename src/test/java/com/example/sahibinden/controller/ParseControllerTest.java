@@ -32,7 +32,6 @@ public class ParseControllerTest {
     private ParseController parseController;
 
 
-
     @Test
     void testParseMarkaPage() {
         List<Marka> mockMarkaList = new ArrayList<>();
@@ -70,6 +69,7 @@ public class ParseControllerTest {
 
         verify(parseService, times(1)).updateMarkas();
     }
+
     @Test
     void testUpdateModelPage() {
         String mockMarkaPagePath = "mockMarkaPath";
@@ -113,6 +113,7 @@ public class ParseControllerTest {
 
         verify(parseService, times(1)).parseModelPage(mockMarkaPagePath);
     }
+
     @Test
     void testParseKasaPage() {
         String mockMarkaPagePath = "mockMarkaPath";
@@ -158,6 +159,7 @@ public class ParseControllerTest {
 
         verify(parseService, times(1)).updateKasas(mockMarkaPagePath, mockModelPagePath);
     }
+
     @Test
     void testUpdateMotorPage() {
         String mockMarkaPagePath = "mockMarkaPath";
@@ -198,6 +200,7 @@ public class ParseControllerTest {
 
         verify(parseService, times(1)).parseMotorrPage();
     }
+
     @Test
     void testParseKasaaPage() {
         List<Kasa> mockKasaList = new ArrayList<>();

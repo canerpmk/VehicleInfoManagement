@@ -32,7 +32,7 @@ public class ModelServiceTest {
     private MarkaRepository markaRepository;
 
     @Test
-    void getMarkaById(){
+    void getMarkaById() {
         Long modelId = 1L;
         ModelEntity modelEntity = new ModelEntity();
         modelEntity.setId(modelId);
@@ -47,7 +47,7 @@ public class ModelServiceTest {
     }
 
     @Test
-    void getShortNameById(){
+    void getShortNameById() {
         String shortName = "sedan";
         ModelEntity modelEntity = new ModelEntity();
         modelEntity.setId(1L);
@@ -63,7 +63,7 @@ public class ModelServiceTest {
 
 
     @Test
-    void getAllModel(){
+    void getAllModel() {
 
         List<ModelEntity> modelEntityList = new ArrayList<>();
         ModelEntity modelEntity1 = new ModelEntity();
@@ -126,9 +126,8 @@ public class ModelServiceTest {
     }
 
 
-
     @Test
-    void updateModel(){
+    void updateModel() {
         // Mocked model and modelEntity
         Model model = new Model();
         model.setId(1L);
@@ -151,6 +150,7 @@ public class ModelServiceTest {
         verifyNoMoreInteractions(modelRepository);
 
     }
+
     @Test
     void addModels() {
         // Mocked modelList and modelEntityList
@@ -178,8 +178,9 @@ public class ModelServiceTest {
         verify(modelRepository).saveAll(anyList());
         verifyNoMoreInteractions(modelRepository);
     }
+
     @Test
-    void deleteModel(){
+    void deleteModel() {
         Long modelId = 1L;
 
         when(modelRepository.existsById(modelId)).thenReturn(false);
