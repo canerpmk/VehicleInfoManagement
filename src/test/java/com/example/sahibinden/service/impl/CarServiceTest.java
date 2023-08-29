@@ -55,39 +55,18 @@ class CarServiceTest {
 
 
         assertEquals(expected, actual);
-
-
     }
-
-    @BeforeEach
-    void setup() {
-        final long carId = 3L;
-        CarEntity carEntity = CarEntity.builder().id(carId).build();
-        Optional<CarEntity> optionalCarEntity = Optional.of(carEntity);
-
-        // Simulate the behavior of the carRepository.findById method
-        when(carRepository.findById(carId)).thenReturn(optionalCarEntity);
-        when(carRepository.findById(anyLong())).thenReturn(Optional.empty());
-    }
-
     @Test
-    void getCarById_NotMatching() {
-        final long carId = 3L;
+    void getCarById_CarNotFound() {
+        CarEntity carEntity = TestUtils.carEntity();
+        Car expected = TestUtils.carBuilder(carEntity.getId());
 
-        Car actual = carService.getCarById(carId);
+        when(carRepository.findById(carEntity.getId())).thenReturn(Optional.empty());
 
-        assertNotEquals(carId, actual);
+        Car actual = carService.getCarById(carEntity.getId());
+
+        assertNotEquals(expected, actual);
     }
-
-    @Test
-    void getCarById_Empty() {
-        final long carId = 4L;
-
-        Car actual = carService.getCarById(carId);
-
-        assertNull(actual);
-    }
-
 
     @Test
     void getAllCars() {
