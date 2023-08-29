@@ -36,6 +36,7 @@ public class CarServiceImpl implements CarService {
                 .collect(Collectors.toList());
     }
 
+
     public Car addCar(Car car) {
         MarkaEntity marka = markaService.findById(car.getMarka().getId()).get();
         ModelEntity model = modelService.findById(car.getModel().getId()).get();

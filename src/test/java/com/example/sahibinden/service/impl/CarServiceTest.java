@@ -13,6 +13,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -83,6 +84,35 @@ class CarServiceTest {
         assertEquals(carEntityList.get(0).getId(), cars.get(0).getId());
         assertEquals(carEntityList.get(1).getId(), cars.get(1).getId());
 
+    }
+    @Test
+    void getAllCars_EmptyList() {
+
+        List<CarEntity> emptyCarEntityList = new ArrayList<>();
+        when(carRepository.findAll()).thenReturn(emptyCarEntityList);
+
+        List<Car> result = carService.getAllCars();
+
+        assertEquals(0, result.size());
+        verify(carRepository, times(1)).findAll();
+    }
+    @Test
+    void getAllCars_SingleCar() {
+
+        CarEntity carEntity = TestUtils.carEntity(1L);
+        List<CarEntity> carEntityList = List.of(carEntity);
+
+        when(carRepository.findAll()).thenReturn(carEntityList);
+
+        List<Car> expectedCars = List.of(TestUtils.carBuilder(1L));
+
+        List<Car> actualCars = carService.getAllCars();
+
+
+        assertNotNull(actualCars);
+        assertEquals(expectedCars.size(), actualCars.size());
+        assertEquals(expectedCars.get(0), actualCars.get(0));
+        verify(carRepository, times(1)).findAll();
     }
 
     @Test
