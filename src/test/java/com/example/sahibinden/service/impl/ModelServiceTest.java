@@ -79,7 +79,6 @@ public class ModelServiceTest {
         Model model2 = modelList.get(1);
         assertEquals(modelEntityList.get(1).getId(), model2.getId());
     }
-    //TODO burası düzeltilicek
 
     @Test
     void testAddModel() {
