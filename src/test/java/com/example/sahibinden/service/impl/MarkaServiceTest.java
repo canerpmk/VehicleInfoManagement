@@ -3,6 +3,7 @@ package com.example.sahibinden.service.impl;
 import com.example.sahibinden.model.Marka;
 import com.example.sahibinden.model.entity.MarkaEntity;
 import com.example.sahibinden.repository.MarkaRepository;
+import com.example.sahibinden.utils.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,55 +27,47 @@ public class MarkaServiceTest {
 
     @Test
     public void getMarkaById() {
-        Long markaId = 1L;
-        MarkaEntity markaEntity = new MarkaEntity();
-        markaEntity.setId(markaId);
-
-        when(markaRepository.findById(markaId)).thenReturn(Optional.of(markaEntity));
-
-        Marka marka = markaService.getMarkaById(markaId);
+        MarkaEntity markaEntity = TestUtils.markaEntity();
 
 
-        assertEquals(markaId, marka.getId());
+        when(markaRepository.findById(markaEntity.getId())).thenReturn(Optional.of(markaEntity));
+
+        Marka marka = markaService.getMarkaById(markaEntity.getId());
+
+
+        assertEquals(markaEntity.getId(), marka.getId());
 
     }
 
     @Test
     void getAllMarka() {
 
-        List<MarkaEntity> markaEntityList = new ArrayList<>();
-        MarkaEntity markaEntity1 = new MarkaEntity();
-        markaEntity1.setId(1L);
+        List<MarkaEntity> markaEntityList = List.of(TestUtils.markaEntity(), TestUtils.markaEntity());
 
-        MarkaEntity markaEntity2 = new MarkaEntity();
-        markaEntity2.setId(2L);
-
-        markaEntityList.add(markaEntity1);
-        markaEntityList.add(markaEntity2);
-
+        //when
         when(markaRepository.findAll()).thenReturn(markaEntityList);
 
 
         List<Marka> markaList = markaService.getAllMarka();
 
 
-        assertEquals(2, markaList.size());
+        assertEquals(markaEntityList.size(), markaList.size());
 
         Marka marka1 = markaList.get(0);
-        assertEquals(1L, marka1.getId());
+        assertEquals(markaEntityList.get(0).getId(), marka1.getId());
 
         Marka marka2 = markaList.get(1);
-        assertEquals(2L, marka2.getId());
+        assertEquals(markaEntityList.get(1).getId(), marka2.getId());
     }
 
     @Test
     void addMarka() {
-        Long markaId = 1L;
-        Marka markaToAdd = Marka.builder().build();
 
-        MarkaEntity addedMarkaEntity = MarkaEntity.builder()
-                .id(markaId)
-                .build();
+        Marka markaToAdd = TestUtils.markaBuilder();
+
+
+        MarkaEntity addedMarkaEntity = TestUtils.markaEntity();
+
 
         when(markaRepository.save(any(MarkaEntity.class))).thenReturn(addedMarkaEntity);
 
@@ -83,34 +76,31 @@ public class MarkaServiceTest {
 
 
         assertNotNull(addedMarka);
-        assertEquals(markaId, addedMarka.getId());
+        assertEquals(addedMarkaEntity.getId(), addedMarka.getId());
     }
 
     @Test
     void updateMarka() {
-        Long markaId = 1L;
-        Marka markaToUpdate = Marka.builder()
-                .id(markaId)
-                .name("Updated Marka")
-                .build();
 
-        MarkaEntity updatedMarkaEntity = MarkaEntity.builder()
-                .id(markaId)
-                .name("Updated Marka")
-                .build();
+        Marka markaToUpdate = TestUtils.marka(1L, "Updated Marka");
 
-        when(markaRepository.existsById(markaId)).thenReturn(true);
+        MarkaEntity updatedMarkaEntity = TestUtils.markaEntity(TestUtils.markaBuilder().getId(), markaToUpdate.getName());
+
+        when(markaRepository.existsById(markaToUpdate.getId())).thenReturn(true);
         when(markaRepository.save(any(MarkaEntity.class))).thenReturn(updatedMarkaEntity);
 
         Marka updatedMarka = markaService.updateMarka(markaToUpdate);
 
-        assertEquals(markaId, updatedMarka.getId());
-        assertEquals("Updated Marka", updatedMarka.getName());
+        assertEquals(updatedMarkaEntity.getId(), updatedMarka.getId());
+        assertEquals(markaToUpdate.getName(), updatedMarka.getName());
+        assertEquals(markaToUpdate.getName(), updatedMarkaEntity.getName());
 
-        verify(markaRepository).existsById(markaId);
+        verify(markaRepository).existsById(markaToUpdate.getId());
         verify(markaRepository).save(any(MarkaEntity.class));
 
-    } @Test
+    }
+
+    @Test
     void testAddMarkas() {
         List<Marka> inputMarkaList = new ArrayList<>();
 
@@ -130,7 +120,9 @@ public class MarkaServiceTest {
 
     @Test
     void deleteMarka() {
-        Long markaId = 1L;
+        Long markaId = TestUtils.randomId();
+
+        //TODO berkay abiye saygı duy
 
         when(markaRepository.existsById(markaId)).thenReturn(false);
         doNothing().when(markaRepository).deleteById(markaId);
@@ -146,16 +138,15 @@ public class MarkaServiceTest {
 
     @Test
     void getByShortName() {
-        String shortName = "sedan";
-        MarkaEntity markaEntity = new MarkaEntity();
-        markaEntity.setId(1L);
-        markaEntity.setShortName(shortName);
+        MarkaEntity markaEntity = TestUtils.markaEntityShortname(1L, "x");
 
-        when(markaRepository.findMarkaEntityByShortName(shortName)).thenReturn(Optional.of(markaEntity));
 
-        Marka marka = markaService.getMarkaByShortName(shortName);
+        when(markaRepository.findMarkaEntityByShortName(markaEntity.getShortName())).thenReturn(Optional.of(markaEntity));
 
-        assertEquals(1L, marka.getId());
-        assertEquals(shortName, marka.getShortName());
+        Marka marka = markaService.getMarkaByShortName(markaEntity.getShortName());
+
+
+        assertEquals(markaEntity.getId(), marka.getId());
+        assertEquals(markaEntity.getShortName(), marka.getShortName());
     }
 }

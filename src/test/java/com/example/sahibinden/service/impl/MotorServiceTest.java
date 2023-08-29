@@ -3,6 +3,7 @@ package com.example.sahibinden.service.impl;
 import com.example.sahibinden.model.Motor;
 import com.example.sahibinden.model.entity.MotorEntity;
 import com.example.sahibinden.repository.MotorRepository;
+import com.example.sahibinden.utils.TestUtils;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -26,17 +27,16 @@ public class MotorServiceTest {
 
     @Test
     void testGetMotorById() {
-        MotorEntity motorEntity = new MotorEntity();
-        motorEntity.setId(1L);
+        MotorEntity motorEntity = TestUtils.motorEntity();
 
-        when(motorRepository.findById(1L)).thenReturn(Optional.of(motorEntity));
+        when(motorRepository.findById(motorEntity.getId())).thenReturn(Optional.of(motorEntity));
 
-        Motor returnedMotor = motorService.getMotorById(1L);
+        Motor returnedMotor = motorService.getMotorById(motorEntity.getId());
 
         assertNotNull(returnedMotor);
         assertEquals(motorEntity.getId(), returnedMotor.getId());
 
-        verify(motorRepository).findById(1L);
+        verify(motorRepository).findById(motorEntity.getId());
         verifyNoMoreInteractions(motorRepository);
     }
 
@@ -58,27 +58,27 @@ public class MotorServiceTest {
     @Test
     void testGetKMotorByShortName() {
 
-        MotorEntity motorEntity = new MotorEntity();
-        motorEntity.setShortName("ABC");
+        MotorEntity motorEntity = TestUtils.motorEntity(TestUtils.motorEntity().getId(), "x");
 
 
-        when(motorRepository.findMotorEntityByShortName("ABC")).thenReturn(Optional.of(motorEntity));
+        when(motorRepository.findMotorEntityByShortName("x")).thenReturn(Optional.of(motorEntity));
 
-        Motor returnedMotor = motorService.getKMotorByShortName("ABC");
+        Motor returnedMotor = motorService.getKMotorByShortName("x");
 
         assertNotNull(returnedMotor);
         assertEquals(motorEntity.getShortName(), returnedMotor.getShortName());
 
-        verify(motorRepository).findMotorEntityByShortName("ABC");
+        verify(motorRepository).findMotorEntityByShortName("x");
         verifyNoMoreInteractions(motorRepository);
     }
+
     @Test
     void testAddMotor() {
 
-        Motor inputMotor = new Motor();
+        Motor inputMotor = TestUtils.motorBuilder();
 
 
-        MotorEntity mockedMotorEntity = new MotorEntity();
+        MotorEntity mockedMotorEntity = TestUtils.motorEntity();
 
         when(motorRepository.save(any())).thenReturn(mockedMotorEntity);
 
@@ -99,8 +99,7 @@ public class MotorServiceTest {
         List<Motor> inputMotors = new ArrayList<>();
 
 
-
-        List<MotorEntity> mockedMotorEntities = new ArrayList<>();
+        List<MotorEntity> mockedMotorEntities = List.of(TestUtils.motorEntity());
 
 
         when(motorRepository.saveAll(anyIterable())).thenReturn(mockedMotorEntities);
@@ -118,9 +117,9 @@ public class MotorServiceTest {
 
     @Test
     void testUpdateMotor() {
-        Motor inputMotor = new Motor();
+        Motor inputMotor = TestUtils.motorBuilder();
 
-        MotorEntity existingMotorEntity = new MotorEntity();
+        MotorEntity existingMotorEntity = TestUtils.motorEntity();
 
         when(motorRepository.existsById(inputMotor.getId())).thenReturn(true);
         when(motorRepository.save(any())).thenReturn(existingMotorEntity);
@@ -140,7 +139,7 @@ public class MotorServiceTest {
     @Test
     void testDeleteMotorById() {
 
-        Long motorId = 1L;
+        Long motorId = TestUtils.randomId();
         when(motorRepository.existsById(motorId)).thenReturn(false);
 
 

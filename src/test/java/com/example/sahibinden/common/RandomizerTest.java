@@ -1,17 +1,17 @@
 package com.example.sahibinden.common;
 
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.event.RecordApplicationEvents;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 @ExtendWith(MockitoExtension.class)
 public class RandomizerTest {
 
-    private final Randomizer randomizer=new Randomizer();
+    private final Randomizer randomizer = new Randomizer();
+
     @Test
     public void testGenerateWithDefaultLength() {
         String result = randomizer.generate();
