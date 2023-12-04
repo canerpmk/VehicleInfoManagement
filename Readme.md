@@ -12,3 +12,6 @@ Bu sayede, kullanıcılar tarafından yapılan istekler aracılığıyla arabala
 Projede dikkat çeken bir nokta, her aracın marka, model, motor, özellik, paket ve kasa gibi ayrıntılarının ID'leri kullanılarak ilişkilendirilmiş olmasıdır.
 Bu yapı, veritabanında verilerin düzenli ve bağlantılı bir şekilde tutulmasına olanak sağlar. Bu nedenle, projede her bir aracın detay bilgilerine kolayca erişim 
 sağlanabilir ve bu detaylar arasında ilişki kurulabilir. 
+
+
+Bu projede Caner PAMUK ekip arkadaşımla birlikte çalışılmıştır.
